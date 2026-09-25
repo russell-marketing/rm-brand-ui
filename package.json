@@ -1,6 +1,6 @@
 {
   "name": "@russell-marketing/brand-styles",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Russell Marketing design system - tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
@@ -28,6 +28,7 @@
   },
   "files": [
     "ui/**/*",
+    "scripts/**/*",
     "adapters/**/*",
     "components/**/*",
     "README.md",
@@ -61,7 +62,7 @@
   },
   "scripts": {
     "dev": "npx http-server -p 3000 -o demo.html",
-    "test": "echo \"No tests yet\" && exit 0"
+    "test": "node scripts/verify-tokens.mjs"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

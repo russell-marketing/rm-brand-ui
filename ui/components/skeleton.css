@@ -1,7 +1,7 @@
 @keyframes rm-skeleton-shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 .skeleton{
   display:inline-block; width:100%; border-radius:6px;
-  background:linear-gradient(90deg,var(--rm-dust) 25%,rgba(255,255,255,0.6) 37%,var(--rm-dust) 63%);
+  background:linear-gradient(90deg,var(--skeleton-base) 25%,var(--skeleton-sheen) 37%,var(--skeleton-base) 63%);
   background-size:400% 100%; animation:rm-skeleton-shimmer 1200ms var(--ease) infinite;
 }
 .skeleton--text{height:1em}

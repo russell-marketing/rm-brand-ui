@@ -1,4 +1,16 @@
 // ui/a11y/verify-contrast.js  (ESM + global fallback)
+//
+// BROWSER ONLY. verify() reads getComputedStyle(document.documentElement),
+// so it needs a live page and reports what that page actually renders.
+//
+//   Running `node ui/a11y/verify-contrast.js` does NOTHING. It defines this
+//   function, never calls it, and exits 0 -- which looks like a pass and is
+//   not one. For a command-line check, run `npm test`
+//   (scripts/verify-tokens.mjs): it reads the source files and also catches
+//   undefined custom properties and tokens.css/tokens.js drift.
+//
+// In a page:  import { verifyContrast } from '@russell-marketing/brand-styles';
+//             verifyContrast();
 const getVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const hexToRgb = (hex) => { const h = hex.replace('#',''); const s = h.length===3 ? h.replace(/(.)/g,'$1$1') : h; const b = parseInt(s,16); return [(b>>16)&255,(b>>8)&255,b&255]; };
 const relL = ([r,g,b]) => { const s=[r,g,b].map(v=>{ v/=255; return v<=.03928 ? v/12.92 : Math.pow((v+.055)/1.055,2.4);}); return .2126*s[0]+.7152*s[1]+.0722*s[2]; };

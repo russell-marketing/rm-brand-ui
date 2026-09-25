@@ -9,3 +9,13 @@
   border: 1px solid var(--success-border);
   font-weight:600;
 }
+.alert--warn{
+  background: var(--warn-bg); color: var(--warn-text);
+  border: 1px solid var(--warn-border);
+  font-weight:600;
+}
+.alert--error{
+  background: var(--danger-bg); color: var(--danger-text);
+  border: 1px solid var(--danger-border);
+  font-weight:600;
+}

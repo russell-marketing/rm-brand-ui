@@ -1,4 +1,4 @@
 /* Visuals pair with .rm-toasts container in a11y.css and toast.helper.js */
-.toast--ok{ border-left:4px solid var(--ok) }
-.toast--warn{ border-left:4px solid var(--warn) }
-.toast--error{ border-left:4px solid var(--error) }
+.toast--ok{ border-left:4px solid var(--success-text) }
+.toast--warn{ border-left:4px solid var(--warn-text) }
+.toast--error{ border-left:4px solid var(--danger-text) }

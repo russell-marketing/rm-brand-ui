@@ -16,3 +16,7 @@ body.density--cozy       { --control-h:44px; --control-pad-x:16px; --stack-2:10p
 .stack-2 > * + * { margin-top: var(--stack-2, 8px); }
 .stack-3 > * + * { margin-top: var(--stack-3, 16px); }
 .cluster{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+/* Quiet text. A system that ships --text-secondary should ship the class
+ * that uses it; without this, consumers hand-write these three lines. */
+.muted{ margin:0; font-size:var(--fs-sm); color:var(--text-secondary); }
