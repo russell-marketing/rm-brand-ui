@@ -14,7 +14,7 @@ export interface Tokens {
     galaxy: string;
     dust: string;
     estrella: string;
-    space70: string;
+    russell: string;
   };
 
   text: {

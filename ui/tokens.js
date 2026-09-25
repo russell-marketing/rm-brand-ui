@@ -17,7 +17,7 @@ export const tokens = {
     galaxy: '#7A64A0',      // primary purple accent
     dust: '#DBE6E3',        // light sage for subtle backgrounds
     estrella: '#E0C169',    // warm gold tint
-    space70: '#4D5C7B',     // mid blue-gray between Space and Dust, for fills/tracks
+    russell: '#4D5C7B',     // blue - PRIMARY (Brand Guide 2023)
   },
 
   // Text colors (light mode)
