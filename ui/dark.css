@@ -1,138 +1,121 @@
 /* ui/dark.css
- *
- * Dark theme. Two selectors must carry the same palette:
- *   1. OS preference  -> :root:not([data-theme])   (only when unforced)
+ * GENERATED — do not edit.
+ * Source: tokens/rm.tokens.json (W3C Design Tokens Format, DTCG 2025.10)
+ * Rebuild: npm run build:tokens
+ */
+/*
+ * Two selectors must carry the same palette:
+ *   1. OS preference   -> :root:not([data-theme])  (only when unforced)
  *   2. Manual override -> [data-theme="dark"]      (a product theme toggle)
- *
- * The VALUES live exactly once, in the --rm-dark-* block below, and both
- * selectors reference them. Change a colour there and both paths follow.
- * (Longer term this whole file collapses into light-dark() in tokens.css;
- * that has a browser-support floor this package has not declared yet.)
+ * Both reference the --rm-dark-* block, so the values exist exactly once.
  */
 
-/* ---- Dark palette: the single source of truth ----------------------------
- * Definitions only. Inert in light mode; nothing reads them there.
- */
+/* ---- Dark palette: definitions only, inert in light mode ---- */
 :root{
-  --rm-dark-bg-page:#0F1115;
-  --rm-dark-bg-surface:#171A22;
-  --rm-dark-text-primary:#EDEFF3;
-  --rm-dark-text-secondary:#B7BECA;
-  --rm-dark-border-subtle:#30364A;
-  --rm-dark-shadow-soft:0 1px 2px rgba(0,0,0,.55),0 8px 24px rgba(0,0,0,.35);
-
-  /* Accent ramp (dark) */
-  --rm-dark-accent-50:#241F2B;
-  --rm-dark-accent-100:#2E2837;
-  --rm-dark-accent-200:#3A3250;
-  --rm-dark-accent-300:#4D4070;
-  --rm-dark-accent-600:#BCA7E0;
-  --rm-dark-accent-700:#A894D0;
-  --rm-dark-accent-on:#0F1115;
-
-  /* Links. Light values fail badly on a near-black page (2.30:1). */
-  --rm-dark-link:#BCA7E0;
-  --rm-dark-link-hover:#D7CAF2;
-
-  /* Neutral hover tint. The light value is near-white, which put
-   * near-white .btn text on a near-white hover (1.03:1). */
-  --rm-dark-t-dust-12:#232838;
-
-  /* Status (AA on dark surfaces) */
-  --rm-dark-success-bg:#12301A; --rm-dark-success-text:#9BE0A8; --rm-dark-success-border:#2E6B3C;
-  --rm-dark-warning-bg:#33270F;    --rm-dark-warning-text:#E8C98A;    --rm-dark-warning-border:#6B5424;
-  --rm-dark-danger-bg:#351A1E;  --rm-dark-danger-text:#F0A8B0;  --rm-dark-danger-border:#7E3A42;
-
-  /* Component surfaces */
-  --rm-dark-tooltip-border:rgba(255,255,255,.18);
-  --rm-dark-skeleton-sheen:rgba(255,255,255,.08);
-  --rm-dark-table-row-alt:rgba(219,230,227,.06);
-  --rm-dark-table-row-hover:rgba(224,193,105,.14);
+  --rm-dark-bg-page: #0F1115;
+  --rm-dark-bg-surface: #171A22;
+  --rm-dark-border-subtle: #30364A;
+  --rm-dark-t-dust-12: #232838;
+  --rm-dark-text-primary: #EDEFF3;
+  --rm-dark-text-secondary: #B7BECA;
+  --rm-dark-link: #BCA7E0;
+  --rm-dark-link-hover: #D7CAF2;
+  --rm-dark-success-bg: #12301A;
+  --rm-dark-success-text: #9BE0A8;
+  --rm-dark-success-border: #2E6B3C;
+  --rm-dark-warning-bg: #33270F;
+  --rm-dark-warning-text: #E8C98A;
+  --rm-dark-warning-border: #6B5424;
+  --rm-dark-danger-bg: #351A1E;
+  --rm-dark-danger-text: #F0A8B0;
+  --rm-dark-danger-border: #7E3A42;
+  --rm-dark-accent-50: #241F2B;
+  --rm-dark-accent-100: #2E2837;
+  --rm-dark-accent-200: #3A3250;
+  --rm-dark-accent-300: #4D4070;
+  --rm-dark-accent-600: #BCA7E0;
+  --rm-dark-accent-700: #A894D0;
+  --rm-dark-accent-on: #0F1115;
+  --rm-dark-tooltip-border: rgba(255,255,255,.18); /* White at 18%. */
+  --rm-dark-skeleton-sheen: rgba(255,255,255,.08); /* White at 8%. */
+  --rm-dark-table-row-alt: rgba(219,230,227,.06); /* Dust at 6% — follows Dust. */
+  --rm-dark-table-row-hover: rgba(224,193,105,.14); /* Estrella tint at 14% — follows the tint. */
+  --rm-dark-skeleton-base: #232838;            /* Dark skeleton ground — matches the dust tint, not Dust itself. */
+  --rm-dark-shadow-soft: 0px 1px 2px rgba(0,0,0,.55),0px 8px 24px rgba(0,0,0,.35);
 }
 
-/* ---- 1. Follow the OS, unless a theme has been forced ---------------- */
+/* ---- 1. Follow the OS, unless a theme has been forced ---- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg-page:         var(--rm-dark-bg-page);
-    --bg-surface:      var(--rm-dark-bg-surface);
-    --text-primary:    var(--rm-dark-text-primary);
-    --text-secondary:  var(--rm-dark-text-secondary);
-    --border-subtle:   var(--rm-dark-border-subtle);
-    --shadow-soft:     var(--rm-dark-shadow-soft);
-
-    --link:            var(--rm-dark-link);
-    --link-hover:      var(--rm-dark-link-hover);
-    --t-dust-12:       var(--rm-dark-t-dust-12);
-
-    --success-bg:      var(--rm-dark-success-bg);
-    --success-text:    var(--rm-dark-success-text);
-    --success-border:  var(--rm-dark-success-border);
-    --warning-bg:         var(--rm-dark-warning-bg);
-    --warning-text:       var(--rm-dark-warning-text);
-    --warning-border:     var(--rm-dark-warning-border);
-    --danger-bg:       var(--rm-dark-danger-bg);
-    --danger-text:     var(--rm-dark-danger-text);
-    --danger-border:   var(--rm-dark-danger-border);
-
-    --accent-50:       var(--rm-dark-accent-50);
-    --accent-100:      var(--rm-dark-accent-100);
-    --accent-200:      var(--rm-dark-accent-200);
-    --accent-300:      var(--rm-dark-accent-300);
-    --accent-600:      var(--rm-dark-accent-600);
-    --accent-700:      var(--rm-dark-accent-700);
-    --accent-on:       var(--rm-dark-accent-on);
+    --bg-page:           var(--rm-dark-bg-page);
+    --bg-surface:        var(--rm-dark-bg-surface);
+    --border-subtle:     var(--rm-dark-border-subtle);
+    --t-dust-12:         var(--rm-dark-t-dust-12);
+    --text-primary:      var(--rm-dark-text-primary);
+    --text-secondary:    var(--rm-dark-text-secondary);
+    --link:              var(--rm-dark-link);
+    --link-hover:        var(--rm-dark-link-hover);
+    --success-bg:        var(--rm-dark-success-bg);
+    --success-text:      var(--rm-dark-success-text);
+    --success-border:    var(--rm-dark-success-border);
+    --warning-bg:        var(--rm-dark-warning-bg);
+    --warning-text:      var(--rm-dark-warning-text);
+    --warning-border:    var(--rm-dark-warning-border);
+    --danger-bg:         var(--rm-dark-danger-bg);
+    --danger-text:       var(--rm-dark-danger-text);
+    --danger-border:     var(--rm-dark-danger-border);
+    --accent-50:         var(--rm-dark-accent-50);
+    --accent-100:        var(--rm-dark-accent-100);
+    --accent-200:        var(--rm-dark-accent-200);
+    --accent-300:        var(--rm-dark-accent-300);
+    --accent-600:        var(--rm-dark-accent-600);
+    --accent-700:        var(--rm-dark-accent-700);
+    --accent-on:         var(--rm-dark-accent-on);
+    --tooltip-border:    var(--rm-dark-tooltip-border);
+    --skeleton-sheen:    var(--rm-dark-skeleton-sheen);
+    --table-row-alt:     var(--rm-dark-table-row-alt);
+    --table-row-hover:   var(--rm-dark-table-row-hover);
+    --skeleton-base:     var(--rm-dark-skeleton-base);
+    --shadow-soft:       var(--rm-dark-shadow-soft);
     --accent-surface:  var(--accent-200);
     --accent-border:   var(--accent-300);
     --accent-ink:      var(--accent-600);
-
-    --tooltip-border:  var(--rm-dark-tooltip-border);
-    --skeleton-base:   var(--t-dust-12);
-    --skeleton-sheen:  var(--rm-dark-skeleton-sheen);
-    --table-row-alt:   var(--rm-dark-table-row-alt);
-    --table-row-hover: var(--rm-dark-table-row-hover);
   }
 }
 
-/* ---- 2. Manual override, for a product theme toggle ------------------
- * Same assignments. Until now this rule was empty, so data-theme="dark"
- * did nothing and no product could ship a toggle.
- */
+/* ---- 2. Manual override, for a product theme toggle ---- */
 [data-theme="dark"]{
-  --bg-page:         var(--rm-dark-bg-page);
-  --bg-surface:      var(--rm-dark-bg-surface);
-  --text-primary:    var(--rm-dark-text-primary);
-  --text-secondary:  var(--rm-dark-text-secondary);
-  --border-subtle:   var(--rm-dark-border-subtle);
-  --shadow-soft:     var(--rm-dark-shadow-soft);
-
-  --link:            var(--rm-dark-link);
-  --link-hover:      var(--rm-dark-link-hover);
-  --t-dust-12:       var(--rm-dark-t-dust-12);
-
-  --success-bg:      var(--rm-dark-success-bg);
-  --success-text:    var(--rm-dark-success-text);
-  --success-border:  var(--rm-dark-success-border);
-  --warning-bg:         var(--rm-dark-warning-bg);
-  --warning-text:       var(--rm-dark-warning-text);
-  --warning-border:     var(--rm-dark-warning-border);
-  --danger-bg:       var(--rm-dark-danger-bg);
-  --danger-text:     var(--rm-dark-danger-text);
-  --danger-border:   var(--rm-dark-danger-border);
-
-  --accent-50:       var(--rm-dark-accent-50);
-  --accent-100:      var(--rm-dark-accent-100);
-  --accent-200:      var(--rm-dark-accent-200);
-  --accent-300:      var(--rm-dark-accent-300);
-  --accent-600:      var(--rm-dark-accent-600);
-  --accent-700:      var(--rm-dark-accent-700);
-  --accent-on:       var(--rm-dark-accent-on);
+  --bg-page:           var(--rm-dark-bg-page);
+  --bg-surface:        var(--rm-dark-bg-surface);
+  --border-subtle:     var(--rm-dark-border-subtle);
+  --t-dust-12:         var(--rm-dark-t-dust-12);
+  --text-primary:      var(--rm-dark-text-primary);
+  --text-secondary:    var(--rm-dark-text-secondary);
+  --link:              var(--rm-dark-link);
+  --link-hover:        var(--rm-dark-link-hover);
+  --success-bg:        var(--rm-dark-success-bg);
+  --success-text:      var(--rm-dark-success-text);
+  --success-border:    var(--rm-dark-success-border);
+  --warning-bg:        var(--rm-dark-warning-bg);
+  --warning-text:      var(--rm-dark-warning-text);
+  --warning-border:    var(--rm-dark-warning-border);
+  --danger-bg:         var(--rm-dark-danger-bg);
+  --danger-text:       var(--rm-dark-danger-text);
+  --danger-border:     var(--rm-dark-danger-border);
+  --accent-50:         var(--rm-dark-accent-50);
+  --accent-100:        var(--rm-dark-accent-100);
+  --accent-200:        var(--rm-dark-accent-200);
+  --accent-300:        var(--rm-dark-accent-300);
+  --accent-600:        var(--rm-dark-accent-600);
+  --accent-700:        var(--rm-dark-accent-700);
+  --accent-on:         var(--rm-dark-accent-on);
+  --tooltip-border:    var(--rm-dark-tooltip-border);
+  --skeleton-sheen:    var(--rm-dark-skeleton-sheen);
+  --table-row-alt:     var(--rm-dark-table-row-alt);
+  --table-row-hover:   var(--rm-dark-table-row-hover);
+  --skeleton-base:     var(--rm-dark-skeleton-base);
+  --shadow-soft:       var(--rm-dark-shadow-soft);
   --accent-surface:  var(--accent-200);
   --accent-border:   var(--accent-300);
   --accent-ink:      var(--accent-600);
-
-  --tooltip-border:  var(--rm-dark-tooltip-border);
-  --skeleton-base:   var(--t-dust-12);
-  --skeleton-sheen:  var(--rm-dark-skeleton-sheen);
-  --table-row-alt:   var(--rm-dark-table-row-alt);
-  --table-row-hover: var(--rm-dark-table-row-hover);
 }
