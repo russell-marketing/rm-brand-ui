@@ -1,0 +1,10 @@
+# Copy to .github/workflows/guards.yml in any RM repo.
+# The actual checks live in rm-engineering so they stay identical everywhere.
+
+name: Guards
+
+on: [push, pull_request]
+
+jobs:
+  guards:
+    uses: russell-marketing/rm-engineering/.github/workflows/guards.yml@v1
