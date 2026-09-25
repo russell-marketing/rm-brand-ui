@@ -49,7 +49,7 @@
   border-radius: 50%;
   cursor: pointer;
   margin-top: calc((var(--slider-thumb-size) - var(--slider-track-height)) / -2);
-  transition: box-shadow 150ms ease;
+  transition: box-shadow var(--duration-fast) ease;
 }
 
 .slider-group__slider::-moz-range-thumb {
@@ -59,7 +59,7 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: box-shadow 150ms ease;
+  transition: box-shadow var(--duration-fast) ease;
 }
 
 /* Hover states */

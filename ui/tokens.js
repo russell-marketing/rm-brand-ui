@@ -90,6 +90,7 @@ export const tokens = {
   // Font weights
   fontWeight: {
     regular: 400,
+    medium: 500,
     semibold: 600,
     bold: 700,
     extrabold: 800,
@@ -193,9 +194,13 @@ export const tokens = {
     ideal: '44px',
   },
 
-  // Motion
+  // Motion. DTCG models these as cubicBezier [x1,y1,x2,y2] and duration
+  // {value,unit}; these are the CSS-ready forms. See docs/design-token-standard.md
   motion: {
     ease: 'cubic-bezier(0.2, 0, 0, 1)',
+    durationInstant: '20ms',
+    durationFast: '150ms',
+    durationBase: '200ms',
   },
 
   // Stacking order. Toasts sit above modals so alerts are never buried.

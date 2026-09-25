@@ -32,7 +32,7 @@
   --slider-container-padding:2rem;
 
   /* Weights / letter spacing */
-  --fw-regular:400; --fw-semibold:600; --fw-bold:700; --fw-extrabold:800;
+  --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-extrabold:800;
   --ls-caps:.5px;
 
   /* Links (light) */
@@ -66,8 +66,10 @@
   /* Hit targets. WCAG 2.5.8 minimum is 24px; 2.5.5 enhanced is 44px. */
   --hit-min:24px; --hit-ideal:44px;
 
-  /* Motion */
+  /* Motion. Durations match what components already used; see
+   * docs/design-token-standard.md for the DTCG mapping. */
   --ease:cubic-bezier(0.2, 0, 0, 1);
+  --duration-instant:20ms; --duration-fast:150ms; --duration-base:200ms;
 
   /* Stacking order. Toasts sit above modals so alerts are never buried. */
   --z-sticky:900; --z-dropdown:1000; --z-modal:1100; --z-toast:1200;

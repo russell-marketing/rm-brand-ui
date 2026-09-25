@@ -84,6 +84,13 @@ Every component is on that page, with density and light/dark/auto toggles.
 Check both themes *and* both paths to dark — OS preference and forced
 `data-theme` — since they are different selectors.
 
+## Design token standard
+
+We audit against the W3C Design Tokens Format Module (2025.10). What matches, what doesn't,
+and why, is in [`docs/design-token-standard.md`](docs/design-token-standard.md) — including
+the one real gap (colours with baked-in alpha) and what a generated `tokens.json` source
+would fix.
+
 ## Adding a component
 
 See [`claude.md`](claude.md) for the full pattern. In short: CSS in

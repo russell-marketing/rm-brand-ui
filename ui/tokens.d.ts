@@ -73,6 +73,7 @@ export interface Tokens {
 
   fontWeight: {
     regular: number;
+    medium: number;
     semibold: number;
     bold: number;
     extrabold: number;
@@ -179,6 +180,9 @@ export interface Tokens {
 
   motion: {
     ease: string;
+    durationInstant: string;
+    durationFast: string;
+    durationBase: string;
   };
 
   /** Toasts sit above modals so alerts are never buried. */
