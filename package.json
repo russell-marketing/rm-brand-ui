@@ -58,7 +58,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/cd-space-dot-dot/rm-brand-styles.git"
+    "url": "https://github.com/russell-marketing/rm-brand-ui-styles.git"
   },
   "scripts": {
     "dev": "npx http-server -p 3000 -o demo.html",
