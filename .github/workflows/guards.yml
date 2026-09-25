@@ -1,5 +1,11 @@
-# Copy to .github/workflows/guards.yml in any RM repo.
-# The actual checks live in rm-engineering so they stay identical everywhere.
+# NOTE: this repo cannot use the shared workflow, and is the only one that
+# can't. rm-brand-ui is public; rm-engineering is private; GitHub does not
+# let a public repository call a reusable workflow from a private one — the
+# call fails with "workflow was not found" before any job starts.
+#
+# So the checks below are a COPY of rm-engineering's guards.yml at tag v1,
+# not a call to it. If you change the guards there, change them here too.
+# See docs/decisions/0001-guards-are-copied-not-shared.md.
 
 name: Guards
 
@@ -7,4 +13,44 @@ on: [push, pull_request]
 
 jobs:
   guards:
-    uses: russell-marketing/rm-engineering/.github/workflows/guards.yml@v1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No Firebase or Firestore in use
+        run: |
+          if grep -rnE "(from|require\()\s*['\"](firebase|firebase-admin|@firebase|@google-cloud/firestore)|getFirestore\(|initializeApp\(|firebase-admin" \
+               --include='*.ts' --include='*.tsx' --include='*.js' --include='*.mjs' --include='*.json' \
+               --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=dist \
+               --exclude-dir=build --exclude-dir=coverage --exclude-dir=history . ; then
+            echo "::error::Firebase/Firestore is in use. RM uses MongoDB — see rm-engineering/decisions/0001."
+            exit 1
+          fi
+          echo "Clean."
+
+      - name: No committed credentials
+        run: |
+          if grep -rnIE "(mongodb(\+srv)?|postgres(ql)?|mysql|redis|amqp)://[^:/?#[:space:]]+:[^@[:space:]]+@" \
+               --include='*.ts' --include='*.tsx' --include='*.js' --include='*.mjs' \
+               --include='*.json' --include='*.yml' --include='*.yaml' --include='*.sh' \
+               --exclude='*.example' --exclude='*.example.*' --exclude='*.md' \
+               --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next \
+               --exclude-dir=dist --exclude-dir=build --exclude-dir=coverage . \
+             | grep -vE "(username|user|<user|USER|youruser|myuser):(password|pass|<pass|PASSWORD|yourpass)" ; then
+            echo "::error::A connection string with real credentials is committed. Rotate it first, then replace with process.env."
+            exit 1
+          fi
+          echo "Clean."
+
+      - name: No API keys
+        run: |
+          if grep -rnIE "(sk-ant-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{32,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|ghp_[A-Za-z0-9]{36})" \
+               --include='*.ts' --include='*.tsx' --include='*.js' --include='*.mjs' \
+               --include='*.json' --include='*.yml' --include='*.yaml' --include='*.sh' \
+               --exclude='*.example' --exclude='*.example.*' \
+               --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next \
+               --exclude-dir=dist --exclude-dir=build --exclude-dir=coverage . ; then
+            echo "::error::An API key is committed. Rotate it, then move it to an environment variable."
+            exit 1
+          fi
+          echo "Clean."
