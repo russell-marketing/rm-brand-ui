@@ -66,4 +66,4 @@
 /* Optional status tint variants using Galaxy color ramp */
 .badge--new   { background: var(--accent-100); }
 .badge--ready { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
-.badge--warn  { background: var(--warn-bg);    border-color: var(--warn-border);    color: var(--warn-text); }
+.badge--warn  { background: var(--warning-bg);    border-color: var(--warning-border);    color: var(--warning-text); }

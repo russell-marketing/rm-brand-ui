@@ -16,7 +16,8 @@ export const tokens = {
     space: '#2D334D',       // dark blue-gray for headers/emphasis
     galaxy: '#7A64A0',      // primary purple accent
     dust: '#DBE6E3',        // light sage for subtle backgrounds
-    estrella: '#E0C169',    // warm gold tint
+    estrella: '#D0A732',      // ESTRELLA - warm gold accent (Brand Guide 2023)
+    estrellaTint: '#E0C169',  // lighter gold; chart benchmarks, row tints
     russell: '#4D5C7B',     // blue - PRIMARY (Brand Guide 2023)
   },
 
@@ -211,7 +212,7 @@ export const tokens = {
     skeletonBase: '#DBE6E3',            // Dust
     skeletonSheen: 'rgba(255,255,255,.60)',
     tableRowAlt: 'rgba(219,230,227,.30)',    // Dust at 30%
-    tableRowHover: 'rgba(224,193,105,.20)',  // Estrella at 20%
+    tableRowHover: 'rgba(224,193,105,.20)',  // Estrella tint at 20%
   },
 
   // Chart/Data Visualization tokens
@@ -231,7 +232,7 @@ export const tokens = {
     bar: '#7A64A0',           // Galaxy - default bar/column color
     barEmphasis: '#2D334D',   // Space - higher emphasis
     barMuted: '#DBE6E3',      // Dust - lower emphasis
-    benchmark: '#E0C169',     // Estrella - benchmark/comparison lines
+    benchmark: '#E0C169',     // Estrella TINT - benchmark/comparison lines
 
     // Categorical palette for pie charts & multi-series (10 colors)
     // Brand gradient: Space → Galaxy → Dust (perceptually uniform)

@@ -14,6 +14,7 @@ export interface Tokens {
     galaxy: string;
     dust: string;
     estrella: string;
+    estrellaTint: string;
     russell: string;
   };
 

@@ -10,8 +10,8 @@
   font-weight:600;
 }
 .alert--warn{
-  background: var(--warn-bg); color: var(--warn-text);
-  border: 1px solid var(--warn-border);
+  background: var(--warning-bg); color: var(--warning-text);
+  border: 1px solid var(--warning-border);
   font-weight:600;
 }
 .alert--error{
