@@ -10,7 +10,7 @@ import { tokens } from '../ui/tokens.js';
  * Usage:
  * ```jsx
  * import { createTheme } from '@mui/material/styles';
- * import { getRMThemeConfig } from '@russell-marketing/brand-styles/adapters/mui-theme';
+ * import { getRMThemeConfig } from '@russell-marketing/brand-ui/adapters/mui-theme';
  *
  * const theme = createTheme(getRMThemeConfig());
  * ```

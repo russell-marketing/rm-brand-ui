@@ -1,4 +1,8 @@
-.modal{ position:fixed; inset:0; z-index:var(--z-modal); display:grid; place-items:center; padding:var(--sp-6); background:rgba(0,0,0,.3) }
+.modal{ position:fixed; inset:0; z-index:var(--z-modal); display:grid; place-items:center; padding:var(--space-6); background:rgba(0,0,0,.3) }
 .modal__panel{ background:var(--bg-surface); color:var(--text-primary); border:1px solid var(--border-subtle);
-  border-radius:var(--radius-1); box-shadow:var(--shadow-2); width:min(1200px,96vw); max-height:90vh; overflow:auto; padding:var(--sp-6) }
+  border-radius:var(--radius-m); box-shadow:var(--shadow-soft); width:min(1200px,96vw); max-height:90vh; overflow:auto; padding:var(--space-6) }
+/* display:grid above outranks the UA's [hidden]{display:none}, so the
+ * hidden attribute needs an explicit guard. a11y/modal.behavior.js
+ * opens and closes by toggling exactly this attribute. */
+.modal[hidden]{ display:none }
 /* Behavior (focus trap/restore) is in a11y/modal.behavior.js */

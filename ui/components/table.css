@@ -30,7 +30,7 @@
 }
 
 .table tbody tr:nth-child(even){
-  background: rgba(219, 230, 227, 0.3); /* RM Dust at 30% */
+  background: var(--table-row-alt);
 }
 
 /* Caption aligns with brand secondary text */
@@ -43,7 +43,7 @@
 /* Row hover */
 @media (hover:hover){
   .table tbody tr:hover td{
-    background: rgba(224, 193, 105, 0.2); /* RM Estrella at 20% */
+    background: var(--table-row-hover);
     transition: background-color 0.2s ease;
   }
 }
@@ -65,5 +65,5 @@
 
 /* Optional status tint variants using Galaxy color ramp */
 .badge--new   { background: var(--accent-100); }
-.badge--ready { background: #EAF6EF; border-color:#9FD2AF; color:#1B5E20; }
-.badge--warn  { background: #FFF3DA; border-color:#E7C990; color:#6A4A00; }
+.badge--ready { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
+.badge--warn  { background: var(--warn-bg);    border-color: var(--warn-border);    color: var(--warn-text); }

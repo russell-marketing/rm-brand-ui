@@ -9,8 +9,11 @@
 @import "./utilities.css";
 
 /* 3) Components (use only tokens; no hardcoded colors if possible) */
+@import "./components/alerts.css";
+@import "./components/modal.css";
 @import "./components/slider.css";
 @import "./components/table.css";
+@import "./components/tabs.css";
 @import "./components/toast.css";
 @import "./components/tooltip.css";
 @import "./components/skeleton.css";

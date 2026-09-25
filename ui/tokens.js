@@ -17,6 +17,7 @@ export const tokens = {
     galaxy: '#7A64A0',      // primary purple accent
     dust: '#DBE6E3',        // light sage for subtle backgrounds
     estrella: '#E0C169',    // warm gold tint
+    russell: '#4D5C7B',     // blue - PRIMARY (Brand Guide 2023)
   },
 
   // Text colors (light mode)
@@ -40,7 +41,9 @@ export const tokens = {
     2: '0.5rem',
     3: '0.75rem',
     4: '1rem',
+    5: '1.25rem',
     6: '1.5rem',
+    7: '1.75rem',
     8: '2rem',
   },
 
@@ -138,7 +141,9 @@ export const tokens = {
     warning: {
       bg: '#FFF4E6',
       text: '#7A4900',
-      border: '#FFD699',
+      // Lifted from #FFD699 (1.26:1 on warn-bg) to 1.47:1. Note the MUI
+      // adapter also uses this as the warning Chip's hover fill.
+      border: '#E7C990',
     },
     danger: {
       bg: '#FCE6E8',
@@ -179,6 +184,34 @@ export const tokens = {
   // Neutral tints
   tint: {
     dust12: '#EEF3F1',
+  },
+
+  // Hit targets (WCAG 2.5.8 minimum 24px; 2.5.5 enhanced 44px)
+  hitTarget: {
+    min: '24px',
+    ideal: '44px',
+  },
+
+  // Motion
+  motion: {
+    ease: 'cubic-bezier(0.2, 0, 0, 1)',
+  },
+
+  // Stacking order. Toasts sit above modals so alerts are never buried.
+  zIndex: {
+    sticky: 900,
+    dropdown: 1000,
+    modal: 1100,
+    toast: 1200,
+  },
+
+  // Component surfaces that must respond to theme (see darkTokens.surfaces)
+  surfaces: {
+    tooltipBorder: 'rgba(0,0,0,.25)',
+    skeletonBase: '#DBE6E3',            // Dust
+    skeletonSheen: 'rgba(255,255,255,.60)',
+    tableRowAlt: 'rgba(219,230,227,.30)',    // Dust at 30%
+    tableRowHover: 'rgba(224,193,105,.20)',  // Estrella at 20%
   },
 
   // Chart/Data Visualization tokens
@@ -259,9 +292,43 @@ export const darkTokens = {
     700: '#A894D0',
   },
 
+  // Was #A894D0/#BCA7E0. Realigned to match ui/dark.css, which the CSS
+  // side needed for AA on a near-black page.
   link: {
-    default: '#A894D0',
-    hover: '#BCA7E0',
+    default: '#BCA7E0',
+    hover: '#D7CAF2',
+  },
+
+  // Neutral hover tint. The light value is near-white, which put
+  // near-white .btn text on a near-white hover (1.03:1).
+  tint: {
+    dust12: '#232838',
+  },
+
+  status: {
+    success: {
+      bg: '#12301A',
+      text: '#9BE0A8',
+      border: '#2E6B3C',
+    },
+    warning: {
+      bg: '#33270F',
+      text: '#E8C98A',
+      border: '#6B5424',
+    },
+    danger: {
+      bg: '#351A1E',
+      text: '#F0A8B0',
+      border: '#7E3A42',
+    },
+  },
+
+  surfaces: {
+    tooltipBorder: 'rgba(255,255,255,.18)',
+    skeletonBase: '#232838',
+    skeletonSheen: 'rgba(255,255,255,.08)',
+    tableRowAlt: 'rgba(219,230,227,.06)',
+    tableRowHover: 'rgba(224,193,105,.14)',
   },
 };
 

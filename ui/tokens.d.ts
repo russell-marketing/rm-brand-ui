@@ -14,6 +14,7 @@ export interface Tokens {
     galaxy: string;
     dust: string;
     estrella: string;
+    russell: string;
   };
 
   text: {
@@ -34,7 +35,9 @@ export interface Tokens {
     2: string;
     3: string;
     4: string;
+    5: string;
     6: string;
+    7: string;
     8: string;
     [key: number]: string;
   };
@@ -149,6 +152,51 @@ export interface Tokens {
     };
   };
 
+  radius: {
+    s: string;
+    m: string;
+  };
+
+  control: {
+    height: string;
+    paddingX: string;
+  };
+
+  shadow: {
+    soft: string;
+  };
+
+  tint: {
+    dust12: string;
+  };
+
+  /** WCAG 2.5.8 minimum (24px) and 2.5.5 enhanced (44px) hit targets. */
+  hitTarget: {
+    min: string;
+    ideal: string;
+  };
+
+  motion: {
+    ease: string;
+  };
+
+  /** Toasts sit above modals so alerts are never buried. */
+  zIndex: {
+    sticky: number;
+    dropdown: number;
+    modal: number;
+    toast: number;
+  };
+
+  /** Component surfaces that must respond to theme. See DarkTokens. */
+  surfaces: {
+    tooltipBorder: string;
+    skeletonBase: string;
+    skeletonSheen: string;
+    tableRowAlt: string;
+    tableRowHover: string;
+  };
+
   charts: {
     background: string;
     gradient: {
@@ -176,4 +224,35 @@ export interface Tokens {
   };
 }
 
+/** Dark-theme overrides. Mirrors the --rm-dark-* block in ui/dark.css. */
+export interface DarkTokens {
+  background: { page: string; surface: string };
+  text: { primary: string; secondary: string };
+  border: { subtle: string };
+  shadow: { soft: string };
+  accent: {
+    50: string; 100: string; 200: string; 300: string;
+    600: string; 700: string;
+    [key: number]: string;
+  };
+  link: { default: string; hover: string };
+  tint: { dust12: string };
+  status: {
+    success: { bg: string; text: string; border: string };
+    warning: { bg: string; text: string; border: string };
+    danger:  { bg: string; text: string; border: string };
+  };
+  surfaces: {
+    tooltipBorder: string;
+    skeletonBase: string;
+    skeletonSheen: string;
+    tableRowAlt: string;
+    tableRowHover: string;
+  };
+}
+
 export const tokens: Tokens;
+export const darkTokens: DarkTokens;
+
+/** Reads a CSS custom property off :root. Returns '' outside the browser. */
+export function getCSSVar(varName: string): string;

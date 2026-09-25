@@ -1,17 +1,138 @@
-/* ui/dark.css */
+/* ui/dark.css
+ *
+ * Dark theme. Two selectors must carry the same palette:
+ *   1. OS preference  -> :root:not([data-theme])   (only when unforced)
+ *   2. Manual override -> [data-theme="dark"]      (a product theme toggle)
+ *
+ * The VALUES live exactly once, in the --rm-dark-* block below, and both
+ * selectors reference them. Change a colour there and both paths follow.
+ * (Longer term this whole file collapses into light-dark() in tokens.css;
+ * that has a browser-support floor this package has not declared yet.)
+ */
+
+/* ---- Dark palette: the single source of truth ----------------------------
+ * Definitions only. Inert in light mode; nothing reads them there.
+ */
+:root{
+  --rm-dark-bg-page:#0F1115;
+  --rm-dark-bg-surface:#171A22;
+  --rm-dark-text-primary:#EDEFF3;
+  --rm-dark-text-secondary:#B7BECA;
+  --rm-dark-border-subtle:#30364A;
+  --rm-dark-shadow-soft:0 1px 2px rgba(0,0,0,.55),0 8px 24px rgba(0,0,0,.35);
+
+  /* Accent ramp (dark) */
+  --rm-dark-accent-50:#241F2B;
+  --rm-dark-accent-100:#2E2837;
+  --rm-dark-accent-200:#3A3250;
+  --rm-dark-accent-300:#4D4070;
+  --rm-dark-accent-600:#BCA7E0;
+  --rm-dark-accent-700:#A894D0;
+  --rm-dark-accent-on:#0F1115;
+
+  /* Links. Light values fail badly on a near-black page (2.30:1). */
+  --rm-dark-link:#BCA7E0;
+  --rm-dark-link-hover:#D7CAF2;
+
+  /* Neutral hover tint. The light value is near-white, which put
+   * near-white .btn text on a near-white hover (1.03:1). */
+  --rm-dark-t-dust-12:#232838;
+
+  /* Status (AA on dark surfaces) */
+  --rm-dark-success-bg:#12301A; --rm-dark-success-text:#9BE0A8; --rm-dark-success-border:#2E6B3C;
+  --rm-dark-warn-bg:#33270F;    --rm-dark-warn-text:#E8C98A;    --rm-dark-warn-border:#6B5424;
+  --rm-dark-danger-bg:#351A1E;  --rm-dark-danger-text:#F0A8B0;  --rm-dark-danger-border:#7E3A42;
+
+  /* Component surfaces */
+  --rm-dark-tooltip-border:rgba(255,255,255,.18);
+  --rm-dark-skeleton-sheen:rgba(255,255,255,.08);
+  --rm-dark-table-row-alt:rgba(219,230,227,.06);
+  --rm-dark-table-row-hover:rgba(224,193,105,.14);
+}
+
+/* ---- 1. Follow the OS, unless a theme has been forced ---------------- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg-page:#0F1115; --bg-surface:#171A22;
-    --text-primary:#EDEFF3; --text-secondary:#B7BECA;
-    --border-subtle:#30364A;
-    --shadow-soft:0 1px 2px rgba(0,0,0,.55),0 8px 24px rgba(0,0,0,.35);
+    --bg-page:         var(--rm-dark-bg-page);
+    --bg-surface:      var(--rm-dark-bg-surface);
+    --text-primary:    var(--rm-dark-text-primary);
+    --text-secondary:  var(--rm-dark-text-secondary);
+    --border-subtle:   var(--rm-dark-border-subtle);
+    --shadow-soft:     var(--rm-dark-shadow-soft);
 
-    /* Accent ramp (dark) */
-    --accent-50:#241F2B; --accent-100:#2E2837; --accent-200:#3A3250; --accent-300:#4D4070;
-    --accent-600:#BCA7E0; --accent-700:#A894D0; --accent-on:#0F1115;
-    --accent-surface: var(--accent-200);
-    --accent-border:  var(--accent-300);
-    --accent-ink:     var(--accent-600);
+    --link:            var(--rm-dark-link);
+    --link-hover:      var(--rm-dark-link-hover);
+    --t-dust-12:       var(--rm-dark-t-dust-12);
+
+    --success-bg:      var(--rm-dark-success-bg);
+    --success-text:    var(--rm-dark-success-text);
+    --success-border:  var(--rm-dark-success-border);
+    --warn-bg:         var(--rm-dark-warn-bg);
+    --warn-text:       var(--rm-dark-warn-text);
+    --warn-border:     var(--rm-dark-warn-border);
+    --danger-bg:       var(--rm-dark-danger-bg);
+    --danger-text:     var(--rm-dark-danger-text);
+    --danger-border:   var(--rm-dark-danger-border);
+
+    --accent-50:       var(--rm-dark-accent-50);
+    --accent-100:      var(--rm-dark-accent-100);
+    --accent-200:      var(--rm-dark-accent-200);
+    --accent-300:      var(--rm-dark-accent-300);
+    --accent-600:      var(--rm-dark-accent-600);
+    --accent-700:      var(--rm-dark-accent-700);
+    --accent-on:       var(--rm-dark-accent-on);
+    --accent-surface:  var(--accent-200);
+    --accent-border:   var(--accent-300);
+    --accent-ink:      var(--accent-600);
+
+    --tooltip-border:  var(--rm-dark-tooltip-border);
+    --skeleton-base:   var(--t-dust-12);
+    --skeleton-sheen:  var(--rm-dark-skeleton-sheen);
+    --table-row-alt:   var(--rm-dark-table-row-alt);
+    --table-row-hover: var(--rm-dark-table-row-hover);
   }
 }
-[data-theme="dark"]{ /* duplicate exact values for manual override */ }
+
+/* ---- 2. Manual override, for a product theme toggle ------------------
+ * Same assignments. Until now this rule was empty, so data-theme="dark"
+ * did nothing and no product could ship a toggle.
+ */
+[data-theme="dark"]{
+  --bg-page:         var(--rm-dark-bg-page);
+  --bg-surface:      var(--rm-dark-bg-surface);
+  --text-primary:    var(--rm-dark-text-primary);
+  --text-secondary:  var(--rm-dark-text-secondary);
+  --border-subtle:   var(--rm-dark-border-subtle);
+  --shadow-soft:     var(--rm-dark-shadow-soft);
+
+  --link:            var(--rm-dark-link);
+  --link-hover:      var(--rm-dark-link-hover);
+  --t-dust-12:       var(--rm-dark-t-dust-12);
+
+  --success-bg:      var(--rm-dark-success-bg);
+  --success-text:    var(--rm-dark-success-text);
+  --success-border:  var(--rm-dark-success-border);
+  --warn-bg:         var(--rm-dark-warn-bg);
+  --warn-text:       var(--rm-dark-warn-text);
+  --warn-border:     var(--rm-dark-warn-border);
+  --danger-bg:       var(--rm-dark-danger-bg);
+  --danger-text:     var(--rm-dark-danger-text);
+  --danger-border:   var(--rm-dark-danger-border);
+
+  --accent-50:       var(--rm-dark-accent-50);
+  --accent-100:      var(--rm-dark-accent-100);
+  --accent-200:      var(--rm-dark-accent-200);
+  --accent-300:      var(--rm-dark-accent-300);
+  --accent-600:      var(--rm-dark-accent-600);
+  --accent-700:      var(--rm-dark-accent-700);
+  --accent-on:       var(--rm-dark-accent-on);
+  --accent-surface:  var(--accent-200);
+  --accent-border:   var(--accent-300);
+  --accent-ink:      var(--accent-600);
+
+  --tooltip-border:  var(--rm-dark-tooltip-border);
+  --skeleton-base:   var(--t-dust-12);
+  --skeleton-sheen:  var(--rm-dark-skeleton-sheen);
+  --table-row-alt:   var(--rm-dark-table-row-alt);
+  --table-row-hover: var(--rm-dark-table-row-hover);
+}

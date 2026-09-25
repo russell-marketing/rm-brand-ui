@@ -1,7 +1,7 @@
 {
-  "name": "@russell-marketing/brand-styles",
-  "version": "1.3.2",
-  "description": "Russell Marketing design system - tokens, components, and accessibility utilities",
+  "name": "@russell-marketing/brand-ui",
+  "version": "1.4.0",
+  "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
   "style": "ui/rm-ui.entry.css",
@@ -28,6 +28,7 @@
   },
   "files": [
     "ui/**/*",
+    "scripts/**/*",
     "adapters/**/*",
     "components/**/*",
     "README.md",
@@ -57,11 +58,11 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/cd-space-dot-dot/rm-brand-styles.git"
+    "url": "https://github.com/russell-marketing/rm-brand-ui.git"
   },
   "scripts": {
     "dev": "npx http-server -p 3000 -o demo.html",
-    "test": "echo \"No tests yet\" && exit 0"
+    "test": "node scripts/verify-tokens.mjs"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

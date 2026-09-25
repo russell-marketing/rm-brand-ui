@@ -2,11 +2,14 @@
 
 ## Project Overview
 
-**rm-brand-styles** is Russell Marketing's comprehensive design system that provides styling solutions for ANY framework (React, Vue, vanilla JS, etc.). It's **not** just a CSS library - it's a multi-layered style system.
+**rm-brand-ui** is Russell Marketing's comprehensive design system that provides styling solutions for ANY framework (React, Vue, vanilla JS, etc.). It's **not** just a CSS library - it's a multi-layered style system.
 
 ## Key Architectural Principle
 
-**The repo name is `rm-brand-styles` (NOT `rm-css`) for a reason**: It provides styles across multiple layers and frameworks, not just CSS.
+**The repo is `rm-brand-ui`, not `rm-brand-styles` or `rm-css`, for a reason**: it ships tokens, CSS,
+React components and framework adapters — a UI kit, not a stylesheet. The `ui` in the name
+distinguishes it from future siblings such as a website-styles package; `rm-` is the GitHub
+spelling of the npm scope `@russell-marketing/`.
 
 ### The Three Layers
 
@@ -33,7 +36,7 @@ When implementing any new component, always create **all three layers**:
 ## Repository Structure
 
 ```
-rm-brand-styles/
+rm-brand-ui/
 ├── ui/                           # Core CSS & design tokens
 │   ├── tokens.css                # CSS custom properties
 │   ├── tokens.js                 # JS token exports
@@ -176,7 +179,7 @@ components: {
 
 **Import the MUI theme adapter:**
 ```javascript
-import { getRMThemeConfig } from '@russell-marketing/brand-styles/adapters/mui-theme';
+import { getRMThemeConfig } from '@russell-marketing/brand-ui/adapters/mui-theme';
 
 const baseConfig = getRMThemeConfig();
 const theme = extendTheme({
@@ -187,7 +190,7 @@ const theme = extendTheme({
 
 **Import React components:**
 ```javascript
-import SliderWithLabel from '@russell-marketing/brand-styles/react/SliderWithLabel';
+import SliderWithLabel from '@russell-marketing/brand-ui/react/SliderWithLabel';
 
 <SliderWithLabel
   label="Amount Raised"
@@ -200,7 +203,7 @@ import SliderWithLabel from '@russell-marketing/brand-styles/react/SliderWithLab
 
 **Import CSS for vanilla usage:**
 ```html
-<link rel="stylesheet" href="./node_modules/@russell-marketing/brand-styles/ui/rm-ui.entry.css">
+<link rel="stylesheet" href="./node_modules/@russell-marketing/brand-ui/ui/rm-ui.entry.css">
 ```
 
 ## Common Patterns & Best Practices
@@ -296,14 +299,14 @@ When adding new components/features:
 ### Linking for Development
 
 ```bash
-# In rm-brand-styles
+# In rm-brand-ui
 npm link
 
 # In consuming app
-npm link @russell-marketing/brand-styles
+npm link @russell-marketing/brand-ui
 
 # Or using file: reference in package.json
-"@russell-marketing/brand-styles": "file:../rm-brand-styles"
+"@russell-marketing/brand-ui": "file:../rm-brand-ui"
 ```
 
 ### When to Commit
@@ -331,7 +334,7 @@ Commit when:
 
 ### Architecture Benefits
 
-- **Single source of truth**: rm-brand-styles defines everything
+- **Single source of truth**: rm-brand-ui defines everything
 - **Framework flexibility**: Can add Chakra, Tailwind, Vue adapters without changing core
 - **Consistent UX**: All apps using RM tokens look and feel the same
 - **Easy updates**: Change a token in one place, updates everywhere

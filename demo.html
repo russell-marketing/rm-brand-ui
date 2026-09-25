@@ -39,7 +39,6 @@
     @media (min-width: 900px) { .grid { grid-template-columns: 1.2fr .8fr; } }
     .card { padding: 16px; }
     .demo-section h2 { margin: 0 0 8px 0; font-family: var(--font-display); font-size: var(--fs-xl); }
-    .muted { color: var(--text-secondary); font-size: var(--fs-sm); }
     .spacer { height: 16px; }
   </style>
 </head>
@@ -155,9 +154,62 @@
             <div class="cluster">
               <button type="submit" class="btn btn--primary">Submit</button>
               <button type="button" id="toastOk" class="btn">Toast OK</button>
+              <button type="button" id="toastWarn" class="btn">Toast Warn</button>
               <button type="button" id="toastErr" class="btn">Toast Error</button>
             </div>
           </form>
+        </section>
+
+        <!-- Tokens & a11y added in 1.4.0 -->
+        <section class="demo-section surface card">
+          <h2>Tokens &amp; Hit Targets</h2>
+          <p class="muted">
+            Everything here was previously undefined or hardcoded. Toggle light / dark / auto
+            above &mdash; the <code>data-theme</code> path works as of 1.4.0.
+          </p>
+
+          <h3 style="font-size:var(--fs-sm)">Status families</h3>
+          <div class="cluster">
+            <span class="badge badge--ready">Success</span>
+            <span class="badge badge--warn">Warn</span>
+            <span class="badge">Accent</span>
+          </div>
+
+          <div class="spacer"></div>
+
+          <h3 style="font-size:var(--fs-sm)">Hit targets (WCAG 2.5.8 / 2.5.5)</h3>
+          <div class="cluster">
+            <button class="btn">24px min</button>
+            <button class="btn btn--touch">44px touch</button>
+          </div>
+          <p class="muted">
+            Both were <code>min-height</code>-less before <code>--hit-min</code> /
+            <code>--hit-ideal</code> existed.
+          </p>
+
+          <div class="spacer"></div>
+
+          <h3 style="font-size:var(--fs-sm)">Spacing scale</h3>
+          <div class="cluster" style="align-items:flex-end">
+            <span class="muted">1</span><span style="display:block;width:var(--space-1);height:16px;background:var(--rm-russell)"></span>
+            <span class="muted">2</span><span style="display:block;width:var(--space-2);height:16px;background:var(--rm-russell)"></span>
+            <span class="muted">3</span><span style="display:block;width:var(--space-3);height:16px;background:var(--rm-russell)"></span>
+            <span class="muted">4</span><span style="display:block;width:var(--space-4);height:16px;background:var(--rm-russell)"></span>
+            <span class="muted">5</span><span style="display:block;width:var(--space-5);height:16px;background:var(--rm-galaxy)"></span>
+            <span class="muted">6</span><span style="display:block;width:var(--space-6);height:16px;background:var(--rm-russell)"></span>
+            <span class="muted">7</span><span style="display:block;width:var(--space-7);height:16px;background:var(--rm-galaxy)"></span>
+            <span class="muted">8</span><span style="display:block;width:var(--space-8);height:16px;background:var(--rm-russell)"></span>
+          </div>
+          <p class="muted">Purple bars are the new steps 5 (20px) and 7 (28px). Fills use <code>--rm-russell</code>.</p>
+
+          <div class="spacer"></div>
+
+          <h3 style="font-size:var(--fs-sm)">Modal</h3>
+          <button type="button" id="openModal" class="btn">Open modal</button>
+          <p class="muted">
+            Had no <code>z-index</code>, <code>border-radius</code>, <code>box-shadow</code>
+            or <code>padding</code>: four dropped declarations.
+          </p>
         </section>
 
         <!-- Skeletons + Table + Tooltip -->
@@ -187,8 +239,8 @@
             </thead>
             <tbody>
               <tr><td>Onboarding deck</td><td><span class="badge">New</span></td><td>Avery</td></tr>
-              <tr><td>Email template</td><td><span class="badge">Review</span></td><td>Sam</td></tr>
-              <tr><td>Campaign brief</td><td><span class="badge">Ready</span></td><td>Dee</td></tr>
+              <tr><td>Email template</td><td><span class="badge badge--warn">Review</span></td><td>Sam</td></tr>
+              <tr><td>Campaign brief</td><td><span class="badge badge--ready">Ready</span></td><td>Dee</td></tr>
             </tbody>
           </table>
         </section>
@@ -204,19 +256,47 @@
     </footer>
   </div>
 
+  <!-- Modal (demonstrates modal.css + a11y/modal.behavior.js) -->
+  <div id="demoModal" class="modal" hidden>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle" style="margin-top:0">Modal panel</h2>
+      <p class="muted">
+        Padding, radius and shadow all come from tokens that resolve as of 1.4.0.
+        Toasts render above this panel (<code>--z-toast</code> 1200 &gt; <code>--z-modal</code> 1100).
+      </p>
+      <div class="cluster">
+        <button type="button" class="btn" id="modalToast">Fire a toast</button>
+        <button type="button" class="btn btn--primary" id="closeModal">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast region -->
   <div class="rm-toasts" aria-live="polite" aria-atomic="true"></div>
 
   <!-- App wiring -->
   <script type="module">
-    import { initTabs, toast, verifyContrast } from './ui/rm-ui.entry.js';
+    import { initTabs, initModal, toast, verifyContrast } from './ui/rm-ui.entry.js';
 
     // Tabs
     initTabs(document.getElementById('demoTabs'));
 
+    // Modal: uses the shipped focus trap. Escape and focus restore come free.
+    (() => {
+      const m = document.getElementById('demoModal');
+      if (!m) return;
+      const ctl = initModal(m);
+      document.getElementById('openModal').addEventListener('click', ctl.open);
+      document.getElementById('closeModal').addEventListener('click', ctl.close);
+      m.addEventListener('click', (e) => { if (e.target === m) ctl.close(); });
+      document.getElementById('modalToast')
+        .addEventListener('click', () => toast('Toast above the modal', { variant: 'ok' }));
+    })();
+
     // Toasts
-    document.getElementById('toastOk').addEventListener('click', () => toast('Saved successfully'));
-    document.getElementById('toastErr').addEventListener('click', () => toast('Something went wrong', { polite: false }));
+    document.getElementById('toastOk').addEventListener('click', () => toast('Saved successfully', { variant: 'ok' }));
+    document.getElementById('toastWarn').addEventListener('click', () => toast('Check your input', { variant: 'warn' }));
+    document.getElementById('toastErr').addEventListener('click', () => toast('Something went wrong', { polite: false, variant: 'error' }));
 
     // Form validation (minimal)
     const form = document.getElementById('demoForm');

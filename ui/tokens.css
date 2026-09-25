@@ -10,7 +10,11 @@
   --rm-space:#2D334D;       /* dark blue-gray for headers/emphasis */
   --rm-galaxy:#7A64A0;      /* primary purple accent */
   --rm-dust:#DBE6E3;        /* light sage for subtle backgrounds */
-  --rm-estrella:#E0C169;    /* warm gold tint */
+  --rm-estrella:#E0C169;    /* NOTE: Brand Guide 2023 gives Estrella as #D0A732.
+                               This is a lighter TINT of it, stored under the base
+                               name. Tints are legitimate for data-viz, but the base
+                               gold is currently missing. Needs a call. */
+  --rm-russell:#4D5C7B;     /* blue - PRIMARY (Brand Guide 2023) */
 
   /* Text */
   --text-primary: var(--rm-infinite);
@@ -21,7 +25,7 @@
 
   /* Spacing */
   --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
-  --space-6:1.5rem; --space-8:2rem;
+  --space-5:1.25rem; --space-6:1.5rem; --space-7:1.75rem; --space-8:2rem;
 
   /* Component spacing */
   --slider-label-gap:1.5rem;
@@ -48,6 +52,7 @@
 
   /* Status (AA) */
   --success-bg:#E6F4E6; --success-text:#134E13; --success-border:#96C49A;
+  --warn-bg:#FFF4E6;    --warn-text:#7A4900;    --warn-border:#E7C990;
   --danger-bg:#FCE6E8;  --danger-text:#7E1E26;  --danger-border:#E7A3AB;
 
   /* Accent ramp (light) for tasteful color */
@@ -59,4 +64,20 @@
 
   /* Neutral tint for hovers */
   --t-dust-12:#EEF3F1;
+
+  /* Hit targets. WCAG 2.5.8 minimum is 24px; 2.5.5 enhanced is 44px. */
+  --hit-min:24px; --hit-ideal:44px;
+
+  /* Motion */
+  --ease:cubic-bezier(0.2, 0, 0, 1);
+
+  /* Stacking order. Toasts sit above modals so alerts are never buried. */
+  --z-sticky:900; --z-dropdown:1000; --z-modal:1100; --z-toast:1200;
+
+  /* Component surfaces that must respond to theme (see dark.css) */
+  --tooltip-border:rgba(0,0,0,.25);
+  --skeleton-base:var(--rm-dust);
+  --skeleton-sheen:rgba(255,255,255,.60);
+  --table-row-alt:rgba(219,230,227,.30);    /* RM Dust at 30% */
+  --table-row-hover:rgba(224,193,105,.20);  /* RM Estrella at 20% */
 }
