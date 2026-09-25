@@ -44,7 +44,7 @@
 @media (hover:hover){
   .table tbody tr:hover td{
     background: var(--table-row-hover);
-    transition: background-color 0.2s ease;
+    transition: background-color var(--duration-base) ease;
   }
 }
 
