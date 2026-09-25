@@ -1,83 +1,122 @@
-/* ui/tokens.css */
+/* ui/tokens.css
+ * GENERATED — do not edit.
+ * Source: tokens/rm.tokens.json (W3C Design Tokens Format, DTCG 2025.10)
+ * Rebuild: npm run build:tokens
+ */
 :root{
-  /* Fonts - Russell Marketing Brand */
-  --font-display: "Raleway", "Roboto", sans-serif;
-  --font-body:    "Roboto", "Segoe UI", -apple-system, system-ui, sans-serif;
-
-  /* Brand bases */
-  --rm-infinite:#18191E;    /* near-black */
-  --rm-moon:#F7F8F6;        /* near-white */
-  --rm-space:#2D334D;       /* dark blue-gray for headers/emphasis */
-  --rm-galaxy:#7A64A0;      /* primary purple accent */
-  --rm-dust:#DBE6E3;        /* light sage for subtle backgrounds */
-  --rm-estrella:#D0A732;      /* ESTRELLA - warm gold accent (Brand Guide 2023) */
-  --rm-estrella-tint:#E0C169; /* lighter gold; chart benchmarks, row tints */
-  --rm-russell:#4D5C7B;     /* blue - PRIMARY (Brand Guide 2023) */
+  /* Brand base colours */
+  --rm-infinite: #18191E;                      /* INFINITE — off-black. Use instead of pure black. */
+  --rm-moon: #F7F8F6;                          /* MOON — off-white. Use instead of pure white. */
+  --rm-space: #2D334D;                         /* SPACE — navy. Primary. */
+  --rm-russell: #4D5C7B;                       /* RUSSELL — blue. Primary. */
+  --rm-galaxy: #7A64A0;                        /* GALAXY — purple. Accent; the brand colour. */
+  --rm-estrella: #D0A732;                      /* ESTRELLA — gold. Accent, used sparingly. */
+  --rm-estrella-tint: #E0C169;                 /* Lighter gold; chart benchmarks and row tints. */
+  --rm-dust: #DBE6E3;                          /* DUST — light sage. Neutral. */
 
   /* Text */
+  --text-secondary: #4B5163;
   --text-primary: var(--rm-infinite);
-  --text-secondary:#4B5163;
 
-  /* Type scale */
-  --fs-xs:.75rem; --fs-sm:.875rem; --fs-md:1rem; --fs-lg:1.125rem; --fs-xl:1.25rem;
+  /* Links */
+  --link: #5A4286;
+  --link-hover: #4B386F;
+
+  /* Surfaces & borders */
+  --bg-page: #F6F7F5;
+  --bg-surface: #FFFFFF;
+  --border-subtle: #CDD3DB;
+  --t-dust-12: #EEF3F1;                        /* Neutral tint for hovers. */
+
+  /* Status families */
+  --success-bg: #E6F4E6;
+  --success-text: #134E13;
+  --success-border: #96C49A;
+  --warning-bg: #FFF4E6;
+  --warning-text: #7A4900;
+  --warning-border: #E7C990;
+  --danger-bg: #FCE6E8;
+  --danger-text: #7E1E26;
+  --danger-border: #E7A3AB;
+
+  /* Accent ramp */
+  --accent-50: #F2ECF9;
+  --accent-100: #E8DEF7;
+  --accent-200: #D7CAF2;
+  --accent-300: #C2B1EA;
+  --accent-600: #7A64A0;
+  --accent-700: #5A4286;
+  --accent-on: var(--rm-moon);
+  --accent-surface: var(--accent-100);
+  --accent-border: var(--accent-300);
+  --accent-ink: var(--accent-700);
+
+  /* Overlays — a base colour plus an alpha, so they follow their base */
+  --tooltip-border: rgba(0,0,0,.25);           /* Black at 25%. */
+  --skeleton-sheen: rgba(255,255,255,.6);      /* White at 60%. */
+  --table-row-alt: rgba(219,230,227,.3);       /* Dust at 30% — follows Dust. */
+  --table-row-hover: rgba(224,193,105,.2);     /* Estrella tint at 20% — follows the tint. */
+  --skeleton-base: var(--rm-dust);             /* Skeleton ground; dark theme overrides it. */
+
+  /* Elevation */
+  --shadow-soft: 0px 1px 2px rgba(0,0,0,.04),0px 6px 18px rgba(0,0,0,.06);
 
   /* Spacing */
-  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
-  --space-5:1.25rem; --space-6:1.5rem; --space-7:1.75rem; --space-8:2rem;
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
 
-  /* Component spacing */
-  --slider-label-gap:1.5rem;
-  --slider-thumb-size:20px;
-  --slider-track-height:8px;
-  --slider-container-padding:2rem;
+  /* Type scale */
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
 
-  /* Weights / letter spacing */
-  --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-extrabold:800;
-  --ls-caps:.5px;
+  /* Radius & controls */
+  --radius-s: 6px;
+  --radius-m: 8px;
+  --control-h: 40px;
+  --control-pad-x: 14px;
 
-  /* Links (light) */
-  --link:#5A4286; --link-hover:#4B386F;
+  /* Hit targets */
+  --hit-min: 24px;                             /* WCAG 2.5.8 minimum. */
+  --hit-ideal: 44px;                           /* WCAG 2.5.5 enhanced. */
 
-  /* Surfaces & borders (light) */
-  --bg-page:#F6F7F5;
-  --bg-surface:#FFFFFF;
-  --border-subtle:#CDD3DB;                    /* <- borders come from here */
-  --shadow-soft:0 1px 2px rgba(0,0,0,.04),0 6px 18px rgba(0,0,0,.06);
+  /* Slider */
+  --slider-label-gap: 1.5rem;
+  --slider-thumb-size: 20px;
+  --slider-track-height: 8px;
+  --slider-container-padding: 2rem;
 
-  /* Radius / control size */
-  --radius-s:6px; --radius-m:8px;
-  --control-h:40px; --control-pad-x:14px;
+  /* Tracking */
+  --ls-caps: .5px;
 
-  /* Status (AA) */
-  --success-bg:#E6F4E6; --success-text:#134E13; --success-border:#96C49A;
-  --warning-bg:#FFF4E6;    --warning-text:#7A4900;    --warning-border:#E7C990;
-  --danger-bg:#FCE6E8;  --danger-text:#7E1E26;  --danger-border:#E7A3AB;
+  /* Font families */
+  --font-display: Raleway, Roboto, sans-serif;
+  --font-body: Roboto, "Segoe UI", -apple-system, system-ui, sans-serif;
 
-  /* Accent ramp (light) for tasteful color */
-  --accent-50:#F2ECF9; --accent-100:#E8DEF7; --accent-200:#D7CAF2; --accent-300:#C2B1EA;
-  --accent-600:#7A64A0; --accent-700:#5A4286; --accent-on: var(--rm-moon);
-  --accent-surface: var(--accent-100);
-  --accent-border:  var(--accent-300);
-  --accent-ink:     var(--accent-700);
+  /* Font weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
 
-  /* Neutral tint for hovers */
-  --t-dust-12:#EEF3F1;
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration-instant: 20ms;
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
 
-  /* Hit targets. WCAG 2.5.8 minimum is 24px; 2.5.5 enhanced is 44px. */
-  --hit-min:24px; --hit-ideal:44px;
-
-  /* Motion. Durations match what components already used; see
-   * docs/design-token-standard.md for the DTCG mapping. */
-  --ease:cubic-bezier(0.2, 0, 0, 1);
-  --duration-instant:20ms; --duration-fast:150ms; --duration-base:200ms;
-
-  /* Stacking order. Toasts sit above modals so alerts are never buried. */
-  --z-sticky:900; --z-dropdown:1000; --z-modal:1100; --z-toast:1200;
-
-  /* Component surfaces that must respond to theme (see dark.css) */
-  --tooltip-border:rgba(0,0,0,.25);
-  --skeleton-base:var(--rm-dust);
-  --skeleton-sheen:rgba(255,255,255,.60);
-  --table-row-alt:rgba(219,230,227,.30);    /* RM Dust at 30% */
-  --table-row-hover:rgba(224,193,105,.20);  /* Estrella TINT at 20% */
+  /* Stacking order — toasts above modals so alerts are never buried */
+  --z-sticky: 900;
+  --z-dropdown: 1000;
+  --z-modal: 1100;
+  --z-toast: 1200;
 }
