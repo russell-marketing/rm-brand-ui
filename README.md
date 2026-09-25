@@ -1,21 +1,21 @@
-# rm-brand-styles
+# rm-brand-ui
 
 Russell Marketing style guidance — design tokens, components and accessibility
 utilities, usable from plain HTML, React/MUI, or any other framework.
 
-Published as `@russell-marketing/brand-styles`.
+Published as `@russell-marketing/brand-ui`.
 
 ## Using it
 
 ```js
 // 1. Plain CSS — everything, including the dark theme
-import "@russell-marketing/brand-styles/styles";
+import "@russell-marketing/brand-ui/styles";
 
 // 2. MUI apps — map the tokens onto a theme
-import { getRMThemeConfig } from "@russell-marketing/brand-styles/adapters/mui-theme";
+import { getRMThemeConfig } from "@russell-marketing/brand-ui/adapters/mui-theme";
 
 // 3. Tokens as JS, for charts and anything CSS cannot reach
-import { tokens, darkTokens } from "@russell-marketing/brand-styles/tokens.js";
+import { tokens, darkTokens } from "@russell-marketing/brand-ui/tokens.js";
 ```
 
 ## Dark mode
@@ -68,7 +68,7 @@ nothing** — it defines a function, never calls it, and exits 0. That looks lik
 a pass and is not one. It is meant to be imported into a page:
 
 ```js
-import { verifyContrast } from "@russell-marketing/brand-styles";
+import { verifyContrast } from "@russell-marketing/brand-ui";
 verifyContrast();  // console.table of the live values
 ```
 

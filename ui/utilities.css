@@ -1,4 +1,4 @@
-/* rm-css/ui/utilities.css */
+/* ui/utilities.css */
 
 /* Density scopes */
 body.density--comfortable{ --control-h:40px; --control-pad-x:14px; --stack-2:8px;  --stack-3:16px; }

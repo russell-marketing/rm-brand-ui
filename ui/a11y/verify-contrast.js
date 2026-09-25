@@ -9,7 +9,7 @@
 //   (scripts/verify-tokens.mjs): it reads the source files and also catches
 //   undefined custom properties and tokens.css/tokens.js drift.
 //
-// In a page:  import { verifyContrast } from '@russell-marketing/brand-styles';
+// In a page:  import { verifyContrast } from '@russell-marketing/brand-ui';
 //             verifyContrast();
 const getVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const hexToRgb = (hex) => { const h = hex.replace('#',''); const s = h.length===3 ? h.replace(/(.)/g,'$1$1') : h; const b = parseInt(s,16); return [(b>>16)&255,(b>>8)&255,b&255]; };

@@ -1,7 +1,7 @@
 {
-  "name": "@russell-marketing/brand-styles",
+  "name": "@russell-marketing/brand-ui",
   "version": "1.4.0",
-  "description": "Russell Marketing design system - tokens, components, and accessibility utilities",
+  "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
   "style": "ui/rm-ui.entry.css",
@@ -58,7 +58,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/russell-marketing/rm-brand-ui-styles.git"
+    "url": "https://github.com/russell-marketing/rm-brand-ui.git"
   },
   "scripts": {
     "dev": "npx http-server -p 3000 -o demo.html",
