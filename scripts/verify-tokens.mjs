@@ -92,6 +92,7 @@ const lightMap = [
   ['--rm-infinite', tokens.colors.infinite], ['--rm-moon', tokens.colors.moon],
   ['--rm-space', tokens.colors.space], ['--rm-galaxy', tokens.colors.galaxy],
   ['--rm-dust', tokens.colors.dust], ['--rm-estrella', tokens.colors.estrella],
+  ['--rm-estrella-tint', tokens.colors.estrellaTint],
   ['--rm-russell', tokens.colors.russell],
   ['--text-secondary', tokens.text.secondary],
   ['--space-1', tokens.spacing[1]], ['--space-2', tokens.spacing[2]],

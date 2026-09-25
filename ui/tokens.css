@@ -10,10 +10,8 @@
   --rm-space:#2D334D;       /* dark blue-gray for headers/emphasis */
   --rm-galaxy:#7A64A0;      /* primary purple accent */
   --rm-dust:#DBE6E3;        /* light sage for subtle backgrounds */
-  --rm-estrella:#E0C169;    /* NOTE: Brand Guide 2023 gives Estrella as #D0A732.
-                               This is a lighter TINT of it, stored under the base
-                               name. Tints are legitimate for data-viz, but the base
-                               gold is currently missing. Needs a call. */
+  --rm-estrella:#D0A732;      /* ESTRELLA - warm gold accent (Brand Guide 2023) */
+  --rm-estrella-tint:#E0C169; /* lighter gold; chart benchmarks, row tints */
   --rm-russell:#4D5C7B;     /* blue - PRIMARY (Brand Guide 2023) */
 
   /* Text */
@@ -79,5 +77,5 @@
   --skeleton-base:var(--rm-dust);
   --skeleton-sheen:rgba(255,255,255,.60);
   --table-row-alt:rgba(219,230,227,.30);    /* RM Dust at 30% */
-  --table-row-hover:rgba(224,193,105,.20);  /* RM Estrella at 20% */
+  --table-row-hover:rgba(224,193,105,.20);  /* Estrella TINT at 20% */
 }
