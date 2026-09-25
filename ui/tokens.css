@@ -52,7 +52,7 @@
 
   /* Status (AA) */
   --success-bg:#E6F4E6; --success-text:#134E13; --success-border:#96C49A;
-  --warn-bg:#FFF4E6;    --warn-text:#7A4900;    --warn-border:#E7C990;
+  --warning-bg:#FFF4E6;    --warning-text:#7A4900;    --warning-border:#E7C990;
   --danger-bg:#FCE6E8;  --danger-text:#7E1E26;  --danger-border:#E7A3AB;
 
   /* Accent ramp (light) for tasteful color */

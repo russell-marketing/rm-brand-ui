@@ -40,7 +40,7 @@
 
   /* Status (AA on dark surfaces) */
   --rm-dark-success-bg:#12301A; --rm-dark-success-text:#9BE0A8; --rm-dark-success-border:#2E6B3C;
-  --rm-dark-warn-bg:#33270F;    --rm-dark-warn-text:#E8C98A;    --rm-dark-warn-border:#6B5424;
+  --rm-dark-warning-bg:#33270F;    --rm-dark-warning-text:#E8C98A;    --rm-dark-warning-border:#6B5424;
   --rm-dark-danger-bg:#351A1E;  --rm-dark-danger-text:#F0A8B0;  --rm-dark-danger-border:#7E3A42;
 
   /* Component surfaces */
@@ -67,9 +67,9 @@
     --success-bg:      var(--rm-dark-success-bg);
     --success-text:    var(--rm-dark-success-text);
     --success-border:  var(--rm-dark-success-border);
-    --warn-bg:         var(--rm-dark-warn-bg);
-    --warn-text:       var(--rm-dark-warn-text);
-    --warn-border:     var(--rm-dark-warn-border);
+    --warning-bg:         var(--rm-dark-warning-bg);
+    --warning-text:       var(--rm-dark-warning-text);
+    --warning-border:     var(--rm-dark-warning-border);
     --danger-bg:       var(--rm-dark-danger-bg);
     --danger-text:     var(--rm-dark-danger-text);
     --danger-border:   var(--rm-dark-danger-border);
@@ -112,9 +112,9 @@
   --success-bg:      var(--rm-dark-success-bg);
   --success-text:    var(--rm-dark-success-text);
   --success-border:  var(--rm-dark-success-border);
-  --warn-bg:         var(--rm-dark-warn-bg);
-  --warn-text:       var(--rm-dark-warn-text);
-  --warn-border:     var(--rm-dark-warn-border);
+  --warning-bg:         var(--rm-dark-warning-bg);
+  --warning-text:       var(--rm-dark-warning-text);
+  --warning-border:     var(--rm-dark-warning-border);
   --danger-bg:       var(--rm-dark-danger-bg);
   --danger-text:     var(--rm-dark-danger-text);
   --danger-border:   var(--rm-dark-danger-border);
