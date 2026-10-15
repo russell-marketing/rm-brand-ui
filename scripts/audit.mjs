@@ -182,5 +182,5 @@ for (const rule of [...byRule.keys()].sort((a, b) => a - b)) {
   for (const f of list) console.log(`  ${f.file}${f.line ? `:${f.line}` : ''}  ${f.msg}`);
 }
 console.log(`\nTotal: ${[...byRule].sort(([a], [b]) => a - b).map(([r, l]) => `rule ${r}: ${l.length}`).join(', ')}`);
-console.log(`\n${findings.length} finding(s). Rules: node_modules/@russell-marketing/brand-ui/RULES.md\n`);
+console.log(`\n${findings.length} finding(s). Rules: node_modules/@russell-marketing/brand-ui/RULES.md · Upgrading: node_modules/@russell-marketing/brand-ui/docs/\n`);
 process.exit(STRICT && findings.some((f) => f.level === 'fix') ? 1 : 0);
