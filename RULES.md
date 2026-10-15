@@ -151,3 +151,23 @@ only, never MUI, so they work in every React app. Next.js 15 compiles them
 with no configuration. With another bundler, make sure it compiles JSX from
 `node_modules`. The older `SliderWithLabel` and `RateField` wrap MUI and are
 for MUI apps only.
+
+## 12. Interfaces that can't install the package
+
+A Chrome extension popup or an Apps Script page can't load an npm package,
+but the repo it lives in can. Copy the system's CSS in with the package's
+own command, never by hand:
+
+```bash
+npx rm-brand-copy extension/vendor           # tokens.css + dark.css
+npx rm-brand-copy extension/vendor core.css  # or name files under ui/
+```
+
+- Link the copies (`rm-brand-tokens.css`, `rm-brand-dark.css`) and use tokens
+  as everywhere else. Rules 5–9 apply in full.
+- Add `npx rm-brand-copy <dir> --check` to the app's checks. It fails when a
+  copy is missing, edited, or older than the installed package, so after an
+  update it tells you to re-copy.
+- Never edit a copy. The audit skips copied files because they are the
+  system's own CSS; an edit would hide from it.
+

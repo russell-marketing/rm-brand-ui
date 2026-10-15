@@ -6,7 +6,9 @@ utilities, usable from plain HTML, React/MUI, or any other framework.
 Published as `@russell-marketing/brand-ui`.
 
 **Building an app with it? Read [RULES.md](RULES.md) first**, and run
-`npx rm-brand-audit` in your app to check it. Upgrading from an older
+`npx rm-brand-audit` in your app to check it. For a surface that can't
+install the package (a Chrome extension), `npx rm-brand-copy` copies the CSS
+in: see rule 12. Upgrading from an older
 version: [docs/migrating-to-1.5.md](docs/migrating-to-1.5.md).
 
 ```json

@@ -15,8 +15,10 @@ names, credentials or internal URLs in anything committed here.
    because they already exist.
 2. **Help apps comply.** [RULES.md](RULES.md) is the rulebook,
    `npx rm-brand-audit` ([scripts/audit.mjs](scripts/audit.mjs)) checks an
-   app against it, and `docs/migrating-to-<version>.md` maps old patterns to
-   new ones for each release.
+   app against it, `npx rm-brand-copy` ([scripts/copy.mjs](scripts/copy.mjs))
+   brings the CSS to surfaces that can't install the package, and
+   `docs/migrating-to-<version>.md` maps old patterns to new ones for each
+   release. Both commands are tested in `scripts/test-tools.mjs`.
 
 A change to the rules updates all three: RULES.md, the audit, the migration
 guide.
@@ -86,7 +88,7 @@ this and wrap MUI; they are MUI-only.
 ## Testing
 
 ```bash
-npm test            # tokens generated + parity + contrast, then component behaviour
+npm test            # tokens generated + parity + contrast, component behaviour, app commands
 npm run dev         # demo.html: check light, dark and forced data-theme
 node scripts/audit.mjs ../some-app   # run the audit against a local app
 ```

@@ -60,6 +60,13 @@ npx rm-brand-audit
 Work through the "fix" findings; look at each "check" finding. Anything the
 system lacks goes in `ds-candidates.css` (rule 3), not a local workaround.
 
+## 1.5.1: interfaces that can't install the package
+
+If the app has a Chrome extension or another surface that can't load the
+package, follow RULES.md rule 12: `npx rm-brand-copy <dir>` copies the
+system's CSS in, and `npx rm-brand-copy <dir> --check` keeps it current.
+The audit skips those copies.
+
 ## What looks different after upgrading
 
 Small changes to classes that already existed:

@@ -1,12 +1,13 @@
 {
   "name": "@russell-marketing/brand-ui",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
   "style": "ui/rm-ui.entry.css",
   "bin": {
-    "rm-brand-audit": "scripts/audit.mjs"
+    "rm-brand-audit": "scripts/audit.mjs",
+    "rm-brand-copy": "scripts/copy.mjs"
   },
   "exports": {
     ".": {
@@ -73,7 +74,7 @@
   "scripts": {
     "dev": "npx http-server -p 3000 -o demo.html",
     "build:tokens": "node scripts/build-tokens.mjs",
-    "test": "node scripts/build-tokens.mjs --check && node scripts/verify-tokens.mjs && node scripts/test-components.mjs"
+    "test": "node scripts/build-tokens.mjs --check && node scripts/verify-tokens.mjs && node scripts/test-components.mjs && node scripts/test-tools.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.25.10",
