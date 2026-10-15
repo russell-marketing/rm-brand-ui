@@ -1,0 +1,1660 @@
+{
+  "$description": "Russell Marketing design tokens. DTCG 2025.10. Source of truth — ui/tokens.css, ui/dark.css and ui/tokens.js are generated from this by scripts/build-tokens.mjs. Do not edit those by hand.",
+  "color": {
+    "$type": "color",
+    "brand": {
+      "infinite": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0941,
+            0.098,
+            0.1176
+          ],
+          "alpha": 1,
+          "hex": "#18191E"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-infinite"
+        },
+        "$description": "INFINITE — off-black. Use instead of pure black."
+      },
+      "moon": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9686,
+            0.9725,
+            0.9647
+          ],
+          "alpha": 1,
+          "hex": "#F7F8F6"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-moon"
+        },
+        "$description": "MOON — off-white. Use instead of pure white."
+      },
+      "space": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.1765,
+            0.2,
+            0.302
+          ],
+          "alpha": 1,
+          "hex": "#2D334D"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-space"
+        },
+        "$description": "SPACE — navy. Primary."
+      },
+      "russell": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.302,
+            0.3608,
+            0.4824
+          ],
+          "alpha": 1,
+          "hex": "#4D5C7B"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-russell"
+        },
+        "$description": "RUSSELL — blue. Primary."
+      },
+      "galaxy": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4784,
+            0.3922,
+            0.6275
+          ],
+          "alpha": 1,
+          "hex": "#7A64A0"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-galaxy"
+        },
+        "$description": "GALAXY — purple. Accent; the brand colour."
+      },
+      "estrella": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8157,
+            0.6549,
+            0.1961
+          ],
+          "alpha": 1,
+          "hex": "#D0A732"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-estrella"
+        },
+        "$description": "ESTRELLA — gold. Accent, used sparingly."
+      },
+      "estrellaTint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8784,
+            0.7569,
+            0.4118
+          ],
+          "alpha": 1,
+          "hex": "#E0C169"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-estrella-tint"
+        },
+        "$description": "Lighter gold; chart benchmarks and row tints."
+      },
+      "dust": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8588,
+            0.902,
+            0.8902
+          ],
+          "alpha": 1,
+          "hex": "#DBE6E3"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--rm-dust"
+        },
+        "$description": "DUST — light sage. Neutral."
+      }
+    },
+    "text": {
+      "secondary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2941,
+            0.3176,
+            0.3882
+          ],
+          "alpha": 1,
+          "hex": "#4B5163"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--text-secondary"
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "{color.brand.infinite}",
+        "$extensions": {
+          "co.russellmarketing.css": "--text-primary"
+        }
+      }
+    },
+    "link": {
+      "base": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.3529,
+            0.2588,
+            0.5255
+          ],
+          "alpha": 1,
+          "hex": "#5A4286"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--link"
+        }
+      },
+      "hover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2941,
+            0.2196,
+            0.4353
+          ],
+          "alpha": 1,
+          "hex": "#4B386F"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--link-hover"
+        }
+      }
+    },
+    "surface": {
+      "page": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9647,
+            0.9686,
+            0.9608
+          ],
+          "alpha": 1,
+          "hex": "#F6F7F5"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--bg-page"
+        }
+      },
+      "base": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#FFFFFF"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--bg-surface"
+        }
+      },
+      "borderSubtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8039,
+            0.8275,
+            0.8588
+          ],
+          "alpha": 1,
+          "hex": "#CDD3DB"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--border-subtle"
+        }
+      },
+      "dustTint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9333,
+            0.9529,
+            0.9451
+          ],
+          "alpha": 1,
+          "hex": "#EEF3F1"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--t-dust-12"
+        },
+        "$description": "Neutral tint for hovers."
+      }
+    },
+    "status": {
+      "success": {
+        "bg": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.902,
+              0.9569,
+              0.902
+            ],
+            "alpha": 1,
+            "hex": "#E6F4E6"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--success-bg"
+          }
+        },
+        "text": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0745,
+              0.3059,
+              0.0745
+            ],
+            "alpha": 1,
+            "hex": "#134E13"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--success-text"
+          }
+        },
+        "border": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.5882,
+              0.7686,
+              0.6039
+            ],
+            "alpha": 1,
+            "hex": "#96C49A"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--success-border"
+          }
+        }
+      },
+      "warning": {
+        "bg": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              1,
+              0.9569,
+              0.902
+            ],
+            "alpha": 1,
+            "hex": "#FFF4E6"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--warning-bg"
+          }
+        },
+        "text": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.4784,
+              0.2863,
+              0
+            ],
+            "alpha": 1,
+            "hex": "#7A4900"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--warning-text"
+          }
+        },
+        "border": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.9059,
+              0.7882,
+              0.5647
+            ],
+            "alpha": 1,
+            "hex": "#E7C990"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--warning-border"
+          }
+        }
+      },
+      "danger": {
+        "bg": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.9882,
+              0.902,
+              0.9098
+            ],
+            "alpha": 1,
+            "hex": "#FCE6E8"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--danger-bg"
+          }
+        },
+        "text": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.4941,
+              0.1176,
+              0.149
+            ],
+            "alpha": 1,
+            "hex": "#7E1E26"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--danger-text"
+          }
+        },
+        "border": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.9059,
+              0.6392,
+              0.6706
+            ],
+            "alpha": 1,
+            "hex": "#E7A3AB"
+          },
+          "$extensions": {
+            "co.russellmarketing.css": "--danger-border"
+          }
+        }
+      }
+    },
+    "accent": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.949,
+            0.9255,
+            0.9765
+          ],
+          "alpha": 1,
+          "hex": "#F2ECF9"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-50"
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9098,
+            0.8706,
+            0.9686
+          ],
+          "alpha": 1,
+          "hex": "#E8DEF7"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-100"
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8431,
+            0.7922,
+            0.949
+          ],
+          "alpha": 1,
+          "hex": "#D7CAF2"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-200"
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7608,
+            0.6941,
+            0.9176
+          ],
+          "alpha": 1,
+          "hex": "#C2B1EA"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-300"
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4784,
+            0.3922,
+            0.6275
+          ],
+          "alpha": 1,
+          "hex": "#7A64A0"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-600"
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.3529,
+            0.2588,
+            0.5255
+          ],
+          "alpha": 1,
+          "hex": "#5A4286"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-700"
+        }
+      },
+      "on": {
+        "$type": "color",
+        "$value": "{color.brand.moon}",
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-on"
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "{color.accent.100}",
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-surface"
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.accent.300}",
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-border"
+        }
+      },
+      "ink": {
+        "$type": "color",
+        "$value": "{color.accent.700}",
+        "$extensions": {
+          "co.russellmarketing.css": "--accent-ink"
+        }
+      }
+    },
+    "overlay": {
+      "tooltipBorder": {
+        "$type": "color",
+        "$value": {
+          "alpha": 0.25
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--tooltip-border",
+          "co.russellmarketing.derivedFrom": {
+            "base": "color.__black",
+            "alpha": 0.25
+          }
+        },
+        "$description": "Black at 25%."
+      },
+      "skeletonSheen": {
+        "$type": "color",
+        "$value": {
+          "alpha": 0.6
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--skeleton-sheen",
+          "co.russellmarketing.derivedFrom": {
+            "base": "color.__white",
+            "alpha": 0.6
+          }
+        },
+        "$description": "White at 60%."
+      },
+      "tableRowAlt": {
+        "$type": "color",
+        "$value": {
+          "alpha": 0.3
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--table-row-alt",
+          "co.russellmarketing.derivedFrom": {
+            "base": "color.brand.dust",
+            "alpha": 0.3
+          }
+        },
+        "$description": "Dust at 30% — follows Dust."
+      },
+      "tableRowHover": {
+        "$type": "color",
+        "$value": {
+          "alpha": 0.2
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--table-row-hover",
+          "co.russellmarketing.derivedFrom": {
+            "base": "color.brand.estrellaTint",
+            "alpha": 0.2
+          }
+        },
+        "$description": "Estrella tint at 20% — follows the tint."
+      },
+      "skeletonBase": {
+        "$type": "color",
+        "$value": "{color.brand.dust}",
+        "$extensions": {
+          "co.russellmarketing.css": "--skeleton-base"
+        },
+        "$description": "Skeleton ground; dark theme overrides it."
+      }
+    },
+    "__black": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 1,
+        "hex": "#000000"
+      },
+      "$description": "Pure black. Only as an overlay base — never as ink; use Infinite."
+    },
+    "__white": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#FFFFFF"
+      },
+      "$description": "Pure white. Only as an overlay base — never as a surface; use Moon."
+    }
+  },
+  "dimension": {
+    "$type": "dimension",
+    "space": {
+      "1": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.25,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-1"
+        }
+      },
+      "2": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.5,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-2"
+        }
+      },
+      "3": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-3"
+        }
+      },
+      "4": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-4"
+        }
+      },
+      "5": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.25,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-5"
+        }
+      },
+      "6": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.5,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-6"
+        }
+      },
+      "7": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.75,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-7"
+        }
+      },
+      "8": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--space-8"
+        }
+      }
+    },
+    "fontSize": {
+      "xs": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--fs-xs"
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--fs-sm"
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--fs-md"
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.125,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--fs-lg"
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.25,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--fs-xl"
+        }
+      }
+    },
+    "radius": {
+      "s": {
+        "$type": "dimension",
+        "$value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--radius-s"
+        }
+      },
+      "m": {
+        "$type": "dimension",
+        "$value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--radius-m"
+        }
+      }
+    },
+    "control": {
+      "height": {
+        "$type": "dimension",
+        "$value": {
+          "value": 40,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--control-h"
+        }
+      },
+      "padX": {
+        "$type": "dimension",
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--control-pad-x"
+        }
+      }
+    },
+    "hitTarget": {
+      "min": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--hit-min"
+        },
+        "$description": "WCAG 2.5.8 minimum."
+      },
+      "ideal": {
+        "$type": "dimension",
+        "$value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--hit-ideal"
+        },
+        "$description": "WCAG 2.5.5 enhanced."
+      }
+    },
+    "slider": {
+      "labelGap": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.5,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--slider-label-gap"
+        }
+      },
+      "thumbSize": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--slider-thumb-size"
+        }
+      },
+      "trackHeight": {
+        "$type": "dimension",
+        "$value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--slider-track-height"
+        }
+      },
+      "containerPadding": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--slider-container-padding"
+        }
+      }
+    },
+    "tracking": {
+      "caps": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--ls-caps"
+        }
+      }
+    }
+  },
+  "fontWeight": {
+    "$type": "fontWeight",
+    "regular": {
+      "$type": "fontWeight",
+      "$value": 400,
+      "$extensions": {
+        "co.russellmarketing.css": "--fw-regular"
+      }
+    },
+    "medium": {
+      "$type": "fontWeight",
+      "$value": 500,
+      "$extensions": {
+        "co.russellmarketing.css": "--fw-medium"
+      }
+    },
+    "semibold": {
+      "$type": "fontWeight",
+      "$value": 600,
+      "$extensions": {
+        "co.russellmarketing.css": "--fw-semibold"
+      }
+    },
+    "bold": {
+      "$type": "fontWeight",
+      "$value": 700,
+      "$extensions": {
+        "co.russellmarketing.css": "--fw-bold"
+      }
+    },
+    "extrabold": {
+      "$type": "fontWeight",
+      "$value": 800,
+      "$extensions": {
+        "co.russellmarketing.css": "--fw-extrabold"
+      }
+    }
+  },
+  "fontFamily": {
+    "$type": "fontFamily",
+    "display": {
+      "$type": "fontFamily",
+      "$value": [
+        "Raleway",
+        "Roboto",
+        "sans-serif"
+      ],
+      "$extensions": {
+        "co.russellmarketing.css": "--font-display"
+      }
+    },
+    "body": {
+      "$type": "fontFamily",
+      "$value": [
+        "Roboto",
+        "Segoe UI",
+        "-apple-system",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$extensions": {
+        "co.russellmarketing.css": "--font-body"
+      }
+    }
+  },
+  "duration": {
+    "$type": "duration",
+    "instant": {
+      "$type": "duration",
+      "$value": {
+        "value": 20,
+        "unit": "ms"
+      },
+      "$extensions": {
+        "co.russellmarketing.css": "--duration-instant"
+      }
+    },
+    "fast": {
+      "$type": "duration",
+      "$value": {
+        "value": 150,
+        "unit": "ms"
+      },
+      "$extensions": {
+        "co.russellmarketing.css": "--duration-fast"
+      }
+    },
+    "base": {
+      "$type": "duration",
+      "$value": {
+        "value": 200,
+        "unit": "ms"
+      },
+      "$extensions": {
+        "co.russellmarketing.css": "--duration-base"
+      }
+    }
+  },
+  "cubicBezier": {
+    "$type": "cubicBezier",
+    "ease": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.2,
+        0,
+        0,
+        1
+      ],
+      "$extensions": {
+        "co.russellmarketing.css": "--ease"
+      }
+    }
+  },
+  "zIndex": {
+    "$type": "number",
+    "sticky": {
+      "$type": "number",
+      "$value": 900,
+      "$extensions": {
+        "co.russellmarketing.css": "--z-sticky"
+      }
+    },
+    "dropdown": {
+      "$type": "number",
+      "$value": 1000,
+      "$extensions": {
+        "co.russellmarketing.css": "--z-dropdown"
+      }
+    },
+    "modal": {
+      "$type": "number",
+      "$value": 1100,
+      "$extensions": {
+        "co.russellmarketing.css": "--z-modal"
+      }
+    },
+    "toast": {
+      "$type": "number",
+      "$value": 1200,
+      "$extensions": {
+        "co.russellmarketing.css": "--z-toast"
+      }
+    }
+  },
+  "$themes": {
+    "dark": {
+      "$description": "Applied by ui/dark.css to :root:not([data-theme]) under prefers-color-scheme:dark, and to [data-theme=\"dark\"].",
+      "color": {
+        "surface": {
+          "page": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.0588,
+                0.0667,
+                0.0824
+              ],
+              "alpha": 1,
+              "hex": "#0F1115"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--bg-page"
+            }
+          },
+          "base": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.0902,
+                0.102,
+                0.1333
+              ],
+              "alpha": 1,
+              "hex": "#171A22"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--bg-surface"
+            }
+          },
+          "borderSubtle": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.1882,
+                0.2118,
+                0.2902
+              ],
+              "alpha": 1,
+              "hex": "#30364A"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--border-subtle"
+            }
+          },
+          "dustTint": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.1373,
+                0.1569,
+                0.2196
+              ],
+              "alpha": 1,
+              "hex": "#232838"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--t-dust-12"
+            }
+          }
+        },
+        "text": {
+          "primary": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.9294,
+                0.9373,
+                0.9529
+              ],
+              "alpha": 1,
+              "hex": "#EDEFF3"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--text-primary"
+            }
+          },
+          "secondary": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.7176,
+                0.7451,
+                0.7922
+              ],
+              "alpha": 1,
+              "hex": "#B7BECA"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--text-secondary"
+            }
+          }
+        },
+        "link": {
+          "base": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.7373,
+                0.6549,
+                0.8784
+              ],
+              "alpha": 1,
+              "hex": "#BCA7E0"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--link"
+            }
+          },
+          "hover": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.8431,
+                0.7922,
+                0.949
+              ],
+              "alpha": 1,
+              "hex": "#D7CAF2"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--link-hover"
+            }
+          }
+        },
+        "status": {
+          "success": {
+            "bg": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.0706,
+                  0.1882,
+                  0.102
+                ],
+                "alpha": 1,
+                "hex": "#12301A"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--success-bg"
+              }
+            },
+            "text": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.6078,
+                  0.8784,
+                  0.6588
+                ],
+                "alpha": 1,
+                "hex": "#9BE0A8"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--success-text"
+              }
+            },
+            "border": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.1804,
+                  0.4196,
+                  0.2353
+                ],
+                "alpha": 1,
+                "hex": "#2E6B3C"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--success-border"
+              }
+            }
+          },
+          "warning": {
+            "bg": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.2,
+                  0.1529,
+                  0.0588
+                ],
+                "alpha": 1,
+                "hex": "#33270F"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--warning-bg"
+              }
+            },
+            "text": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.9098,
+                  0.7882,
+                  0.5412
+                ],
+                "alpha": 1,
+                "hex": "#E8C98A"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--warning-text"
+              }
+            },
+            "border": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.4196,
+                  0.3294,
+                  0.1412
+                ],
+                "alpha": 1,
+                "hex": "#6B5424"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--warning-border"
+              }
+            }
+          },
+          "danger": {
+            "bg": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.2078,
+                  0.102,
+                  0.1176
+                ],
+                "alpha": 1,
+                "hex": "#351A1E"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--danger-bg"
+              }
+            },
+            "text": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.9412,
+                  0.6588,
+                  0.6902
+                ],
+                "alpha": 1,
+                "hex": "#F0A8B0"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--danger-text"
+              }
+            },
+            "border": {
+              "$type": "color",
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.4941,
+                  0.2275,
+                  0.2588
+                ],
+                "alpha": 1,
+                "hex": "#7E3A42"
+              },
+              "$extensions": {
+                "co.russellmarketing.css": "--danger-border"
+              }
+            }
+          }
+        },
+        "accent": {
+          "50": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.1412,
+                0.1216,
+                0.1686
+              ],
+              "alpha": 1,
+              "hex": "#241F2B"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--accent-50"
+            }
+          },
+          "100": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.1804,
+                0.1569,
+                0.2157
+              ],
+              "alpha": 1,
+              "hex": "#2E2837"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--accent-100"
+            }
+          },
+          "200": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.2275,
+                0.1961,
+                0.3137
+              ],
+              "alpha": 1,
+              "hex": "#3A3250"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--accent-200"
+            }
+          },
+          "300": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.302,
+                0.251,
+                0.4392
+              ],
+              "alpha": 1,
+              "hex": "#4D4070"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--accent-300"
+            }
+          },
+          "600": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.7373,
+                0.6549,
+                0.8784
+              ],
+              "alpha": 1,
+              "hex": "#BCA7E0"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--accent-600"
+            }
+          },
+          "700": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.6588,
+                0.5804,
+                0.8157
+              ],
+              "alpha": 1,
+              "hex": "#A894D0"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--accent-700"
+            }
+          },
+          "on": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.0588,
+                0.0667,
+                0.0824
+              ],
+              "alpha": 1,
+              "hex": "#0F1115"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--accent-on"
+            }
+          }
+        },
+        "overlay": {
+          "tooltipBorder": {
+            "$type": "color",
+            "$value": {
+              "alpha": 0.18
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--tooltip-border",
+              "co.russellmarketing.derivedFrom": {
+                "base": "color.__white",
+                "alpha": 0.18
+              }
+            },
+            "$description": "White at 18%."
+          },
+          "skeletonSheen": {
+            "$type": "color",
+            "$value": {
+              "alpha": 0.08
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--skeleton-sheen",
+              "co.russellmarketing.derivedFrom": {
+                "base": "color.__white",
+                "alpha": 0.08
+              }
+            },
+            "$description": "White at 8%."
+          },
+          "tableRowAlt": {
+            "$type": "color",
+            "$value": {
+              "alpha": 0.06
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--table-row-alt",
+              "co.russellmarketing.derivedFrom": {
+                "base": "color.brand.dust",
+                "alpha": 0.06
+              }
+            },
+            "$description": "Dust at 6% — follows Dust."
+          },
+          "tableRowHover": {
+            "$type": "color",
+            "$value": {
+              "alpha": 0.14
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--table-row-hover",
+              "co.russellmarketing.derivedFrom": {
+                "base": "color.brand.estrellaTint",
+                "alpha": 0.14
+              }
+            },
+            "$description": "Estrella tint at 14% — follows the tint."
+          },
+          "skeletonBase": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.1373,
+                0.1569,
+                0.2196
+              ],
+              "alpha": 1,
+              "hex": "#232838"
+            },
+            "$extensions": {
+              "co.russellmarketing.css": "--skeleton-base"
+            },
+            "$description": "Dark skeleton ground — matches the dust tint, not Dust itself."
+          }
+        }
+      },
+      "shadow": {
+        "soft": {
+          "$type": "shadow",
+          "$value": [
+            {
+              "color": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ],
+                "alpha": 0.55,
+                "hex": "#000000"
+              },
+              "offsetX": {
+                "value": 0,
+                "unit": "px"
+              },
+              "offsetY": {
+                "value": 1,
+                "unit": "px"
+              },
+              "blur": {
+                "value": 2,
+                "unit": "px"
+              },
+              "spread": {
+                "value": 0,
+                "unit": "px"
+              }
+            },
+            {
+              "color": {
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ],
+                "alpha": 0.35,
+                "hex": "#000000"
+              },
+              "offsetX": {
+                "value": 0,
+                "unit": "px"
+              },
+              "offsetY": {
+                "value": 8,
+                "unit": "px"
+              },
+              "blur": {
+                "value": 24,
+                "unit": "px"
+              },
+              "spread": {
+                "value": 0,
+                "unit": "px"
+              }
+            }
+          ],
+          "$extensions": {
+            "co.russellmarketing.css": "--shadow-soft"
+          }
+        }
+      }
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "soft": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.04,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.06,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 6,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 18,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      ],
+      "$extensions": {
+        "co.russellmarketing.css": "--shadow-soft"
+      }
+    }
+  }
+}

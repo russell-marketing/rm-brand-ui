@@ -84,6 +84,18 @@ Every component is on that page, with density and light/dark/auto toggles.
 Check both themes *and* both paths to dark — OS preference and forced
 `data-theme` — since they are different selectors.
 
+## Tokens are generated
+
+`tokens/rm.tokens.json` is the single source of truth, in
+[W3C Design Tokens format](https://www.designtokens.org/tr/drafts/format/).
+`ui/tokens.css` and `ui/dark.css` are **generated from it** and carry a
+`GENERATED — do not edit` banner.
+
+```bash
+npm run build:tokens     # regenerate after editing the source
+npm test                 # fails if a generated file is stale
+```
+
 ## Design token standard
 
 We audit against the W3C Design Tokens Format Module (2025.10). What matches, what doesn't,

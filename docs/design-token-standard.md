@@ -116,34 +116,69 @@ most worth doing next.
 
 ---
 
-## What real alignment would take
+## The source now exists
 
-Everything above says "output form, by design". That's a good answer only if a **source** form
-exists somewhere. Right now it doesn't: `ui/tokens.css` and `ui/tokens.js` are both hand-written,
-and each is the other's twin rather than either being authoritative.
-
-That's why `npm test` has to check them against each other. The check is a workaround for a
-structural gap.
-
-Genuine alignment looks like this:
+Everything above says "output form, by design". That's only a good answer if a **source** form
+exists. As of this release it does:
 
 ```
-tokens.json  ← DTCG 2025.10 format, the single source
-     │
-     ├──→  tokens.css   (generated)
-     ├──→  tokens.js    (generated)
-     └──→  Figma        (imported directly — this is what the format is for)
+tokens/rm.tokens.json     ← DTCG 2025.10. The single source. Edit this.
+        │
+        ├──→ ui/tokens.css   (generated)
+        ├──→ ui/dark.css     (generated)
+        └──→ Figma           (readable directly — this is what the format is for)
 ```
 
-This is worth doing at the same moment as the `brand-tokens` package, because it solves three
-problems at once:
+```bash
+npm run build:tokens     # regenerate
+npm test                 # fails if the generated files are stale
+```
 
-1. **Drift between `tokens.css` and `tokens.js`** stops being possible — they're built from one file rather than kept in step by a test.
-2. **The `--fw-*` vs `--font-weight-*` split** is decided once, in the source, and both outputs follow.
-3. **Figma can read the file directly**, so the brand guide and the code stop being separate artefacts maintained by hand.
+`ui/tokens.css` and `ui/dark.css` carry a `GENERATED — do not edit` banner. Editing one and
+running `npm test` fails with `STALE`, naming the file.
 
-Until then, `npm test` is the thing standing between us and silent drift, and it should keep
-running on every change.
+### What that fixed immediately
+
+Writing the source surfaced three bugs that were invisible while the values were hand-copied:
+
+| Bug | Effect |
+|---|---|
+| `--rm-dark-text-primary` resolved to `var(--text-primary)` | A circular reference. Both would have been invalid. |
+| `--rm-dark-accent-on` pointed at `--bg-page`, which `dark.css` reassigns | Fragile by luck rather than correct. |
+| Dark `--skeleton-base` resolved to Dust rather than the dust tint | A light sage skeleton on a near-black page. |
+
+### Colour alpha: fixed
+
+The four overlay tokens no longer store a second copy of their base colour. Each records
+**which token it derives from and at what alpha**, and the generator resolves it:
+
+```jsonc
+"tableRowAlt": {
+  "$type": "color",
+  "$value": { "alpha": 0.3 },
+  "$extensions": {
+    "co.russellmarketing.derivedFrom": { "base": "color.brand.dust", "alpha": 0.3 }
+  }
+}
+```
+
+Change Dust in the source and rebuild, and `--table-row-alt` **and** its dark counterpart both
+follow — one edit, four outputs. Previously `rgba(219,230,227,.30)` was connected to `--rm-dust`
+by nothing but a comment.
+
+DTCG colour values have no "reference plus an alpha override", so the relationship lives in
+`$extensions`, which is exactly what the spec provides extensions for.
+
+## Still to do
+
+- **`ui/tokens.js` is still hand-written.** It carries JS-only groups the CSS has no equivalent
+  for — the chart palettes, score colours and slider detail. Until it is generated too,
+  `npm test`'s parity check is what keeps it honest.
+- **`--fw-*` vs `--font-weight-*`** is still unresolved between this package and the website
+  handoff. Decide it in the source when `brand-tokens` is created, and both outputs follow.
+- **Names that describe the value rather than the brand.** The website handoff has `--bg-sage`,
+  which is Dust under a second name. Brand colours should travel under their brand names
+  everywhere; a token called `sage` makes a second vocabulary for the same palette.
 
 ---
 
