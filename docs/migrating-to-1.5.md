@@ -67,6 +67,13 @@ package, follow RULES.md rule 12: `npx rm-brand-copy <dir>` copies the
 system's CSS in, and `npx rm-brand-copy <dir> --check` keeps it current.
 The audit skips those copies.
 
+## 1.5.2: links styled as buttons
+
+`<a class="btn …">` no longer picks up link colours or the link underline.
+Before, a primary link-button turned dark purple on hover and was
+unreadable. Delete any local `a.btn` fix (e.g. in `ds-candidates.css`). MUI
+apps get the same fix for `<Button href>`.
+
 ## What looks different after upgrading
 
 Small changes to classes that already existed:

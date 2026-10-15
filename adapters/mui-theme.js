@@ -166,9 +166,11 @@ export function getRMThemeConfig() {
     components: {
       MuiCssBaseline: {
         styleOverrides: {
-          a: {
+          // Not on MUI buttons rendered as links (<Button href>): link colours
+          // would win on hover and put dark purple on the button.
+          'a:where(:not(.MuiButtonBase-root))': {
             color: tokens.link.default,
-            textDecorationOffset: '3px',
+            textUnderlineOffset: '3px',
             '&:hover': {
               color: tokens.link.hover,
             },
