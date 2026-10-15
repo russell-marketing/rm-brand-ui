@@ -7,8 +7,11 @@ body { margin:0; font:inherit; }
 *,*::before,*::after{ box-sizing:border-box; }
 button,input,select,textarea{ font:inherit; color:inherit; }
 h1,h2,h3,h4,h5,h6{ font-family: var(--font-display, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif); }
-a{ color: var(--link,#5A4286); text-underline-offset:3px; }
-a:hover{ color: var(--link-hover,#4B386F); }
+/* Links. :where() keeps these as weak as a bare `a`, so a class an app puts
+ * on a link still wins, and a link styled as a .btn never gets link colours
+ * (they used to win on hover: dark purple on a blue button). */
+a:where(:not(.btn)){ color: var(--link,#5A4286); text-underline-offset:3px; }
+a:where(:not(.btn)):hover{ color: var(--link-hover,#4B386F); }
 
 /* Head/table caps */
 h3,.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-caps,.5px); font-weight:var(--fw-extrabold,800); }
@@ -22,6 +25,7 @@ h3,.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-c
   background: var(--bg-surface,#fff);
   color: var(--text-primary,#111);
   font-weight:600;
+  text-decoration:none;
   box-shadow: var(--shadow-soft, 0 1px 2px rgba(0,0,0,.04));
   transition: background var(--duration-fast) ease, transform var(--duration-instant) ease;
 }
