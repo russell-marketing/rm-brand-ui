@@ -1,361 +1,114 @@
-# Claude Instructions & Project Learnings
+# rm-brand-ui: instructions for Claude
 
-## Project Overview
+**rm-brand-ui** is Russell Marketing's design system for RM's own software:
+internal dashboards, data-entry forms, the client portal. It ships tokens,
+CSS, React components and an MUI theme as one package,
+`@russell-marketing/brand-ui`. The repo is **public**: no client names, team
+names, credentials or internal URLs in anything committed here.
 
-**rm-brand-ui** is Russell Marketing's comprehensive design system that provides styling solutions for ANY framework (React, Vue, vanilla JS, etc.). It's **not** just a CSS library - it's a multi-layered style system.
+## Two jobs
 
-## Key Architectural Principle
+1. **Be the design authority.** Apps rely on this system to do their design
+   thinking, so it sets rules and they follow (decision 0003). When an app
+   asks for something, design it on this system's conventions, even if the
+   app has to rename or adjust. Never adopt an app's local names or values
+   because they already exist.
+2. **Help apps comply.** [RULES.md](RULES.md) is the rulebook,
+   `npx rm-brand-audit` ([scripts/audit.mjs](scripts/audit.mjs)) checks an
+   app against it, and `docs/migrating-to-<version>.md` maps old patterns to
+   new ones for each release.
 
-**The repo is `rm-brand-ui`, not `rm-brand-styles` or `rm-css`, for a reason**: it ships tokens, CSS,
-React components and framework adapters — a UI kit, not a stylesheet. The `ui` in the name
-distinguishes it from future siblings such as a website-styles package; `rm-` is the GitHub
-spelling of the npm scope `@russell-marketing/`.
+A change to the rules updates all three: RULES.md, the audit, the migration
+guide.
 
-### The Three Layers
+## What ships, and where it lives
 
-When implementing any new component, always create **all three layers**:
+| Layer | Where | When |
+|---|---|---|
+| Tokens | `tokens/rm.tokens.json` (source, W3C DTCG) → generated `ui/tokens.css` + `ui/dark.css`; hand-written `ui/tokens.js` + `ui/tokens.d.ts` | Every value |
+| CSS | `ui/core.css`, `ui/components/*.css`, imported by `ui/rm-ui.entry.css` | Every component, always |
+| MUI theme | `adapters/mui-theme.js` (reads `tokens.js`) | When MUI has a matching control |
+| React | `components/react/*.jsx` + `.d.ts` | Only when there is behaviour to share |
 
-1. **CSS for Native HTML** (`ui/components/*.css`)
-   - Framework-agnostic
-   - Uses BEM-like naming (`.component`, `.component__element`, `.component--modifier`)
-   - Uses CSS custom properties from `tokens.css`
-   - Works with vanilla JS, any framework
+**React components depend on React only, never MUI** (decision 0002). They
+render the CSS classes, ship a `.d.ts`, and have a behaviour test in
+`scripts/test-components.mjs`. `SliderWithLabel` and `RateField` predate
+this and wrap MUI; they are MUI-only.
 
-2. **React Components** (`components/react/*.jsx`)
-   - Wraps framework components (like MUI) with RM brand structure
-   - Provides proper semantic grouping and accessibility
-   - Uses RM tokens via CSS variables
-   - Exports via package.json for easy import
+## Adding or changing a component
 
-3. **Framework Adapters** (`adapters/*.js`)
-   - Theme configuration for specific frameworks (MUI, Chakra, etc.)
-   - Maps RM tokens to framework APIs
-   - Allows any app using that framework to instantly adopt RM styling
-   - Reusable across multiple apps
+1. **Tokens first.** Add to `tokens/rm.tokens.json` (with a
+   `co.russellmarketing.css` name), run `npm run build:tokens`, mirror in
+   `ui/tokens.js` and `ui/tokens.d.ts`, add the pair to the parity list and,
+   for colours, a contrast check in `scripts/verify-tokens.mjs`. A new token
+   group also needs a section in `scripts/build-tokens.mjs`, or it is not
+   written out.
+2. **CSS** in `ui/components/<name>.css`, BEM naming
+   (`.block__element--modifier`), named by **meaning** (`--warn`, `--neutral`),
+   never by look (`--ghost`, `--yellow`). Import it in `ui/rm-ui.entry.css`:
+   a file not imported there ships to nobody.
+3. **Sizes go through tokens.** A size modifier swaps tokens
+   (`--control-h: var(--control-h-sm)`), never sets `height` directly, because
+   `utilities.css` and density scopes set dimensions from the tokens.
+4. **MUI theme** mapping, if MUI has the control.
+5. **React component**, only if there is behaviour. Hooks before any early
+   return. Export it in `package.json` with `types` and `default` conditions.
+6. **demo.html** example. Fake, generic data only (public repo).
+7. **RULES.md** if the component brings a usage rule (badge vs tag, which
+   button). **The audit** if the rule can be checked. **The migration guide**
+   if apps have local versions to replace.
+8. `npm test` and look at demo.html in **both** themes.
 
-## Repository Structure
+## Standards every component meets
 
-```
-rm-brand-ui/
-├── ui/                           # Core CSS & design tokens
-│   ├── tokens.css                # CSS custom properties
-│   ├── tokens.js                 # JS token exports
-│   ├── core.css                  # Base styles
-│   ├── components/               # Component CSS
-│   │   ├── slider.css
-│   │   ├── table.css
-│   │   └── ...
-│   └── rm-ui.entry.css           # Main CSS bundle
-├── adapters/                     # Framework theme adapters
-│   ├── mui-theme.js              # Material-UI theme
-│   └── chakra-theme.js           # (future) Chakra UI theme
-├── components/                   # Framework-specific components
-│   ├── react/
-│   │   ├── SliderWithLabel.jsx
-│   │   └── ...
-│   └── vue/                      # (future)
-├── demo.html                     # Live component demos
-└── package.json                  # Exports & peer dependencies
-```
+- **No hard-coded design values.** Colours, sizes, radii, spacing from
+  tokens. In JS, CSS variables carry a fallback:
+  `var(--slider-label-gap, 1.5rem)`.
+- **Brand colours are not text colours**, except on a brand background (Moon
+  on Space). Text uses role tokens that flip in dark mode.
+- **Contrast:** text 4.5:1, graphics (stars, icons, focus rings) 3:1, in
+  both themes. `npm test` checks token pairs.
+- **Hit targets:** at least `--hit-min` (24px).
+- **Semantics carry the styling** where they can: the sort arrow is drawn
+  from `aria-sort`, so correct markup is the only way to get the look.
+- **Changing an existing class's look** is allowed in a minor release only
+  to fix a bug or move a value onto a token. List it under "What looks
+  different" in the migration guide. Anything bigger waits for 2.0.
 
-## Package.json Configuration
+## Releasing
 
-### Peer Dependencies
+- `package.json` version, then a tag `vX.Y.Z` on `main` after the PR merges.
+  Apps depend on `#semver:^1.x`, so the tag is what they receive.
+- Additions and fixes: minor. Removals or renames: 2.0 only, with
+  deprecations announced in RULES.md or the migration guide first.
+- Write `docs/migrating-to-X.Y.md` for every minor release.
 
-Always mark framework dependencies as **peer dependencies** (not regular dependencies):
-
-```json
-"peerDependencies": {
-  "react": "^18.0.0 || ^19.0.0",
-  "@mui/material": "^5.0.0 || ^6.0.0"
-},
-"peerDependenciesMeta": {
-  "react": { "optional": true },
-  "@mui/material": { "optional": true }
-}
-```
-
-This keeps the package flexible - users install their own framework versions.
-
-### Exports
-
-Structure exports so consumers can import only what they need:
-
-```json
-"exports": {
-  "./styles": "./ui/rm-ui.entry.css",
-  "./tokens.js": "./ui/tokens.js",
-  "./adapters/mui-theme": "./adapters/mui-theme.js",
-  "./react/SliderWithLabel": "./components/react/SliderWithLabel.jsx"
-}
-```
-
-## Design Token Philosophy
-
-**DRY (Don't Repeat Yourself)**: All values come from tokens, never hardcoded.
-
-### Token Hierarchy
-
-1. **Base tokens** (`tokens.css`, `tokens.js`) - Brand colors, spacing, fonts
-2. **Component tokens** - Specific to components (e.g., `--slider-label-gap`)
-3. **Framework mapping** - Adapters map tokens to framework APIs
-
-### Example: Slider Tokens
-
-```javascript
-// In tokens.js
-slider: {
-  thumbWidth: '20px',
-  thumbHeight: '20px',
-  thumbBackgroundColor: '#7A64A0',  // RM Galaxy
-  trackHeight: '8px',
-  marginTop: '1.5rem',
-  paddingLeft: '2rem',
-  // ... all slider-specific values
-}
-```
-
-Then use in:
-- **CSS**: `var(--slider-label-gap)`
-- **React**: `gap: 'var(--slider-label-gap, 1.5rem)'`
-- **MUI adapter**: `tokens.slider.thumbBackgroundColor`
-
-## Implementation Pattern: Adding a New Component
-
-### Example: Adding a "Badge" component
-
-1. **Create CSS** (`ui/components/badge.css`):
-```css
-.badge {
-  display: inline-flex;
-  padding: var(--space-1) var(--space-2);
-  background: var(--rm-galaxy);
-  color: var(--rm-moon);
-  border-radius: var(--radius-s);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-semibold);
-}
-```
-
-2. **Create React Component** (`components/react/Badge.jsx`):
-```jsx
-export function Badge({ children, variant = 'default', ...props }) {
-  return (
-    <span className={`badge badge--${variant}`} {...props}>
-      {children}
-    </span>
-  );
-}
-```
-
-3. **Add to MUI Adapter** (`adapters/mui-theme.js`):
-```javascript
-components: {
-  MuiBadge: {
-    styleOverrides: {
-      root: {
-        backgroundColor: tokens.colors.galaxy,
-        color: tokens.colors.moon,
-      }
-    }
-  }
-}
-```
-
-4. **Update Exports** (`package.json`):
-```json
-"./react/Badge": "./components/react/Badge.jsx"
-```
-
-5. **Add to Demo** (`demo.html`):
-```html
-<span class="badge">New</span>
-<span class="badge badge--success">Active</span>
-```
-
-## Integration with Consumer Apps
-
-### Example: rm-internal-interface-front
-
-**Import the MUI theme adapter:**
-```javascript
-import { getRMThemeConfig } from '@russell-marketing/brand-ui/adapters/mui-theme';
-
-const baseConfig = getRMThemeConfig();
-const theme = extendTheme({
-  ...baseConfig,
-  // App-specific overrides here
-});
-```
-
-**Import React components:**
-```javascript
-import SliderWithLabel from '@russell-marketing/brand-ui/react/SliderWithLabel';
-
-<SliderWithLabel
-  label="Amount Raised"
-  value={amount}
-  onChange={setAmount}
-  min={0}
-  max={10000000}
-/>
-```
-
-**Import CSS for vanilla usage:**
-```html
-<link rel="stylesheet" href="./node_modules/@russell-marketing/brand-ui/ui/rm-ui.entry.css">
-```
-
-## Common Patterns & Best Practices
-
-### 1. Label-Component Grouping
-
-Always group labels with their controls as a semantic unit:
-
-```jsx
-// ✅ Good - grouped with explicit gap
-<Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--slider-label-gap)' }}>
-  <Typography component="label">Amount</Typography>
-  <Slider value={amount} />
-</Box>
-
-// ❌ Bad - separate, relying on implicit spacing
-<Typography>Amount</Typography>
-<Slider value={amount} />
-```
-
-### 2. CSS Variable Fallbacks
-
-Always provide fallbacks when using CSS variables in JS:
-
-```javascript
-// ✅ Good
-gap: 'var(--slider-label-gap, 1.5rem)'
-
-// ❌ Bad - breaks if variable is undefined
-gap: 'var(--slider-label-gap)'
-```
-
-### 3. Component Props
-
-Make components flexible but opinionated:
-
-```jsx
-export function SliderWithLabel({
-  label,
-  value,
-  onChange,
-  min,
-  max,
-  step = 1,                          // Sensible defaults
-  valueLabelDisplay = 'auto',        // Sensible defaults
-  sliderProps = {},                  // Escape hatch for advanced use
-  sx = {},                           // Allow style overrides
-  ...otherProps                      // Forward remaining props
-}) {
-  // ...
-}
-```
-
-### 4. Documentation
-
-Always include JSDoc comments with examples:
-
-```jsx
-/**
- * SliderWithLabel - A slider component with proper label-slider grouping
- *
- * @param {string} props.label - The label text
- * @param {number} props.value - The slider value
- *
- * @example
- * ```jsx
- * <SliderWithLabel
- *   label="Amount Raised"
- *   value={amount}
- *   onChange={setAmount}
- *   min={0}
- *   max={10000000}
- * />
- * ```
- */
-```
-
-## Testing Checklist
-
-When adding new components/features:
-
-- [ ] CSS works standalone in demo.html
-- [ ] React component imports correctly
-- [ ] MUI adapter applies styling to MUI components
-- [ ] Tokens are used (no hardcoded values)
-- [ ] Package.json exports are updated
-- [ ] JSDoc documentation is complete
-- [ ] Demo.html shows all variants
-- [ ] Works in consuming app (rm-internal-interface-front)
-
-## Git Workflow
-
-### Linking for Development
+## Testing
 
 ```bash
-# In rm-brand-ui
-npm link
-
-# In consuming app
-npm link @russell-marketing/brand-ui
-
-# Or using file: reference in package.json
-"@russell-marketing/brand-ui": "file:../rm-brand-ui"
+npm test            # tokens generated + parity + contrast, then component behaviour
+npm run dev         # demo.html: check light, dark and forced data-theme
+node scripts/audit.mjs ../some-app   # run the audit against a local app
 ```
 
-### When to Commit
+To try a change in an app before release: `npm pack`, then
+`npm install /path/to/russell-marketing-brand-ui-X.Y.Z.tgz` in the app. This
+installs what a git install delivers, unlike `npm link`.
 
-Commit when:
-- A complete layer is finished (CSS + React + Adapter)
-- All three layers are updated together
-- Demo.html is updated with examples
-- Consumer app is updated and tested
+## Peer dependencies
 
-## Key Learnings from Slider Implementation
+`react` and `@mui/material` are optional peer dependencies: pure-CSS apps
+install neither. Test-only packages (esbuild, jsdom, react, react-dom) are
+devDependencies and never reach apps.
 
-### What Was Wrong Before
+## Planned for 2.0
 
-1. **Assumption Error**: Assumed it was CSS-only because I saw CSS files, ignored the repo name
-2. **Incomplete Implementation**: Created only CSS layer, didn't create React component or MUI adapter
-3. **Wrong Question**: Should have asked "which layers do you want?" instead of assuming
+- Remove `.pill` and the `badge.css` import inside `table.css`.
+- Move app-specific selectors out of `ui/utilities.css`
+  (`.template-controls-group`, `.action-section`, `.modal-container`).
+- Put the table's 10px radius on the radius scale.
+- Decide whether `core.css` keeps styling bare `label`, `h3` and `a`.
+- Decide the future of the MUI-wrapped `SliderWithLabel` and `RateField`.
 
-### What Fixed Everything
-
-1. **Multi-layer approach**: Creating CSS + React component + MUI adapter
-2. **Proper grouping**: Label and slider wrapped in explicit container with token-based gap
-3. **DRY principle**: All styling comes from tokens, no duplication between theme files
-4. **Reusability**: MUI apps can now import theme config instead of duplicating it
-
-### Architecture Benefits
-
-- **Single source of truth**: rm-brand-ui defines everything
-- **Framework flexibility**: Can add Chakra, Tailwind, Vue adapters without changing core
-- **Consistent UX**: All apps using RM tokens look and feel the same
-- **Easy updates**: Change a token in one place, updates everywhere
-
-## Questions to Ask When Starting New Work
-
-1. **What framework is the consumer app using?** (React/MUI, Vue/Vuetify, vanilla, etc.)
-2. **Do all three layers exist?** (CSS, React component, framework adapter)
-3. **Are the tokens defined?** (Check tokens.js for component-specific tokens)
-4. **Is it properly exported?** (Check package.json exports)
-5. **Does the demo show it?** (demo.html should have live examples)
-
-## Future Expansion Ideas
-
-- `adapters/chakra-theme.js` - Chakra UI theme
-- `adapters/tailwind.config.js` - Tailwind config
-- `components/vue/` - Vue components
-- `components/svelte/` - Svelte components
-- Dark mode tokens expansion
-- Animation tokens and utilities
-
----
-
-**Remember**: This is a **design system**, not just a CSS library. Always think in terms of "How can this work across ALL frameworks?" rather than "How do I style this one component?"
+Not tied to 2.0: the MUI theme needs a dark colour scheme, so MUI apps can
+follow the dark-mode rule.

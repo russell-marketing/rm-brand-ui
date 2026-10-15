@@ -5,6 +5,14 @@ utilities, usable from plain HTML, React/MUI, or any other framework.
 
 Published as `@russell-marketing/brand-ui`.
 
+**Building an app with it? Read [RULES.md](RULES.md) first**, and run
+`npx rm-brand-audit` in your app to check it. Upgrading from an older
+version: [docs/migrating-to-1.5.md](docs/migrating-to-1.5.md).
+
+```json
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.5.0"
+```
+
 ## Using it
 
 ```js
@@ -16,6 +24,9 @@ import { getRMThemeConfig } from "@russell-marketing/brand-ui/adapters/mui-theme
 
 // 3. Tokens as JS, for charts and anything CSS cannot reach
 import { tokens, darkTokens } from "@russell-marketing/brand-ui/tokens.js";
+
+// 4. React components with behaviour (React only, no MUI needed)
+import { Rating } from "@russell-marketing/brand-ui/react/Rating";
 ```
 
 ## Dark mode
@@ -35,8 +46,10 @@ ever stop assigning the same list.
 
 ## Verifying your changes
 
-**`npm test` is the one to run.** It is
-[`scripts/verify-tokens.mjs`](scripts/verify-tokens.mjs), and it checks:
+**`npm test` is the one to run.** It checks that the generated token files
+match their source, runs [`scripts/verify-tokens.mjs`](scripts/verify-tokens.mjs),
+then drives each React component in
+[`scripts/test-components.mjs`](scripts/test-components.mjs). The token checks:
 
 1. **Every `var(--x)` with no fallback resolves to a real definition.** This is
    the big one. A `var()` pointing at an undefined custom property with no
@@ -99,16 +112,14 @@ npm test                 # fails if a generated file is stale
 ## Design token standard
 
 We audit against the W3C Design Tokens Format Module (2025.10). What matches, what doesn't,
-and why, is in [`docs/design-token-standard.md`](docs/design-token-standard.md) — including
-the one real gap (colours with baked-in alpha) and what a generated `tokens.json` source
-would fix.
+and why, is in [`docs/design-token-standard.md`](docs/design-token-standard.md).
 
 ## Adding a component
 
-See [`claude.md`](claude.md) for the full pattern. In short: CSS in
-`ui/components/`, React in `components/react/`, framework mapping in
-`adapters/`, tokens in **both** `ui/tokens.css` and `ui/tokens.js`, an example
-in `demo.html`, and an entry in `ui/rm-ui.entry.css` — a component stylesheet
-that is not imported there ships to nobody using the bundle.
+See [`CLAUDE.md`](CLAUDE.md) for the full pattern: tokens in the source file,
+CSS in `ui/components/` imported by `ui/rm-ui.entry.css`, the MUI theme where
+MUI has the control, a React component only when there is behaviour to share,
+a `demo.html` example, and RULES.md / audit / migration-guide updates when the
+component brings a usage rule.
 
 Then run `npm test`.

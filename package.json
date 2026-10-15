@@ -5,6 +5,9 @@
   "type": "module",
   "main": "ui/rm-ui.entry.js",
   "style": "ui/rm-ui.entry.css",
+  "bin": {
+    "rm-brand-audit": "scripts/audit.mjs"
+  },
   "exports": {
     ".": {
       "import": "./ui/rm-ui.entry.js",
@@ -37,7 +40,8 @@
     "adapters/**/*",
     "components/**/*",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "RULES.md"
   ],
   "peerDependencies": {
     "@mui/material": "^5.0.0 || ^6.0.0 || ^7.0.0",
