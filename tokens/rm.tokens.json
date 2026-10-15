@@ -163,6 +163,14 @@
         "$extensions": {
           "co.russellmarketing.css": "--text-primary"
         }
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{color.brand.space}",
+        "$description": "Brand-blue text. Use instead of --rm-space for text; it flips in dark.",
+        "$extensions": {
+          "co.russellmarketing.css": "--text-brand"
+        }
       }
     },
     "link": {
@@ -637,6 +645,24 @@
         "hex": "#FFFFFF"
       },
       "$description": "Pure white. Only as an overlay base — never as a surface; use Moon."
+    },
+    "rating": {
+      "on": {
+        "$type": "color",
+        "$value": "{color.accent.600}",
+        "$description": "A chosen star.",
+        "$extensions": {
+          "co.russellmarketing.css": "--rating-on"
+        }
+      },
+      "off": {
+        "$type": "color",
+        "$value": "{color.text.secondary}",
+        "$description": "An unchosen star.",
+        "$extensions": {
+          "co.russellmarketing.css": "--rating-off"
+        }
+      }
     }
   },
   "dimension": {
@@ -773,9 +799,42 @@
         "$extensions": {
           "co.russellmarketing.css": "--fs-xl"
         }
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.5,
+          "unit": "rem"
+        },
+        "$description": "Stat values.",
+        "$extensions": {
+          "co.russellmarketing.css": "--fs-2xl"
+        }
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2,
+          "unit": "rem"
+        },
+        "$description": "Page titles.",
+        "$extensions": {
+          "co.russellmarketing.css": "--fs-3xl"
+        }
       }
     },
     "radius": {
+      "xs": {
+        "$type": "dimension",
+        "$value": {
+          "value": 4,
+          "unit": "px"
+        },
+        "$description": "Icons and thumbnails.",
+        "$extensions": {
+          "co.russellmarketing.css": "--radius-xs"
+        }
+      },
       "s": {
         "$type": "dimension",
         "$value": {
@@ -816,6 +875,27 @@
         },
         "$extensions": {
           "co.russellmarketing.css": "--control-pad-x"
+        }
+      },
+      "heightSm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "$description": "Controls inside table rows.",
+        "$extensions": {
+          "co.russellmarketing.css": "--control-h-sm"
+        }
+      },
+      "padXSm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--control-pad-x-sm"
         }
       }
     },
@@ -894,6 +974,38 @@
         },
         "$extensions": {
           "co.russellmarketing.css": "--ls-caps"
+        }
+      }
+    },
+    "table": {
+      "cellPadY": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--table-cell-py"
+        }
+      },
+      "cellPadX": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--table-cell-px"
+        }
+      },
+      "headPadY": {
+        "$type": "dimension",
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "$extensions": {
+          "co.russellmarketing.css": "--table-head-py"
         }
       }
     }
@@ -1143,6 +1255,23 @@
             },
             "$extensions": {
               "co.russellmarketing.css": "--text-secondary"
+            }
+          },
+          "brand": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.7137,
+                0.7529,
+                0.8392
+              ],
+              "alpha": 1,
+              "hex": "#B6C0D6"
+            },
+            "$description": "10.35:1 on the dark page.",
+            "$extensions": {
+              "co.russellmarketing.css": "--text-brand"
             }
           }
         },
@@ -1654,6 +1783,17 @@
       ],
       "$extensions": {
         "co.russellmarketing.css": "--shadow-soft"
+      }
+    }
+  },
+  "opacity": {
+    "$type": "number",
+    "disabled": {
+      "$type": "number",
+      "$value": 0.6,
+      "$description": "Disabled controls.",
+      "$extensions": {
+        "co.russellmarketing.css": "--opacity-disabled"
       }
     }
   }

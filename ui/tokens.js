@@ -25,6 +25,13 @@ export const tokens = {
   text: {
     primary: '#18191E',
     secondary: '#4B5163',
+    brand: '#2D334D',       // --text-brand: brand-blue text that flips in dark
+  },
+
+  // Rating stars
+  rating: {
+    on: '#7A64A0',          // --rating-on = accent 600
+    off: '#4B5163',         // --rating-off = secondary text
   },
 
   // Type scale
@@ -34,6 +41,8 @@ export const tokens = {
     md: '1rem',
     lg: '1.125rem',
     xl: '1.25rem',
+    '2xl': '1.5rem',        // stat values
+    '3xl': '2rem',          // page titles
   },
 
   // Spacing
@@ -123,6 +132,7 @@ export const tokens = {
 
   // Border radius
   radius: {
+    xs: '4px',              // icons and thumbnails
     s: '6px',
     m: '8px',
   },
@@ -131,6 +141,19 @@ export const tokens = {
   control: {
     height: '40px',
     paddingX: '14px',
+    heightSm: '28px',       // controls inside table rows
+    paddingXSm: '10px',
+  },
+
+  // Table cell padding; .table--compact swaps these for --space-2
+  table: {
+    cellPadY: '12px',
+    cellPadX: '12px',
+    headPadY: '10px',
+  },
+
+  opacity: {
+    disabled: 0.6,
   },
 
   // Status colors
@@ -279,6 +302,12 @@ export const darkTokens = {
   text: {
     primary: '#EDEFF3',
     secondary: '#B7BECA',
+    brand: '#B6C0D6',
+  },
+
+  rating: {
+    on: '#BCA7E0',
+    off: '#B7BECA',
   },
 
   border: {
