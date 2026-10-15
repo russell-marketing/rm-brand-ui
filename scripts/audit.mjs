@@ -88,11 +88,14 @@ const pieceImports = [];
 for (const file of files) {
   const rel = relative(appRoot, file);
   if (/ds-candidates\.css$/.test(rel)) continue; // the sanctioned place for rule-3 work
+  const text = readFileSync(file, 'utf8');
+  // A copy made by rm-brand-copy is the system's own CSS, not the app's (rule 12).
+  if (text.slice(0, 300).includes('rm-brand-copy:')) continue;
   const isCss = /\.s?css$/.test(file);
   // In a CSS Module a bare .badge is local to that file; only :global(.x)
   // reaches a system class.
   const isModule = /\.module\.s?css$/.test(file);
-  const lines = readFileSync(file, 'utf8').split('\n');
+  const lines = text.split('\n');
   // In JS files only look inside CSS-ish text: <style> template blocks,
   // style={{...}} objects and sx props. Everything in a .css file counts.
   let inStyleBlock = false;
