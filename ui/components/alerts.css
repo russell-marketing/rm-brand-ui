@@ -1,4 +1,4 @@
-/* ui/components.alerts.css */ 
+/* ui/components/alerts.css */
 
 .alert{
   padding:12px 14px; border-radius:var(--radius-m); border:1px solid var(--border-subtle);
@@ -18,4 +18,18 @@
   background: var(--danger-bg); color: var(--danger-text);
   border: 1px solid var(--danger-border);
   font-weight:600;
+}
+
+/* Accent: a question or prompt the person should answer ("Did you send it?").
+ * Not a status, so not bold, and never role="alert". */
+.alert--accent{
+  background: var(--accent-surface); color: var(--text-primary);
+  border: 1px solid var(--accent-border);
+}
+
+/* Small: inside a table row or a tight panel. Works with every variant. */
+.alert--sm{
+  padding: var(--space-2);
+  border-radius: var(--radius-s);
+  font-size: var(--fs-sm);
 }

@@ -18,6 +18,7 @@
   --rm-dark-t-dust-12: #232838;
   --rm-dark-text-primary: #EDEFF3;
   --rm-dark-text-secondary: #B7BECA;
+  --rm-dark-text-brand: #B6C0D6;               /* 10.35:1 on the dark page. */
   --rm-dark-link: #BCA7E0;
   --rm-dark-link-hover: #D7CAF2;
   --rm-dark-success-bg: #12301A;
@@ -53,6 +54,7 @@
     --t-dust-12:         var(--rm-dark-t-dust-12);
     --text-primary:      var(--rm-dark-text-primary);
     --text-secondary:    var(--rm-dark-text-secondary);
+    --text-brand:        var(--rm-dark-text-brand);
     --link:              var(--rm-dark-link);
     --link-hover:        var(--rm-dark-link-hover);
     --success-bg:        var(--rm-dark-success-bg);
@@ -91,6 +93,7 @@
   --t-dust-12:         var(--rm-dark-t-dust-12);
   --text-primary:      var(--rm-dark-text-primary);
   --text-secondary:    var(--rm-dark-text-secondary);
+  --text-brand:        var(--rm-dark-text-brand);
   --link:              var(--rm-dark-link);
   --link-hover:        var(--rm-dark-link-hover);
   --success-bg:        var(--rm-dark-success-bg);

@@ -1,5 +1,9 @@
 /* ui/components/table.css */
 
+/* Badges used to live here. Kept as an import so an app that loads only
+ * table.css still gets them; removed in 2.0. Load rm-ui.entry.css instead. */
+@import "./badge.css";
+
 /* Table shell */
 .table{
   width:100%;
@@ -13,7 +17,7 @@
 /* Head */
 .table thead th{
   text-align:left;
-  padding:10px 12px;
+  padding: var(--table-head-py) var(--table-cell-px);
   background: var(--rm-space);
   color: var(--rm-moon);
   border-bottom: 2px solid var(--rm-galaxy);
@@ -25,7 +29,7 @@
 
 /* Body */
 .table tbody td{
-  padding:12px;
+  padding: var(--table-cell-py) var(--table-cell-px);
   border-bottom:1px solid var(--border-subtle);
 }
 
@@ -48,22 +52,24 @@
   }
 }
 
-/* Chips: keep both classnames for compatibility */
-.pill,
-.badge{
-  display:inline-flex; align-items:center; height:24px;
-  align-items:center;
-  height:24px;
-  padding:0 10px; border-radius:999px;
-  background: var(--accent-surface);
-  color: var(--accent-ink);
-  border: 1px solid var(--accent-border);
-  font-weight: var(--fw-bold); font-size: 12px;      /* size can be tokenized later as --fs-xs */
-  text-transform: uppercase;
-  letter-spacing:.3px;
+/* Compact: for tables people scan rather than read. Same columns, less air. */
+.table--compact{
+  --table-cell-py: var(--space-2);
+  --table-head-py: var(--space-2);
 }
 
-/* Optional status tint variants using Galaxy color ramp */
-.badge--new   { background: var(--accent-100); }
-.badge--ready { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
-.badge--warn  { background: var(--warning-bg);    border-color: var(--warning-border);    color: var(--warning-text); }
+/* Sortable header: <th aria-sort="..."><button class="table__sort">.
+ * The arrow is drawn from the th's aria-sort, so a header that screen
+ * readers can't read as sorted shows no arrow either. One th may hold two
+ * sort buttons ("Campaign · Newest"); --active marks the one in use. */
+.table__sort{
+  all:unset;
+  cursor:pointer;
+  white-space:nowrap;
+  color:inherit;
+}
+.table__sort:hover,
+.table__sort--active{ text-decoration:underline; text-underline-offset:3px; }
+.table__sort:focus-visible{ outline:2px solid currentColor; outline-offset:2px; border-radius: var(--radius-xs); }
+.table th[aria-sort="descending"] .table__sort--active::after{ content:" \25BE"; content:" \25BE" / ""; }
+.table th[aria-sort="ascending"]  .table__sort--active::after{ content:" \25B4"; content:" \25B4" / ""; }

@@ -1,10 +1,13 @@
 {
   "name": "@russell-marketing/brand-ui",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
   "style": "ui/rm-ui.entry.css",
+  "bin": {
+    "rm-brand-audit": "scripts/audit.mjs"
+  },
   "exports": {
     ".": {
       "import": "./ui/rm-ui.entry.js",
@@ -24,7 +27,11 @@
     "./components/*": "./ui/components/*.css",
     "./adapters/mui-theme": "./adapters/mui-theme.js",
     "./react/SliderWithLabel": "./components/react/SliderWithLabel.jsx",
-    "./react/RateField": "./components/react/RateField.jsx"
+    "./react/RateField": "./components/react/RateField.jsx",
+    "./react/Rating": {
+      "types": "./components/react/Rating.d.ts",
+      "default": "./components/react/Rating.jsx"
+    }
   },
   "files": [
     "ui/**/*",
@@ -33,11 +40,13 @@
     "adapters/**/*",
     "components/**/*",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "RULES.md",
+    "docs/migrating-*.md"
   ],
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "@mui/material": "^5.0.0 || ^6.0.0 || ^7.0.0"
+    "@mui/material": "^5.0.0 || ^6.0.0 || ^7.0.0",
+    "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
     "react": {
@@ -64,10 +73,14 @@
   "scripts": {
     "dev": "npx http-server -p 3000 -o demo.html",
     "build:tokens": "node scripts/build-tokens.mjs",
-    "test": "node scripts/build-tokens.mjs --check && node scripts/verify-tokens.mjs"
+    "test": "node scripts/build-tokens.mjs --check && node scripts/verify-tokens.mjs && node scripts/test-components.mjs"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "esbuild": "^0.25.10",
+    "http-server": "^14.1.1",
+    "jsdom": "^26.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "types": "ui/tokens.d.ts"
 }

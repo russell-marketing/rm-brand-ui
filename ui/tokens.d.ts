@@ -21,7 +21,10 @@ export interface Tokens {
   text: {
     primary: string;
     secondary: string;
+    brand: string;
   };
+
+  rating: { on: string; off: string };
 
   fontSize: {
     xs: string;
@@ -29,6 +32,8 @@ export interface Tokens {
     md: string;
     lg: string;
     xl: string;
+    '2xl': string;
+    '3xl': string;
   };
 
   spacing: {
@@ -155,6 +160,7 @@ export interface Tokens {
   };
 
   radius: {
+    xs: string;
     s: string;
     m: string;
   };
@@ -162,7 +168,13 @@ export interface Tokens {
   control: {
     height: string;
     paddingX: string;
+    heightSm: string;
+    paddingXSm: string;
   };
+
+  table: { cellPadY: string; cellPadX: string; headPadY: string };
+
+  opacity: { disabled: number };
 
   shadow: {
     soft: string;
@@ -232,7 +244,8 @@ export interface Tokens {
 /** Dark-theme overrides. Mirrors the --rm-dark-* block in ui/dark.css. */
 export interface DarkTokens {
   background: { page: string; surface: string };
-  text: { primary: string; secondary: string };
+  text: { primary: string; secondary: string; brand: string };
+  rating: { on: string; off: string };
   border: { subtle: string };
   shadow: { soft: string };
   accent: {

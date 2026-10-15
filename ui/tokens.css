@@ -17,6 +17,7 @@
   /* Text */
   --text-secondary: #4B5163;
   --text-primary: var(--rm-infinite);
+  --text-brand: var(--rm-space);               /* Brand-blue text. Use instead of --rm-space for text; it flips in dark. */
 
   /* Links */
   --link: #5A4286;
@@ -58,6 +59,10 @@
   --table-row-hover: rgba(224,193,105,.2);     /* Estrella tint at 20% — follows the tint. */
   --skeleton-base: var(--rm-dust);             /* Skeleton ground; dark theme overrides it. */
 
+  /* Rating */
+  --rating-on: var(--accent-600);              /* A chosen star. */
+  --rating-off: var(--text-secondary);         /* An unchosen star. */
+
   /* Elevation */
   --shadow-soft: 0px 1px 2px rgba(0,0,0,.04),0px 6px 18px rgba(0,0,0,.06);
 
@@ -77,16 +82,29 @@
   --fs-md: 1rem;
   --fs-lg: 1.125rem;
   --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;                            /* Stat values. */
+  --fs-3xl: 2rem;                              /* Page titles. */
 
   /* Radius & controls */
+  --radius-xs: 4px;                            /* Icons and thumbnails. */
   --radius-s: 6px;
   --radius-m: 8px;
   --control-h: 40px;
   --control-pad-x: 14px;
+  --control-h-sm: 28px;                        /* Controls inside table rows. */
+  --control-pad-x-sm: 10px;
 
   /* Hit targets */
   --hit-min: 24px;                             /* WCAG 2.5.8 minimum. */
   --hit-ideal: 44px;                           /* WCAG 2.5.5 enhanced. */
+
+  /* Table */
+  --table-cell-py: 12px;
+  --table-cell-px: 12px;
+  --table-head-py: 10px;
+
+  /* Opacity */
+  --opacity-disabled: 0.6;                     /* Disabled controls. */
 
   /* Slider */
   --slider-label-gap: 1.5rem;

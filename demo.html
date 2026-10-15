@@ -244,6 +244,74 @@
             </tbody>
           </table>
         </section>
+
+        <!-- Dense data: stat, compact table, sort headers, small controls, rating, kv, small alerts -->
+        <section class="demo-section surface card">
+          <h2>Dense Data</h2>
+          <p class="muted">For dashboards people scan. Everything here is on the type and spacing scale.</p>
+
+          <div class="stats">
+            <div class="stat"><div class="stat__label">Prospects</div><div class="stat__value">128</div><div class="stat__sub">12 added this week</div></div>
+            <div class="stat"><div class="stat__label">Contacted</div><div class="stat__value">41</div><div class="stat__sub">32% of prospects</div></div>
+            <div class="stat"><div class="stat__label">Replied</div><div class="stat__value">9</div></div>
+          </div>
+
+          <div class="spacer"></div>
+
+          <table class="table table--compact">
+            <thead>
+              <tr>
+                <th aria-sort="descending">
+                  <button type="button" class="table__sort">Campaign</button>
+                  <span aria-hidden="true"> · </span>
+                  <button type="button" class="table__sort table__sort--active">Newest</button>
+                </th>
+                <th><button type="button" class="table__sort">Fit</button></th>
+                <th>Stage</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Desk lamp <span class="tag">Updates</span> <span class="badge badge--neutral">2nd</span></td>
+                <td>
+                  <span class="rating" role="radiogroup" aria-label="Fit">
+                    <button type="button" class="rating__star rating__star--on" role="radio" aria-checked="false" aria-label="Low (1 of 3)" tabindex="-1"><span aria-hidden="true">★</span></button>
+                    <button type="button" class="rating__star rating__star--on" role="radio" aria-checked="true" aria-label="Medium (2 of 3)" tabindex="0"><span aria-hidden="true">★</span></button>
+                    <button type="button" class="rating__star" role="radio" aria-checked="false" aria-label="High (3 of 3)" tabindex="-1"><span aria-hidden="true">☆</span></button>
+                  </span>
+                </td>
+                <td><select class="select select--sm" aria-label="Stage"><option>New</option><option>Contacted</option></select></td>
+                <td><span class="cluster"><button type="button" class="btn btn--sm">Draft email</button><button type="button" class="btn btn--text">Skip</button></span></td>
+              </tr>
+              <tr>
+                <td>Folding bike <span class="tag">Discord</span> <span class="badge badge--warn">Typo?</span></td>
+                <td><span class="muted">Not rated</span></td>
+                <td><input class="input input--sm" aria-label="Email domain" value="example.com"></td>
+                <td>
+                  <div class="alert alert--accent alert--sm stack-2">
+                    <span>Did you send it?</span>
+                    <span class="cluster"><button type="button" class="btn btn--sm btn--primary">Yes</button><button type="button" class="btn btn--sm" disabled>Not yet</button></span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="spacer"></div>
+
+          <dl class="kv">
+            <dt>Email</dt><dd>hello@example.com</dd>
+            <dt>Source</dt><dd>Kickstarter pre-launch page</dd>
+          </dl>
+
+          <div class="spacer"></div>
+
+          <div class="stack-2">
+            <div class="alert alert--warn alert--sm">The domain doesn't match the website.</div>
+            <div class="alert alert--error alert--sm">Not saved: the sheet is locked.</div>
+          </div>
+        </section>
       </div>
     </main>
 

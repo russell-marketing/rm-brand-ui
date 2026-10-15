@@ -27,7 +27,43 @@ h3,.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-c
 }
 .btn:hover{ background: var(--t-dust-12,#EEF3F1); }
 .btn:active{ transform: translateY(1px); }
+.btn:focus-visible{ outline:2px solid var(--rm-galaxy,#7A64A0); outline-offset:2px; }
 .btn--primary{ background: var(--rm-space,#2D334D); color: var(--rm-moon,#F7F8F6); border-color: var(--rm-space,#2D334D); }
+/* Must be its own rule: .btn:hover outranks .btn--primary and would put
+ * near-white text on the near-white hover tint. */
+.btn--primary:hover{ background: var(--rm-russell,#4D5C7B); border-color: var(--rm-russell,#4D5C7B); }
+
+/* Text button: a .btn with the box taken away. Sizes through the control
+ * tokens (not height/padding) because utilities.css sets those from them. */
+.btn--text{
+  --control-h:auto; --control-pad-x:0;
+  border:0; background:none; box-shadow:none;
+  color: var(--link,#5A4286); font-weight: var(--fw-bold,700);
+}
+.btn--text:hover{ background:none; color: var(--link-hover,#4B386F); text-decoration:underline; text-underline-offset:3px; }
+
+/* Disabled: one look for every button variant, and no hover or press.
+ * aria-disabled is for a button that must stay in the tab order (screen
+ * readers announce it as unavailable); the app must still ignore its clicks. */
+.btn:disabled,
+.btn[aria-disabled="true"]{
+  opacity: var(--opacity-disabled,.6);
+  cursor: not-allowed;
+  transform:none;
+  pointer-events:none;
+}
+
+/* Small controls, for table rows. Swaps the sizing tokens rather than
+ * setting height, so density scopes and utilities.css keep working. */
+.btn--sm,
+.input--sm,
+.select--sm{
+  --control-h: var(--control-h-sm,28px);
+  --control-pad-x: var(--control-pad-x-sm,10px);
+  font-size: var(--fs-sm,.875rem);
+}
+.btn--sm{ gap: var(--space-1,.25rem); white-space:nowrap; }
+.input--sm,.select--sm{ width:auto; border-radius: var(--radius-s,6px); }
 
 /* Inputs */
 label{ display:block; margin:0 0 6px 0; font-weight:600; color:var(--text-primary,#111); }

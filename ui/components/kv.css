@@ -1,0 +1,14 @@
+/* ui/components/kv.css
+ *
+ * Key/value list. Always a <dl>, so screen readers pair each label with
+ * its value:
+ *   <dl class="kv"><dt>Email</dt><dd>jo@example.com</dd></dl>
+ */
+.kv{
+  display:grid;
+  grid-template-columns:max-content 1fr;
+  gap: var(--space-1) var(--space-4);
+  margin:0;
+}
+.kv dt{ color: var(--text-secondary); }
+.kv dd{ margin:0; min-width:0; overflow-wrap:anywhere; }

@@ -1,0 +1,41 @@
+/* ui/components/badge.css
+ *
+ * Two small labels, chosen by MEANING, never by look:
+ *   .badge  the STATE of a thing: new, ready, needs attention. Pill, caps.
+ *   .tag    the KIND of a thing, or where it came from: "Updates", "Discord".
+ * A label that is neither is plain text, not a badge with its colours removed.
+ */
+
+/* .pill is deprecated: use .badge. It is removed in 2.0. */
+.badge,
+.pill{
+  display:inline-flex; align-items:center;
+  height: var(--space-6);
+  padding:0 var(--space-2);
+  border-radius:999px;
+  background: var(--accent-surface);
+  color: var(--accent-ink);
+  border:1px solid var(--accent-border);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  white-space:nowrap;
+}
+
+.badge--new    { background: var(--accent-100); }
+.badge--ready  { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
+.badge--warn   { background: var(--warning-bg); border-color: var(--warning-border); color: var(--warning-text); }
+/* Present but not asking for attention: a count, a secondary fact. */
+.badge--neutral{ background: transparent;      border-color: var(--border-subtle);   color: var(--text-secondary); }
+
+.tag{
+  display:inline-flex; align-items:center;
+  padding:0 var(--space-1);
+  border:1px solid var(--accent-border);
+  border-radius: var(--radius-s);
+  color: var(--accent-ink);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  white-space:nowrap;
+}
