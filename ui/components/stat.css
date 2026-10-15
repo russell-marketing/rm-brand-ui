@@ -1,0 +1,35 @@
+/* ui/components/stat.css
+ *
+ * Stat: one number, its label, and an optional note under it.
+ *   <div class="stats">
+ *     <div class="stat">
+ *       <div class="stat__label">Prospects</div>
+ *       <div class="stat__value">128</div>
+ *       <div class="stat__sub">12 added this week</div>
+ *     </div>
+ *   </div>
+ * .stats lays out as many as fit, at least 10rem each.
+ */
+.stats{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-4);
+}
+.stat{
+  background: var(--bg-surface);
+  border:1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-3) var(--space-4);
+}
+.stat__label,
+.stat__sub{ font-size: var(--fs-xs); color: var(--text-secondary); }
+.stat__value{
+  margin-top: var(--space-1);
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-2xl);
+  line-height:1.2;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.stat__sub{ margin-top: var(--space-1); }

@@ -174,7 +174,7 @@ export function getRMThemeConfig() {
             },
           },
           '*[disabled], *[readonly]': {
-            opacity: '0.7 !important',
+            opacity: `${tokens.opacity.disabled} !important`,
             cursor: 'not-allowed !important',
           },
         },
@@ -188,6 +188,12 @@ export function getRMThemeConfig() {
             borderRadius: tokens.radius.m,
             padding: `8px ${tokens.control.paddingX}`,
             minHeight: tokens.control.height,
+          },
+          // Matches .btn--sm: for controls inside table rows.
+          sizeSmall: {
+            minHeight: tokens.control.heightSm,
+            padding: `0 ${tokens.control.paddingXSm}`,
+            fontSize: tokens.fontSize.sm,
           },
           contained: {
             boxShadow: tokens.shadow.soft,
@@ -328,6 +334,13 @@ export function getRMThemeConfig() {
               },
             },
           },
+          // Matches .badge--neutral: present, not asking for attention.
+          outlined: {
+            '&.MuiChip-colorDefault': {
+              borderColor: tokens.border.subtle,
+              color: tokens.text.secondary,
+            },
+          },
           // Explicit overrides for status colors to ensure they use the correct tokens
           colorSuccess: {
             backgroundColor: tokens.status.success.bg,
@@ -398,10 +411,10 @@ export function getRMThemeConfig() {
           root: {
             '& .MuiTableRow-root': {
               '&:nth-of-type(even)': {
-                backgroundColor: 'rgba(219, 230, 227, 0.3)', // RM Dust at 30%
+                backgroundColor: tokens.surfaces.tableRowAlt,
               },
               '&:hover': {
-                backgroundColor: 'rgba(224, 193, 105, 0.2)', // RM Estrella at 20%
+                backgroundColor: tokens.surfaces.tableRowHover,
                 transition: 'background-color 0.2s ease',
               },
             },
@@ -414,6 +427,19 @@ export function getRMThemeConfig() {
           root: {
             borderBottom: `1px solid ${tokens.border.subtle}`,
           },
+          // Matches .table--compact.
+          sizeSmall: {
+            padding: `${tokens.spacing[2]} ${tokens.table.cellPadX}`,
+          },
+        },
+      },
+
+      // Matches ui/components/rating.css. Galaxy, never Estrella (under 3:1).
+      MuiRating: {
+        styleOverrides: {
+          iconFilled: { color: tokens.rating.on },
+          iconHover: { color: tokens.rating.on },
+          iconEmpty: { color: tokens.rating.off },
         },
       },
 

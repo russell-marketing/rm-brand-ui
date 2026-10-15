@@ -1,0 +1,22 @@
+/* ui/components/rating.css
+ *
+ * Star rating. In React use <Rating> (components/react/Rating.jsx), which
+ * adds the keyboard and screen-reader behaviour. By hand, the markup is a
+ * radiogroup of buttons; see demo.html.
+ *
+ * Stars are Galaxy, never Estrella: gold is under 3:1 on white.
+ * Each star is at least --hit-min square (WCAG 2.5.8).
+ */
+.rating{ display:inline-flex; align-items:center; }
+.rating__star{
+  all:unset;
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width: var(--hit-min); min-height: var(--hit-min);
+  cursor:pointer;
+  font-size: var(--fs-lg);
+  line-height:1;
+  color: var(--rating-off);
+}
+.rating__star--on{ color: var(--rating-on); }
+.rating__star:focus-visible{ outline:2px solid var(--accent-border); outline-offset:1px; border-radius: var(--radius-xs); }
+.rating__star:disabled{ cursor:default; }
