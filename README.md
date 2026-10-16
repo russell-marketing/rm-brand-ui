@@ -13,7 +13,7 @@ version: [docs/migrating-to-1.5.md](docs/migrating-to-1.5.md), then
 [docs/migrating-to-1.6.md](docs/migrating-to-1.6.md).
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.5.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.6.0"
 ```
 
 ## Using it

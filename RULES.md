@@ -16,10 +16,13 @@ npx rm-brand-audit --strict   # exit 1 on any finding, for CI
 ## 1. Install with a version range
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.5.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.6.0"
 ```
 
 - The range gets every fix and addition, and never a breaking 2.0 by surprise.
+- The number after `^` is the floor: the version this app was last checked
+  against. Raise it whenever you update and check the app, so a fresh install
+  can never land on something older than what was tested.
 - Never `#main` (whatever happens to be newest, frozen by the lockfile), never
   a bare URL, never an exact commit.
 - Never the old names `@russell-marketing/brand-styles`,
