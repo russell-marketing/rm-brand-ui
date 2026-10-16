@@ -33,6 +33,28 @@ mkdirSync(join(app, 'src'));
 writeFileSync(join(app, 'src/layout.js'), "import '@russell-marketing/brand-ui/styles';\n");
 mkdirSync(join(app, 'extension'));
 writeFileSync(join(app, 'extension/popup.css'), '.title{ color: #123456; }\n');
+// MUI-style objects that span lines, sx radius multiples, and font families.
+writeFileSync(join(app, 'src/Panel.jsx'), [
+  'export const Panel = () => (',
+  '  <Box sx={{',
+  "    bgcolor: 'rgba(122, 100, 160, 0.1)',",
+  '    borderRadius: 1,',
+  "    fontFamily: 'monospace',",
+  '  }}>',
+  '    <span style={{ borderRadius: 4 }} />',
+  '    <Box sx={{ borderRadius: 3 }} />',
+  '    <Box sx={{ fontFamily: tokens.fonts.mono, borderRadius: 0.5 }} />',
+  "    <Box sx={{ color: 'var(--text-primary, #18191E)' }} />",
+  "    <Box sx={{ background: 'var(--not-a-token, #fff)' }} />",
+  '    <Popover slotProps={{ paper: {',
+  '      sx: {',
+  '        borderRadius: 1.5,',
+  '      },',
+  '    } }} />',
+  '  </Box>',
+  ');',
+].join('\n'));
+writeFileSync(join(app, 'src/fonts.css'), '.a{ font-family: "Roboto Mono", monospace; }\n.b{ font-family: var(--font-body); }\n');
 
 /* ---------- rm-brand-copy ---------- */
 console.log('\n\x1b[1mrm-brand-copy\x1b[0m');
@@ -55,6 +77,17 @@ const audit = run('audit.mjs', '.');
 check(!/rm-brand-(tokens|dark)\.css/.test(audit.stdout), 'skips files copied by rm-brand-copy');
 check(/extension\/popup\.css:1 {2}hard-coded colour/.test(audit.stdout), 'still flags the app\'s own hard-coded colour');
 check(!/Rule 1\./.test(audit.stdout) && !/Rule 2\./.test(audit.stdout), 'a version range and one stylesheet import pass rules 1 and 2');
+const flagged = (file, line) => new RegExp(`${file.replace('.', '\\.')}:${line} `).test(audit.stdout);
+check(flagged('src/Panel.jsx', 3), 'flags a colour on a later line of a multi-line sx object');
+check(!flagged('src/Panel.jsx', 4), 'sx borderRadius: 1 (8px) is on the scale');
+check(flagged('src/Panel.jsx', 5), "flags fontFamily: 'monospace'");
+check(flagged('src/Panel.jsx', 7), 'style borderRadius: 4 is pixels, so it is flagged');
+check(flagged('src/Panel.jsx', 8) && /3 in sx is 24px/.test(audit.stdout), 'sx borderRadius: 3 is flagged as 24px');
+check(!flagged('src/Panel.jsx', 9), 'tokens.fonts and sx radius 0.5 pass');
+check(flagged('src/fonts.css', 1) && !flagged('src/fonts.css', 2), 'flags a literal font-family, not var(--font-body)');
+check(!flagged('src/Panel.jsx', 10), 'a fallback inside var(--real-token, …) is not a hard-coded colour');
+check(flagged('src/Panel.jsx', 11), 'a fallback on a name that is not a token is');
+check(flagged('src/Panel.jsx', 14) && /1\.5 in sx is 12px/.test(audit.stdout), 'sx: { … } as a key is tracked too (1.5 = 12px)');
 check(run('audit.mjs', '.', '--strict').status === 1, '--strict fails on a "fix" finding');
 
 rmSync(app, { recursive: true, force: true });

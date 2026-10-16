@@ -19,6 +19,21 @@ Nothing is removed in 1.6. Apps on `#semver:^1.5.0` get it with
 
 Delete each one from `ds-candidates.css` in the same commit as the update.
 
+## 1.6.1: the audit sees more
+
+The audit now reads every line of a multi-line `sx={{ … }}` or `style={{ … }}`
+object (and `sx: { … }` keys inside `slotProps`), and flags hard-coded font
+families. Expect the count to rise on the first run after updating. These were
+always rule breaks; the audit couldn't see them before.
+
+It also understands MUI's radius units: in `sx`, `borderRadius: 1` is the
+theme's 8px and passes, as do 0.5 (4px) and 0.75 (6px); 1.5 and up are past
+the scale. A colour fallback inside `var(--a-real-token, …)` is no longer
+flagged.
+
+RULES.md rule 1 now says the `^` floor is the version the app was last checked
+against: raise it when you update.
+
 ## What looks different
 
 - **`.muted` is now a colour only.** It used to force 14px and remove

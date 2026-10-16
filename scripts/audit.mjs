@@ -26,6 +26,8 @@ const ALLOWED_TOKEN_OVERRIDES = new Set(['--font-display', '--font-body']);
 // The real token names, read from the copy of tokens.css that ships with
 // this script, so a check never guesses at what counts as a system token.
 const here = dirname(fileURLToPath(import.meta.url));
+// The version of the package this audit ships in: the floor it suggests.
+const SELF_VERSION = JSON.parse(readFileSync(join(here, '../package.json'), 'utf8')).version;
 const SYSTEM_TOKENS = new Set([...readFileSync(join(here, '../ui/tokens.css'), 'utf8')
   .matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
 
@@ -51,7 +53,7 @@ if (!depName) {
   const spec = deps[depName];
   if (depName !== '@russell-marketing/brand-ui') add(1, 'package.json', 0, `old package name ${depName}; use @russell-marketing/brand-ui`);
   if (/cd-space-dot-dot|rm-internal-ui-styles|rm-brand-styles/.test(spec)) add(1, 'package.json', 0, `old repository in "${spec}"; use russell-marketing/rm-brand-ui`);
-  if (!/#semver:\^1\./.test(spec)) add(1, 'package.json', 0, `"${spec}" is not a version range; use github:russell-marketing/rm-brand-ui#semver:^1.5.0`);
+  if (!/#semver:\^1\./.test(spec)) add(1, 'package.json', 0, `"${spec}" is not a version range; use github:russell-marketing/rm-brand-ui#semver:^${SELF_VERSION.replace(/\.\d+$/, '.0')}`);
 }
 
 // The CSS rule block around line i: back to its '{', forward to its '}'.
@@ -63,6 +65,9 @@ function brandBackgroundInBlock(lines, i) {
   const inner = block.slice(block.lastIndexOf('{', block.indexOf(lines[i])) + 1);
   return /background(-color)?\s*:\s*['"]?var\(--rm-/.test(inner.split('}')[0] + lines.slice(a, i + 1).join(''));
 }
+
+const braceDelta = (t) => (t.match(/\{/g) ?? []).length - (t.match(/\}/g) ?? []).length;
+const SX_RADII_ON_SCALE = new Set([0, 0.5, 0.75, 1]);
 
 /* ---------- source files ---------- */
 const files = [];
@@ -99,6 +104,12 @@ for (const file of files) {
   // In JS files only look inside CSS-ish text: <style> template blocks,
   // style={{...}} objects and sx props. Everything in a .css file counts.
   let inStyleBlock = false;
+  // sx={{…}} and style={{…}} usually span several lines. Track them by brace
+  // depth so every line inside counts, and remember which kind: in sx a bare
+  // number for borderRadius is a multiple of the theme's 8px, in style it is
+  // pixels.
+  let objKind = null;
+  let objDepth = 0;
 
   lines.forEach((raw, i) => {
     const n = i + 1;
@@ -113,8 +124,20 @@ for (const file of files) {
       if (/<style[\s>]/.test(line)) inStyleBlock = true;
       if (/<\/style>/.test(line)) inStyleBlock = false;
     }
+    let kindHere = objKind;
+    if (!isCss) {
+      // sx={…} on a component, or sx: {…} as a key (e.g. inside slotProps).
+      const start = objKind ? null : line.match(/\b(sx|style)\s*(?:=|:)\s*\{/);
+      if (start) {
+        kindHere = objKind = start[1];
+        objDepth = braceDelta(line.slice(start.index + start[0].length - 1));
+      } else if (objKind) {
+        objDepth += braceDelta(line);
+      }
+      if (objDepth <= 0) objKind = null;
+    }
     const cssContext = isCss || inStyleBlock;
-    const jsStyleContext = !isCss && /(style=\{\{|sx=\{|:\s*\{?\s*['"`]?[#\d])/.test(line);
+    const jsStyleContext = !isCss && (kindHere !== null || /:\s*\{?\s*['"`]?(#|\d|rgba?\()/.test(line));
 
     // rule 4: restyling system classes / redefining system tokens
     const selector = line.includes('{') ? line.split('{')[0] : '';
@@ -130,9 +153,28 @@ for (const file of files) {
 
     // rule 5: hard-coded design values
     if (cssContext || jsStyleContext) {
-      if (STYLE_PROP.test(line) && /#[0-9a-fA-F]{3,8}\b|rgba?\(/.test(line)) add(5, rel, n, `hard-coded colour: ${line.trim()}`);
+      // A fallback inside var(--real-token, …) is the system's own advice for
+      // JS, not a hard-coded colour. A fallback on a name that isn't a token
+      // is: that var() never resolves, so the fallback is all you ever get.
+      const colourText = line.replace(/var\(\s*(--[\w-]+)\s*,[^)]*\)/g,
+        (m, name) => (SYSTEM_TOKENS.has(name) ? `var(${name})` : m));
+      if (STYLE_PROP.test(line) && /#[0-9a-fA-F]{3,8}\b|rgba?\(/.test(colourText)) add(5, rel, n, `hard-coded colour: ${line.trim()}`);
       if (/font-size\s*:\s*[\d.]+(px|rem|em)|fontSize\s*:\s*['"]?[\d.]+(px|rem|em)?['"]?\s*[,}]/.test(line)) add(5, rel, n, `font size not from --fs-*: ${line.trim()}`);
-      if (/border-radius\s*:\s*\d+px|borderRadius\s*:\s*['"]?\d+(px)?['"]?\s*[,}]/.test(line)) add(5, rel, n, `radius not from --radius-*: ${line.trim()}`);
+      const radius = line.match(/borderRadius\s*:\s*(['"]?)([\d.]+)(px)?\1\s*[,}]/);
+      if (/border-radius\s*:\s*\d+px/.test(line)) {
+        add(5, rel, n, `radius not from --radius-*: ${line.trim()}`);
+      } else if (radius) {
+        // In sx, 0.5 / 0.75 / 1 are the theme's 4 / 6 / 8px: on the scale.
+        const sxMultiple = kindHere === 'sx' && !radius[1] && !radius[3];
+        if (!(sxMultiple && SX_RADII_ON_SCALE.has(Number(radius[2])))) {
+          add(5, rel, n, sxMultiple
+            ? `radius ${radius[2]} in sx is ${Number(radius[2]) * 8}px, past the scale (1 = 8px is the largest): ${line.trim()}`
+            : `radius not from --radius-*: ${line.trim()}`);
+        }
+      }
+      if (/font-family\s*:\s*(?!var\(|inherit|initial|unset)['"]?[A-Za-z]/.test(line) || /fontFamily\s*:\s*['"`](?!inherit)/.test(line)) {
+        add(5, rel, n, `font not from --font-* / tokens.fonts: ${line.trim()}`);
+      }
     }
 
     // rule 6: brand colour used as text

@@ -83,7 +83,12 @@ this and wrap MUI; they are MUI-only.
   Apps depend on `#semver:^1.x`, so the tag is what they receive.
 - Additions and fixes: minor. Removals or renames: 2.0 only, with
   deprecations announced in RULES.md or the migration guide first.
-- Write `docs/migrating-to-X.Y.md` for every minor release.
+- Write `docs/migrating-to-X.Y.md` for every minor release; a patch gets a
+  section in its minor's guide.
+- On a minor release, raise the `#semver:^X.Y.0` examples in RULES.md and
+  README.md to the new version.
+- Never name a branch like a tag (`v1.6.0`): `git push` then can't tell
+  which one you mean and the tag push fails. Use `release-1.6.0`.
 
 ## Testing
 
