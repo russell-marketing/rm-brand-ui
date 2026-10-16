@@ -105,6 +105,7 @@ const lightMap = [
   ['--fs-2xl', tokens.fontSize['2xl']], ['--fs-3xl', tokens.fontSize['3xl']],
   ['--radius-xs', tokens.radius.xs],
   ['--control-h-sm', tokens.control.heightSm], ['--control-pad-x-sm', tokens.control.paddingXSm],
+  ['--page-max', tokens.layout.pageMax],
   ['--table-cell-py', tokens.table.cellPadY], ['--table-cell-px', tokens.table.cellPadX],
   ['--table-head-py', tokens.table.headPadY],
   ['--opacity-disabled', tokens.opacity.disabled],

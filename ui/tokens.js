@@ -145,6 +145,11 @@ export const tokens = {
     paddingXSm: '10px',
   },
 
+  // Page layout
+  layout: {
+    pageMax: '1240px',      // widest a .page gets
+  },
+
   // Table cell padding; .table--compact swaps these for --space-2
   table: {
     cellPadY: '12px',

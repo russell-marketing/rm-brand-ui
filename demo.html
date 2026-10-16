@@ -32,11 +32,11 @@
   <style>
     /* Simple app shell just for the demo */
     .app-shell { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; }
-    header, footer { background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle); }
-    header { position: sticky; top: 0; z-index: var(--z-sticky); }
+    .app-shell > header, .app-shell > footer { background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle); }
+    .app-shell > header { position: sticky; top: 0; z-index: var(--z-sticky); }
     .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
-    .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
-    @media (min-width: 900px) { .grid { grid-template-columns: 1.2fr .8fr; } }
+    .grid { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 900px) { .grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); } }
     .card { padding: 16px; }
     .demo-section h2 { margin: 0 0 8px 0; font-family: var(--font-display); font-size: var(--fs-xl); }
     .spacer { height: 16px; }
@@ -243,6 +243,43 @@
               <tr><td>Campaign brief</td><td><span class="badge badge--ready">Ready</span></td><td>Dee</td></tr>
             </tbody>
           </table>
+        </section>
+
+        <!-- Page header, padded surface, scrolling table with number cells, textarea, small errors -->
+        <section class="demo-section surface card">
+          <h2>Page &amp; Forms</h2>
+          <p class="muted">Each app's <code>&lt;main class="page"&gt;</code> holds a <code>.page-header</code> like this one.</p>
+
+          <header class="page-header">
+            <p class="page-header__eyebrow">Russell Marketing · internal</p>
+            <h1 class="page-header__title">Example tool</h1>
+            <p class="page-header__sub">One line on what this page is for.</p>
+          </header>
+
+          <div class="spacer"></div>
+
+          <div class="surface surface--padded stack-2">
+            <div class="stat__value stat__value--row"><span>12 hot</span><span>4 watching</span></div>
+            <p>Hi there, I saw your campaign on <span class="text-blank">[where you found it]</span>.</p>
+            <p>Reached out Oct 3<span class="muted"> · 2×</span></p>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Campaigns, scrolls sideways">
+            <table class="table table--compact" style="min-width:56rem">
+              <thead><tr><th>Campaign</th><th class="table__cell--num">Followers</th><th class="table__cell--num">Launch</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td>Desk lamp</td><td class="table__cell--num">7,226</td><td class="table__cell--num">Dec 1</td><td>Wide tables scroll inside .table-scroll.</td></tr>
+                <tr><td>Folding bike</td><td class="table__cell--num">418</td><td class="table__cell--num">Jan 12</td><td><select class="select select--sm" aria-label="Stage"><option>New</option></select><span class="field-error field-error--sm">Not saved: the sheet is locked.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="spacer"></div>
+
+          <label for="paste">Paste a list</label>
+          <textarea id="paste" class="textarea" rows="4" placeholder="One per line"></textarea>
         </section>
 
         <!-- Dense data: stat, compact table, sort headers, small controls, rating, kv, small alerts -->

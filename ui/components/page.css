@@ -1,0 +1,45 @@
+/* ui/components/page.css
+ *
+ * The page and its header, shared by every internal tool.
+ *
+ *   <main class="page">
+ *     <header class="page-header">
+ *       <p class="page-header__eyebrow">Russell Marketing · internal</p>
+ *       <h1 class="page-header__title">Pre-Launch Compiler</h1>
+ *       <p class="page-header__sub">One line on what this page is for.</p>
+ *     </header>
+ *     …sections…
+ *   </main>
+ *
+ * .page centres the content up to --page-max and spaces its sections evenly.
+ */
+.page{
+  max-width: var(--page-max);
+  margin-inline:auto;
+  padding: var(--space-8) var(--space-6);
+  display:flex;
+  flex-direction:column;
+  gap: var(--space-6);
+}
+
+.page-header__eyebrow{
+  margin:0;
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.page-header__title{
+  margin: var(--space-2) 0 var(--space-1);
+  font-family: var(--font-display);
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-3xl);
+}
+.page-header__sub{
+  margin:0;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+.page-header__sub + .page-header__sub{ margin-top: var(--space-2); }

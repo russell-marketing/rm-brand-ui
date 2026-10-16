@@ -71,7 +71,7 @@ h3,.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-c
 
 /* Inputs */
 label{ display:block; margin:0 0 6px 0; font-weight:600; color:var(--text-primary,#111); }
-.input,.select{
+.input,.select,.textarea{
   width:100%; height:var(--control-h,40px); padding:0 var(--control-pad-x,14px);
   border:1px solid var(--border-subtle,#CDD3DB);
   border-radius:var(--radius-m,8px);
@@ -79,14 +79,24 @@ label{ display:block; margin:0 0 6px 0; font-weight:600; color:var(--text-primar
   color: var(--text-primary,#111);
   box-shadow: var(--shadow-soft, 0 1px 2px rgba(0,0,0,.04));
 }
-.input:focus,.select:focus{ outline:2px solid var(--rm-galaxy,#7A64A0); outline-offset:1px; border-color: var(--rm-galaxy,#7A64A0); }
+.input:focus,.select:focus,.textarea:focus{ outline:2px solid var(--rm-galaxy,#7A64A0); outline-offset:1px; border-color: var(--rm-galaxy,#7A64A0); }
 .select{ padding-right: calc(var(--control-pad-x,14px) + 18px); }
 .select::-ms-expand{ display:none; }
+/* Multi-line text: the .input look, as tall as its rows attribute, and the
+ * person can make it taller. */
+.textarea{
+  height:auto;
+  min-height: var(--control-h,40px);
+  padding-block: var(--space-2,.5rem);
+  line-height:1.5;
+  resize:vertical;
+}
 
-/* Card surface */
+/* Card surface. Add --padded for content that sits directly inside it. */
 .surface{
   background: var(--bg-surface,#fff);
   border:1px solid var(--border-subtle,#CDD3DB);
   border-radius: var(--radius-m,8px);
   box-shadow: var(--shadow-soft, 0 1px 2px rgba(0,0,0,.04));
 }
+.surface--padded{ padding: var(--space-5,1.25rem) var(--space-6,1.5rem); }

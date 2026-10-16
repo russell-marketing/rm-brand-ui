@@ -155,6 +155,7 @@ function buildTokensCss() {
     ['Type scale', pick(light, 'dimension.fontSize')],
     ['Radius & controls', [...pick(light, 'dimension.radius'), ...pick(light, 'dimension.control')]],
     ['Hit targets', pick(light, 'dimension.hitTarget')],
+    ['Layout', pick(light, 'dimension.layout')],
     ['Table', pick(light, 'dimension.table')],
     ['Opacity', pick(light, 'opacity')],
     ['Slider', pick(light, 'dimension.slider')],

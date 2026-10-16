@@ -9,7 +9,8 @@ Published as `@russell-marketing/brand-ui`.
 `npx rm-brand-audit` in your app to check it. For a surface that can't
 install the package (a Chrome extension), `npx rm-brand-copy` copies the CSS
 in: see rule 12. Upgrading from an older
-version: [docs/migrating-to-1.5.md](docs/migrating-to-1.5.md).
+version: [docs/migrating-to-1.5.md](docs/migrating-to-1.5.md), then
+[docs/migrating-to-1.6.md](docs/migrating-to-1.6.md).
 
 ```json
 "@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.5.0"

@@ -4,7 +4,9 @@
 body.density--comfortable{ --control-h:40px; --control-pad-x:14px; --stack-2:8px;  --stack-3:16px; }
 body.density--compact    { --control-h:36px; --control-pad-x:12px; --stack-2:6px;  --stack-3:12px; }
 body.density--cozy       { --control-h:44px; --control-pad-x:16px; --stack-2:10px; --stack-3:18px; }
-.btn,.input,.select,.textarea{ height:var(--control-h); padding-inline:var(--control-pad-x) }
+/* .textarea is left out: it grows with its rows, so a fixed height is wrong. */
+.btn,.input,.select{ height:var(--control-h); padding-inline:var(--control-pad-x) }
+.textarea{ padding-inline:var(--control-pad-x) }
 
 /* Container queries: name key shells you use */
 .modal-container,.editor-section,.template-section-row{ container-type:inline-size; container-name:shell }
@@ -17,6 +19,16 @@ body.density--cozy       { --control-h:44px; --control-pad-x:16px; --stack-2:10p
 .stack-3 > * + * { margin-top: var(--stack-3, 16px); }
 .cluster{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
 
-/* Quiet text. A system that ships --text-secondary should ship the class
- * that uses it; without this, consumers hand-write these three lines. */
-.muted{ margin:0; font-size:var(--fs-sm); color:var(--text-secondary); }
+/* Quiet text: a colour, nothing else. It takes the size and spacing of
+ * wherever it sits, so a quiet word inside a 12px table line stays 12px and
+ * a quiet paragraph keeps its paragraph spacing. */
+.muted{ color:var(--text-secondary); }
+
+/* A gap the person still has to fill in before sending, inside filled-in
+ * template text: <span class="text-blank">[where you found it]</span>. */
+.text-blank{
+  padding:0 var(--space-1);
+  border-radius: var(--radius-xs);
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
