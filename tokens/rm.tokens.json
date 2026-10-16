@@ -1008,6 +1008,19 @@
           "co.russellmarketing.css": "--table-head-py"
         }
       }
+    },
+    "layout": {
+      "pageMax": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1240,
+          "unit": "px"
+        },
+        "$description": "Widest a .page gets.",
+        "$extensions": {
+          "co.russellmarketing.css": "--page-max"
+        }
+      }
     }
   },
   "fontWeight": {

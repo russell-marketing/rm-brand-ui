@@ -21,7 +21,7 @@ const appRoot = args.find((a) => !a.startsWith('--')) ?? process.cwd();
 const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'dist', 'build', 'out', 'coverage', '.vercel', 'public']);
 const EXTS = new Set(['.css', '.scss', '.tsx', '.jsx', '.ts', '.js', '.html']);
 const SYSTEM_CLASSES = ['btn', 'badge', 'pill', 'tag', 'table', 'alert', 'input', 'select', 'stat', 'stats',
-  'kv', 'rating', 'surface', 'muted', 'modal', 'tabs', 'rm-toast', 'rm-tooltip', 'skeleton'];
+  'kv', 'rating', 'surface', 'muted', 'page', 'page-header', 'table-scroll', 'textarea', 'text-blank', 'modal', 'tabs', 'rm-toast', 'rm-tooltip', 'skeleton'];
 const ALLOWED_TOKEN_OVERRIDES = new Set(['--font-display', '--font-body']);
 // The real token names, read from the copy of tokens.css that ships with
 // this script, so a check never guesses at what counts as a system token.

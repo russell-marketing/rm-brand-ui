@@ -172,6 +172,8 @@ export interface Tokens {
     paddingXSm: string;
   };
 
+  layout: { pageMax: string };
+
   table: { cellPadY: string; cellPadX: string; headPadY: string };
 
   opacity: { disabled: number };

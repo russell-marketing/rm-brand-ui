@@ -73,3 +73,20 @@
 .table__sort:focus-visible{ outline:2px solid currentColor; outline-offset:2px; border-radius: var(--radius-xs); }
 .table th[aria-sort="descending"] .table__sort--active::after{ content:" \25BE"; content:" \25BE" / ""; }
 .table th[aria-sort="ascending"]  .table__sort--active::after{ content:" \25B4"; content:" \25B4" / ""; }
+
+/* A number or date alone in a cell: centred, with figures of equal width so
+ * columns of numbers line up. On the th as well as the tds. */
+.table .table__cell--num{
+  text-align:center;
+  font-variant-numeric: tabular-nums;
+  white-space:nowrap;
+}
+
+/* Wide tables scroll inside this wrapper. .table hides its own overflow to
+ * round the header corners, so it can't scroll itself. Give the wrapper
+ * tabindex="0", role="region" and an aria-label so keyboard users can
+ * scroll it too. Inside a grid or a flex row, the column holding it needs
+ * min-width:0 (or minmax(0, 1fr)), or the column grows to fit the table and
+ * the whole page scrolls instead. Inside .page it works as is. */
+.table-scroll{ overflow-x:auto; }
+

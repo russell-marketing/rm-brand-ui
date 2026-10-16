@@ -33,3 +33,5 @@
   font-variant-numeric: tabular-nums;
 }
 .stat__sub{ margin-top: var(--space-1); }
+/* Two values side by side in one stat ("12 hot  4 watching"). */
+.stat__value--row{ display:flex; gap: var(--space-4); }

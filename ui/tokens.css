@@ -98,6 +98,9 @@
   --hit-min: 24px;                             /* WCAG 2.5.8 minimum. */
   --hit-ideal: 44px;                           /* WCAG 2.5.5 enhanced. */
 
+  /* Layout */
+  --page-max: 1240px;                          /* Widest a .page gets. */
+
   /* Table */
   --table-cell-py: 12px;
   --table-cell-px: 12px;

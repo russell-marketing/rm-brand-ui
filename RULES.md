@@ -70,7 +70,8 @@ the system is wrong, and it is a candidate (rule 3), not a local override.
 Colours, font sizes, radii, spacing, shadows and durations come from tokens.
 No hex, no `rgb()`, no `font-size: .8rem`, no `border-radius: 4px`.
 
-Layout is the app's own: column widths, grid templates, max-widths.
+Layout inside a page is the app's own: column widths, grid templates. The
+page itself comes from `.page` (rule 8).
 
 ### Type scale
 
@@ -121,7 +122,12 @@ allowed only as a temporary step, with a backlog item to remove it.
 | Button | `.btn--primary`: the one main action in a view. `.btn`: other actions. `.btn--text`: low-emphasis or inline actions. |
 | Alert | `--ok`, `--warn`, `--error` for status; `--accent` for a question to the person ("Did you send it?"). Add `--sm` inside rows. |
 | Size | `.btn--sm`, `.input--sm`, `.select--sm` inside table rows only. Elsewhere, default size. |
-| Table | `.table--compact` for tables people scan; default for tables people read. |
+| Table | `.table--compact` for tables people scan; default for tables people read. Wide tables go inside `.table-scroll`. |
+| Table cell | A number or date alone in a cell: `.table__cell--num` on its `th` and `td`s (centred, equal-width figures). Text stays left. |
+| Page | `<main class="page">` for the page container, `.page-header` for its eyebrow, title and description. |
+| Card | `.surface`; add `.surface--padded` when content sits directly inside it. |
+| Quiet text | `.muted`: colour only, so it fits any size of text it sits in. |
+| Multi-line input | `.textarea` with a `rows` attribute. |
 
 ## 9. Accessibility comes with the markup; use the markup
 
