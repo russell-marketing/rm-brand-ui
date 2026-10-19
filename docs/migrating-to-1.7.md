@@ -136,3 +136,10 @@ slider above it, so it read as belonging to the wrong one. While a slider is
 dragged, its value bubble now overlaps the label above it; it disappears on
 release.
 
+## 1.7.4: sliders keep their handles inside their box
+
+`SliderWithLabel` insets its slider by half a thumb (10px each side), so the
+end handles no longer stick out past the component. Two sliders side by side
+in a `.form-grid` read as two, not one long one. A plain MUI `<Slider>` in
+the app still needs a padded wrapper, as the theme notes.
+

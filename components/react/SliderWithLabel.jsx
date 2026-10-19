@@ -69,16 +69,21 @@ export function SliderWithLabel({
       >
         {label}
       </Typography>
-      <Slider
-        value={value}
-        onChange={onChange}
-        min={min}
-        max={max}
-        step={step}
-        valueLabelDisplay={valueLabelDisplay}
-        valueLabelFormat={valueLabelFormat}
-        {...sliderProps}
-      />
+      {/* Inset by half a thumb so the end handles stay inside the box: two
+          sliders side by side then don't read as one. The theme keeps padding
+          off the Slider itself (see MuiSlider in adapters/mui-theme.js). */}
+      <Box sx={{ px: 'calc(var(--slider-thumb-size, 20px) / 2)' }}>
+        <Slider
+          value={value}
+          onChange={onChange}
+          min={min}
+          max={max}
+          step={step}
+          valueLabelDisplay={valueLabelDisplay}
+          valueLabelFormat={valueLabelFormat}
+          {...sliderProps}
+        />
+      </Box>
     </Box>
   );
 }
