@@ -12,8 +12,11 @@
  *   </main>
  *
  * .page centres the content up to --page-max and spaces its sections evenly.
+ * width:100% keeps it full width inside a flex or grid parent too, where
+ * auto margins would otherwise size it to its content.
  */
 .page{
+  width:100%;
   max-width: var(--page-max);
   margin-inline:auto;
   padding: var(--space-8) var(--space-6);

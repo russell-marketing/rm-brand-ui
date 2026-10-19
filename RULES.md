@@ -16,7 +16,7 @@ npx rm-brand-audit --strict   # exit 1 on any finding, for CI
 ## 1. Install with a version range
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.6.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.7.0"
 ```
 
 - The range gets every fix and addition, and never a breaking 2.0 by surprise.
@@ -40,8 +40,15 @@ Not `/tokens` + `/core` + `/components/table`. Picking pieces is how
 components go missing without an error. The whole sheet is small, and it
 includes dark mode (rule 7).
 
-*Exception:* an app whose entire UI is MUI components may use the theme file
-alone (rule 11).
+*Exception:* an app whose entire UI is MUI components uses the theme (rule
+11) plus the layout classes, and no stylesheet:
+
+```js
+import '@russell-marketing/brand-ui/layout';
+```
+
+`/layout` is the tokens and the layout classes (rule 13) only, so nothing in
+it restyles MUI. Apps that load `/styles` already have it.
 
 ## 3. Use the system before writing your own
 
@@ -131,6 +138,10 @@ allowed only as a temporary step, with a backlog item to remove it.
 | Card | `.surface`; add `.surface--padded` when content sits directly inside it. |
 | Quiet text | `.muted`: colour only, so it fits any size of text it sits in. |
 | Multi-line input | `.textarea` with a `rows` attribute. |
+| App header | `.app-header` with `__title`, `__nav`, `__meta`: the app's name, main navigation and extras (environment badge, user). One per app. |
+| Tabs | `.tabs` with `.tab` and `aria-selected`. `.tab--group-end` on the last tab of a group draws the divider (MUI `<Tab>` too). |
+| Form | `.form-grid`; `__wide` for a field that needs the whole row, `__actions` for its buttons. |
+| Filters | `.filter-bar` above the table or list it filters; `__range` for a from/to pair, `__actions` for Apply / Clear. |
 
 ## 9. Accessibility comes with the markup; use the markup
 
@@ -152,7 +163,11 @@ this system, not a reason to ignore it.
 
 **MUI apps:** build the theme from `getRMThemeConfig()`. Use MUI's own
 controls (`size="small"` inside table rows, MUI's `<Rating>`); the theme
-styles them to match. The theme has no dark scheme yet: that gap is this
+styles them to match. For page structure put the layout classes on a `Box`
+(`<Box component="header" className="app-header">`) with MUI components
+inside, and use the theme's Typography variants for text (`lead` for an
+intro line, `stat` for a stat card's number, `appTitle` for the app's name
+in the header). The theme has no dark scheme yet: that gap is this
 system's to fix, not the app's.
 
 **React components** (`@russell-marketing/brand-ui/react/*`) depend on React
@@ -180,3 +195,21 @@ npx rm-brand-copy extension/vendor core.css  # or name files under ui/
 - Never edit a copy. The audit skips copied files because they are the
   system's own CSS; an edit would hide from it.
 
+## 13. Every screen works at phone width
+
+People open these tools on their phones. A screen that works at 1440px and
+breaks at 375px is broken.
+
+- **Use the layout classes** (rule 8): `.app-header`, `.tabs`, `.form-grid`,
+  `.filter-bar`. They rearrange themselves; nothing needs a breakpoint in the
+  app.
+- **Tabs scroll, never squeeze.** Labels stay on one line and the row
+  scrolls sideways. In MUI, the theme makes every `<Tabs>` scrollable: never
+  set `variant="fullWidth"`.
+- **No fixed widths on fields.** The form grid or filter bar sets each
+  field's width. `width: '100%'` is fine; `width: 150` is not.
+- **Nothing positioned to sit on top of something else** in a header or
+  toolbar (`position: absolute` to centre the tabs): it overlaps the moment
+  the screen narrows. The header's grid centres its navigation.
+- **Look at it.** Every pull request that changes a screen includes a
+  screenshot of it at 375px wide as well as at desktop width.

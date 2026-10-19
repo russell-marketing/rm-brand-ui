@@ -21,7 +21,8 @@ const appRoot = args.find((a) => !a.startsWith('--')) ?? process.cwd();
 const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'dist', 'build', 'out', 'coverage', '.vercel', 'public']);
 const EXTS = new Set(['.css', '.scss', '.tsx', '.jsx', '.ts', '.js', '.html']);
 const SYSTEM_CLASSES = ['btn', 'badge', 'pill', 'tag', 'table', 'alert', 'input', 'select', 'stat', 'stats',
-  'kv', 'rating', 'surface', 'muted', 'page', 'page-header', 'table-scroll', 'textarea', 'text-blank', 'modal', 'tabs', 'rm-toast', 'rm-tooltip', 'skeleton'];
+  'kv', 'rating', 'surface', 'muted', 'page', 'page-header', 'table-scroll', 'textarea', 'text-blank', 'modal', 'tabs', 'tab',
+  'app-header', 'form-grid', 'filter-bar', 'rm-toast', 'rm-tooltip', 'skeleton'];
 const ALLOWED_TOKEN_OVERRIDES = new Set(['--font-display', '--font-body']);
 // The real token names, read from the copy of tokens.css that ships with
 // this script, so a check never guesses at what counts as a system token.
@@ -68,6 +69,23 @@ function brandBackgroundInBlock(lines, i) {
 
 const braceDelta = (t) => (t.match(/\{/g) ?? []).length - (t.match(/\}/g) ?? []).length;
 const SX_RADII_ON_SCALE = new Set([0, 0.5, 0.75, 1]);
+// A value ends at a comma, a closing brace, or the end of the line (the last
+// property in a multi-line object often has no comma).
+const END = String.raw`\s*(?:[,}]|$)`;
+const FONT_SIZE_RE = new RegExp(String.raw`font-size\s*:\s*[\d.]+(px|rem|em)|fontSize\s*:\s*['"]?[\d.]+(px|rem|em)?['"]?` + END);
+const RADIUS_RE = new RegExp(String.raw`borderRadius\s*:\s*(['"]?)([\d.]+)(px)?\1` + END);
+// JSX tags whose sizes rule 13 and the icon exception care about.
+const isIconTag = (t) => !!t && /(Icon|\.icon)$|^SvgIcon$/.test(t);
+const FIELD_TAGS = new Set(['TextField', 'Select', 'FormControl', 'Autocomplete', 'DatePicker', 'input', 'select', 'textarea']);
+// The last JSX tag opened on a line, and whether its opening tag is still
+// open at the end of the line (attributes on the following lines).
+function lastTag(line) {
+  const all = [...line.matchAll(/<([A-Za-z][\w.]*)/g)];
+  if (!all.length) return null;
+  const m = all[all.length - 1];
+  const rest = line.slice(m.index + m[0].length).replace(/=>/g, '');
+  return { name: m[1], open: !rest.includes('>') };
+}
 
 /* ---------- source files ---------- */
 const files = [];
@@ -88,6 +106,7 @@ const STYLE_PROP = /(color|background|border|outline|fill|stroke|shadow)/i;
 const sysClassRe = new RegExp(`\\.(${SYSTEM_CLASSES.join('|')})(?![\\w-])`);
 let usesTheme = false;
 let importsStyles = false;
+let importsLayout = false;
 const pieceImports = [];
 
 for (const file of files) {
@@ -110,6 +129,12 @@ for (const file of files) {
   // pixels.
   let objKind = null;
   let objDepth = 0;
+  let objTag = null;
+  // sx={…} on the tag itself, as opposed to sx: {…} / style: {…} inside
+  // another prop (a menu's paper, a slot).
+  let objOnTag = false;
+  // A JSX opening tag that spans lines, so its attributes know their tag.
+  let openTag = null;
 
   lines.forEach((raw, i) => {
     const n = i + 1;
@@ -117,6 +142,7 @@ for (const file of files) {
 
     if (/brand-(ui|styles)\/adapters\/mui-theme/.test(line)) usesTheme = true;
     if (/brand-ui\/styles['"]|rm-ui\.entry\.css/.test(line)) importsStyles = true;
+    if (/brand-ui\/layout['"]|layout\.entry\.css/.test(line)) importsLayout = true;
     const piece = line.match(/brand-(?:ui|styles)\/(tokens|core|dark|utilities|a11y|components\/[\w-]+)['"]/);
     if (piece && !/tokens\.js/.test(line)) pieceImports.push([rel, n, piece[1]]);
 
@@ -125,15 +151,24 @@ for (const file of files) {
       if (/<\/style>/.test(line)) inStyleBlock = false;
     }
     let kindHere = objKind;
+    let tagHere = null;
     if (!isCss) {
+      const t = lastTag(line);
+      tagHere = t ? t.name : openTag;
+      if (t) openTag = t.open ? t.name : null;
+      else if (openTag && line.replace(/=>/g, '').includes('>')) openTag = null;
       // sx={…} on a component, or sx: {…} as a key (e.g. inside slotProps).
       const start = objKind ? null : line.match(/\b(sx|style)\s*(?:=|:)\s*\{/);
       if (start) {
         kindHere = objKind = start[1];
         objDepth = braceDelta(line.slice(start.index + start[0].length - 1));
+        const before = lastTag(line.slice(0, start.index));
+        objTag = before ? before.name : tagHere;
+        objOnTag = start[0].includes('=');
       } else if (objKind) {
         objDepth += braceDelta(line);
       }
+      if (objKind) tagHere = objTag;
       if (objDepth <= 0) objKind = null;
     }
     const cssContext = isCss || inStyleBlock;
@@ -159,8 +194,9 @@ for (const file of files) {
       const colourText = line.replace(/var\(\s*(--[\w-]+)\s*,[^)]*\)/g,
         (m, name) => (SYSTEM_TOKENS.has(name) ? `var(${name})` : m));
       if (STYLE_PROP.test(line) && /#[0-9a-fA-F]{3,8}\b|rgba?\(/.test(colourText)) add(5, rel, n, `hard-coded colour: ${line.trim()}`);
-      if (/font-size\s*:\s*[\d.]+(px|rem|em)|fontSize\s*:\s*['"]?[\d.]+(px|rem|em)?['"]?\s*[,}]/.test(line)) add(5, rel, n, `font size not from --fs-*: ${line.trim()}`);
-      const radius = line.match(/borderRadius\s*:\s*(['"]?)([\d.]+)(px)?\1\s*[,}]/);
+      // An icon's fontSize is its size, not a text size.
+      if (FONT_SIZE_RE.test(line) && !isIconTag(tagHere)) add(5, rel, n, `font size not from --fs-*: ${line.trim()}`);
+      const radius = line.match(RADIUS_RE);
       if (/border-radius\s*:\s*\d+px/.test(line)) {
         add(5, rel, n, `radius not from --radius-*: ${line.trim()}`);
       } else if (radius) {
@@ -190,6 +226,16 @@ for (const file of files) {
       add(7, rel, n, 'forces the light theme; allowed only as a temporary step with a backlog item');
     }
 
+    // rule 13: narrow screens
+    if (!isCss && tagHere === 'Tabs' && /variant\s*=\s*["'{]*fullWidth/.test(line)) {
+      add(13, rel, n, 'tabs squeezed to share the width; remove variant="fullWidth" so they scroll (the theme makes tabs scrollable)');
+    }
+    // A fixed size, not 0 and not a percentage.
+    if (FIELD_TAGS.has(tagHere) && kindHere !== null && objOnTag
+        && new RegExp(String.raw`\b(min)?[wW]idth\s*:\s*['"]?[1-9][\d.]*(px|rem|em)?['"]?` + END).test(line)) {
+      add(13, rel, n, `fixed width on a field; let .form-grid or .filter-bar set it: ${line.trim()}`);
+    }
+
     // deprecated names
     if (/class(Name)?=["'{`][^"'}`]*\bpill\b/.test(line)) add(8, rel, n, '.pill is deprecated; use .badge');
   });
@@ -201,6 +247,10 @@ if (pieceImports.length) {
 } else if (!importsStyles && !usesTheme) {
   add(2, 'package.json', 0, 'never loads the stylesheet or the MUI theme');
 }
+// /layout is for MUI-only apps, alongside the theme. With the full
+// stylesheet it is already included.
+if (importsLayout && importsStyles) add(2, 'package.json', 0, "imports /layout and /styles; /styles already includes the layout classes, so drop /layout");
+if (importsLayout && !usesTheme && !importsStyles) add(2, 'package.json', 0, "imports /layout without the MUI theme; /layout is for MUI-only apps, so import '@russell-marketing/brand-ui/styles' instead");
 
 /* ---------- report ---------- */
 const byRule = new Map();
@@ -208,7 +258,7 @@ for (const f of findings) byRule.set(f.rule, [...(byRule.get(f.rule) ?? []), f])
 const TITLES = {
   1: 'Install with a version range', 2: 'Load the whole stylesheet', 4: 'Never restyle a system class',
   5: 'No hard-coded design values', 6: 'Brand colours are never text colours',
-  7: 'Every app supports dark mode', 8: 'Deprecated names',
+  7: 'Every app supports dark mode', 8: 'Deprecated names', 13: 'Every screen works at phone width',
 };
 const ver = (() => {
   try { return JSON.parse(readFileSync(join(appRoot, 'node_modules/@russell-marketing/brand-ui/package.json'), 'utf8')).version; }

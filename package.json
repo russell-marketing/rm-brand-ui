@@ -1,6 +1,6 @@
 {
   "name": "@russell-marketing/brand-ui",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
@@ -15,6 +15,7 @@
       "default": "./ui/rm-ui.entry.js"
     },
     "./styles": "./ui/rm-ui.entry.css",
+    "./layout": "./ui/layout.entry.css",
     "./tokens": "./ui/tokens.css",
     "./tokens.js": {
       "types": "./ui/tokens.d.ts",

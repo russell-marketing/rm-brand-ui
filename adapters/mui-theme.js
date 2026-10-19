@@ -66,16 +66,18 @@ export function getRMThemeConfig() {
     typography: {
       fontFamily: tokens.fonts.body,
       fontSize: 16, // 1rem base
+      // Sizes come from the type scale (RULES.md rule 5), fixed rather than
+      // growing with the screen, so titles stay in proportion on a phone.
       h1: {
         fontFamily: tokens.fonts.display,
-        fontSize: 'clamp(2rem, 1.5rem + 2vw, 2.5rem)',
+        fontSize: tokens.fontSize['3xl'],
         fontWeight: tokens.fontWeight.extrabold,
         letterSpacing: '2px',
         textTransform: 'uppercase',
       },
       h2: {
         fontFamily: tokens.fonts.display,
-        fontSize: 'clamp(1.5rem, 1.25rem + 1vw, 1.75rem)',
+        fontSize: tokens.fontSize['2xl'],
         fontWeight: tokens.fontWeight.bold,
       },
       h3: {
@@ -109,6 +111,29 @@ export function getRMThemeConfig() {
         fontFamily: tokens.fonts.body,
         fontSize: tokens.fontSize.sm,
         fontWeight: tokens.fontWeight.regular,
+      },
+      // Lead text: the line under a page title, an intro paragraph.
+      lead: {
+        fontFamily: tokens.fonts.body,
+        fontSize: tokens.fontSize.lg,
+        fontWeight: tokens.fontWeight.regular,
+      },
+      // The app's name in .app-header__title. Matches the CSS version.
+      appTitle: {
+        fontFamily: tokens.fonts.display,
+        fontSize: tokens.fontSize.md,
+        fontWeight: tokens.fontWeight.extrabold,
+        letterSpacing: tokens.letterSpacing.caps,
+        textTransform: 'uppercase',
+        lineHeight: 1.3,
+      },
+      // A stat card's number. Matches .stat__value.
+      stat: {
+        fontFamily: tokens.fonts.display,
+        fontSize: tokens.fontSize['2xl'],
+        fontWeight: tokens.fontWeight.extrabold,
+        fontVariantNumeric: 'tabular-nums',
+        lineHeight: 1.2,
       },
       button: {
         fontFamily: tokens.fonts.body,
@@ -182,6 +207,12 @@ export function getRMThemeConfig() {
         },
       },
 
+      MuiTypography: {
+        defaultProps: {
+          variantMapping: { lead: 'p', stat: 'p', appTitle: 'p' },
+        },
+      },
+
       MuiButton: {
         styleOverrides: {
           root: {
@@ -218,10 +249,11 @@ export function getRMThemeConfig() {
               '&:hover fieldset': {
                 borderColor: tokens.text.secondary,
               },
+              // A border only: a box-shadow here would ignore the gap MUI
+              // leaves for the floating label and draw a line through it.
               '&.Mui-focused fieldset': {
                 borderColor: tokens.colors.galaxy,
                 borderWidth: '2px',
-                boxShadow: `0 0 0 1px ${tokens.colors.galaxy}`,
               },
             },
           },
@@ -371,6 +403,7 @@ export function getRMThemeConfig() {
       MuiTab: {
         styleOverrides: {
           root: {
+            whiteSpace: 'nowrap',
             fontSize: tokens.fontSize.md,
             fontWeight: tokens.fontWeight.semibold,
             textTransform: 'none',
@@ -384,11 +417,23 @@ export function getRMThemeConfig() {
         },
       },
 
+      // Tab bars scroll sideways when the tabs don't fit; they are never
+      // squeezed to share the width (RULES.md rule 13).
       MuiTabs: {
+        defaultProps: {
+          variant: 'scrollable',
+          scrollButtons: 'auto',
+          allowScrollButtonsMobile: true,
+        },
         styleOverrides: {
           indicator: {
             backgroundColor: tokens.colors.galaxy,
             height: 3,
+          },
+          // A scroll arrow with nothing to scroll to is dimmed, not hidden:
+          // hidden, it still holds its place and reads as a stray gap.
+          scrollButtons: {
+            '&.Mui-disabled': { opacity: 0.3 },
           },
         },
       },

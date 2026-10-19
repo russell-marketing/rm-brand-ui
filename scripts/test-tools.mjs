@@ -54,6 +54,27 @@ writeFileSync(join(app, 'src/Panel.jsx'), [
   '  </Box>',
   ');',
 ].join('\n'));
+// Phone-width rule, icon sizes, and a last property with no comma.
+writeFileSync(join(app, 'src/Nav.jsx'), [
+  'export const Nav = () => (',
+  '  <Tabs',
+  '    onChange={(_, v) => set(v)}',
+  '    variant="fullWidth"',
+  '  >',
+  '    <Tab icon={<HomeIcon sx={{ fontSize: 20 }} />} />',
+  '    <FormControl size="small" sx={{ minWidth: 140 }}>',
+  '    <TextField',
+  '      sx={{ width: 150 }}',
+  '    />',
+  "    <TextField sx={{ width: '100%', minWidth: 0 }} />",
+  '    <Typography sx={{',
+  "      fontSize: '1rem'",
+  '    }} />',
+  '    <Box sx={{ mr: 3, borderRadius: 3',
+  '    }} />',
+  '  </Tabs>',
+  ');',
+].join('\n'));
 writeFileSync(join(app, 'src/fonts.css'), '.a{ font-family: "Roboto Mono", monospace; }\n.b{ font-family: var(--font-body); }\n');
 
 /* ---------- rm-brand-copy ---------- */
@@ -88,7 +109,21 @@ check(flagged('src/fonts.css', 1) && !flagged('src/fonts.css', 2), 'flags a lite
 check(!flagged('src/Panel.jsx', 10), 'a fallback inside var(--real-token, …) is not a hard-coded colour');
 check(flagged('src/Panel.jsx', 11), 'a fallback on a name that is not a token is');
 check(flagged('src/Panel.jsx', 14) && /1\.5 in sx is 12px/.test(audit.stdout), 'sx: { … } as a key is tracked too (1.5 = 12px)');
+check(flagged('src/Nav.jsx', 4) && /Rule 13\./.test(audit.stdout), 'flags Tabs variant="fullWidth" on a later line of the tag (rule 13)');
+check(!flagged('src/Nav.jsx', 3), 'an arrow function inside a tag does not end it');
+check(!flagged('src/Nav.jsx', 6), "an icon's fontSize is not a text size");
+check(flagged('src/Nav.jsx', 7), 'flags a fixed minWidth on a FormControl');
+check(flagged('src/Nav.jsx', 9), 'flags a fixed width on a TextField from inside its tag');
+check(!flagged('src/Nav.jsx', 11), "width: '100%' and minWidth: 0 are not fixed widths");
+check(flagged('src/Nav.jsx', 13), 'flags the last property of an object when it has no comma');
+check(flagged('src/Nav.jsx', 15), 'flags borderRadius at the end of a line with no comma');
 check(run('audit.mjs', '.', '--strict').status === 1, '--strict fails on a "fix" finding');
+
+/* ---------- /layout import (rule 2) ---------- */
+writeFileSync(join(app, 'src/layout.js'), "import '@russell-marketing/brand-ui/styles';\nimport '@russell-marketing/brand-ui/layout';\n");
+check(/drop \/layout/.test(run('audit.mjs', '.').stdout), '/layout with /styles is flagged as a double import');
+writeFileSync(join(app, 'src/layout.js'), "import '@russell-marketing/brand-ui/layout';\nimport { getRMThemeConfig } from '@russell-marketing/brand-ui/adapters/mui-theme';\n");
+check(!/Rule 2\./.test(run('audit.mjs', '.').stdout), 'an MUI app with the theme and /layout passes rule 2');
 
 rmSync(app, { recursive: true, force: true });
 console.log(failures ? `\n\x1b[31m${failures} failure(s)\x1b[0m\n` : '\n\x1b[32mAll tool checks passed.\x1b[0m\n');
