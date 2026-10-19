@@ -927,9 +927,10 @@
       "labelGap": {
         "$type": "dimension",
         "$value": {
-          "value": 1.5,
+          "value": 0.5,
           "unit": "rem"
         },
+        "$description": "Label to its slider. Smaller than the gap between fields, so a label reads as part of its own slider.",
         "$extensions": {
           "co.russellmarketing.css": "--slider-label-gap"
         }

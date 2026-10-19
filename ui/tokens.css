@@ -113,7 +113,7 @@
   --opacity-disabled: 0.6;                     /* Disabled controls. */
 
   /* Slider */
-  --slider-label-gap: 1.5rem;
+  --slider-label-gap: .5rem;                   /* Label to its slider. Smaller than the gap between fields, so a label reads as part of its own slider. */
   --slider-thumb-size: 20px;
   --slider-track-height: 8px;
   --slider-container-padding: 2rem;
