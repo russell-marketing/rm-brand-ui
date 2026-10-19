@@ -143,3 +143,9 @@ end handles no longer stick out past the component. Two sliders side by side
 in a `.form-grid` read as two, not one long one. A plain MUI `<Slider>` in
 the app still needs a padded wrapper, as the theme notes.
 
+## 1.7.5: fixes 1.7.4's label gap
+
+1.7.4's inset box let the slider sit on a line of text, which put about 17px
+between a label and its slider instead of 8px. The box is now a flex box, so
+the gaps are back to 8px (label to slider) and the handles stay inside.
+
