@@ -12,6 +12,35 @@
  *   import '@russell-marketing/brand-ui/layout';
  */
 
+/* Page: the container for a screen's content (page.css has its header).
+ * Centres the content up to --page-max and spaces its sections evenly.
+ * width:100% keeps it full width inside a flex or grid parent too, where
+ * auto margins would otherwise size it to its content.
+ *
+ *   <main class="page">…</main>
+ *
+ * --single: a page that is one short thing, such as a sign-in or passcode
+ * form: narrow, and centred on the screen.
+ *
+ *   <main class="page page--single">…the form…</main> */
+.page{
+  width:100%;
+  max-width: var(--page-max);
+  margin-inline:auto;
+  padding: var(--space-8) var(--space-6);
+  display:flex;
+  flex-direction:column;
+  gap: var(--space-6);
+}
+.page--single{
+  max-width: var(--page-single-max);
+  min-height: 100dvh;
+  justify-content:center;
+}
+@media (width < 48rem){
+  .page{ padding: var(--space-6) var(--space-4); }
+}
+
 /* App header: the app's name, its main navigation and a few extras (an
  * environment badge, the user, a version).
  *
@@ -144,4 +173,66 @@
   flex-wrap:wrap;
   justify-content:flex-end;
   gap: var(--space-2);
+}
+
+/* Section header: a section's title, an optional line under it, and the
+ * actions that belong to the section (a toggle, Export, Add). The actions
+ * sit to the right while they fit and move under the title when they don't.
+ *
+ *   <div class="section-header">
+ *     <div>
+ *       <h2 class="section-header__title">Category trends</h2>
+ *       <p class="section-header__sub">Last 30 days.</p>
+ *     </div>
+ *     <div class="section-header__actions">…buttons, a .choices group…</div>
+ *   </div>
+ *
+ * With no line under the title, the title can be a direct child. */
+.section-header{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: var(--space-3) var(--space-4);
+}
+.section-header > :not(.section-header__actions){ flex: 1 1 16rem; min-width:0; }
+.section-header__actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap: var(--space-2);
+  max-width:100%;
+}
+:where(.section-header__title){
+  margin:0;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+}
+:where(.section-header__sub){
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+/* Choices: a few buttons where exactly one is chosen and it changes what
+ * the section shows (sort order, period, which list). aria-pressed marks
+ * the chosen one; the look comes from it.
+ *
+ *   <div class="choices" role="group" aria-label="Sort creatives">
+ *     <button class="btn" aria-pressed="true">Most impressions</button>
+ *     <button class="btn" aria-pressed="false">Best CTR</button>
+ *   </div>
+ *
+ * MUI apps use <ToggleButtonGroup exclusive>; the theme gives it this look. */
+.choices{
+  display:flex;
+  flex-wrap:wrap;
+  gap: var(--space-2);
+}
+.choices > .btn[aria-pressed="true"],
+.choices > .btn[aria-pressed="true"]:hover{
+  background: var(--accent-surface);
+  border-color: var(--accent-600);
+  color: var(--accent-ink);
 }

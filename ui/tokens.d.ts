@@ -172,7 +172,7 @@ export interface Tokens {
     paddingXSm: string;
   };
 
-  layout: { pageMax: string; formColMin: string; filterColMin: string };
+  layout: { pageMax: string; formColMin: string; filterColMin: string; pageSingleMax: string };
 
   table: { cellPadY: string; cellPadX: string; headPadY: string };
 

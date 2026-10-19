@@ -438,6 +438,33 @@ export function getRMThemeConfig() {
         },
       },
 
+      // Matches .choices: exactly one chosen, marked with the accent tint.
+      // The group wraps rather than running off a phone screen.
+      MuiToggleButtonGroup: {
+        styleOverrides: {
+          root: {
+            flexWrap: 'wrap',
+            maxWidth: '100%',
+          },
+        },
+      },
+
+      MuiToggleButton: {
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+            fontWeight: tokens.fontWeight.semibold,
+            color: tokens.text.secondary,
+            borderColor: tokens.border.subtle,
+            '&.Mui-selected, &.Mui-selected:hover': {
+              backgroundColor: tokens.accent[100],
+              color: tokens.accent[700],
+              borderColor: tokens.accent[600],
+            },
+          },
+        },
+      },
+
       MuiTableHead: {
         styleOverrides: {
           root: {

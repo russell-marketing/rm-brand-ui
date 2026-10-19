@@ -102,6 +102,22 @@
 
         <div class="spacer"></div>
 
+        <div class="section-header">
+          <div>
+            <h2 class="section-header__title">Creatives</h2>
+            <p class="section-header__sub">Ads running this week.</p>
+          </div>
+          <div class="section-header__actions">
+            <div class="choices" role="group" aria-label="Sort creatives">
+              <button class="btn" aria-pressed="true">Most impressions</button>
+              <button class="btn" aria-pressed="false">Best CTR</button>
+              <button class="btn" aria-pressed="false">Lowest CAC</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+
         <div class="filter-bar">
           <div><label for="f-cat">Category</label><select id="f-cat" class="select"><option>All</option></select></div>
           <div><label for="f-flag">Flag</label><select id="f-flag" class="select"><option>Unflagged only</option></select></div>
@@ -430,6 +446,11 @@
 
     // Tabs
     initTabs(document.getElementById('demoTabs'));
+    // .choices: exactly one pressed.
+    document.querySelectorAll('.choices').forEach((g) => g.addEventListener('click', (e) => {
+      const b = e.target.closest('.btn'); if (!b) return;
+      g.querySelectorAll('.btn').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    }));
 
     // Modal: uses the shipped focus trap. Escape and focus restore come free.
     (() => {

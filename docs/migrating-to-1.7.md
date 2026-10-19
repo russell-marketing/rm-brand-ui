@@ -92,3 +92,24 @@ the app overrides that, so the audit flags it.
 
 Run `npx rm-brand-audit`, then look at every changed screen at 375px wide
 and at desktop width, and put both screenshots in the pull request.
+
+## 1.7.1: what the apps found
+
+Built from the four apps' 1.7 plans. Nothing is removed.
+
+| If the app has its own… | Use |
+|---|---|
+| Page frame in an MUI app (padding, `100vw`, a `Container`) | `<Box component="main" className="page">`: `.page` is now in `/layout` |
+| Centred page for one short form (sign-in, passcode) | `.page page--single` (up to `--page-single-max`, 448px) |
+| Row with a section title and buttons or a toggle on the right | `.section-header` with `__title`, `__sub`, `__actions` |
+| Buttons where one is chosen (sort order, period, which list) | `.choices` + `.btn` + `aria-pressed`; in MUI, `<ToggleButtonGroup exclusive>` (the theme styles it to match) |
+| A capsule- or pill-shaped "selected" button | `.choices`: the system marks the chosen one with the accent tint, not a shape |
+| Its own TypeScript declarations for `@russell-marketing/brand-ui/adapters/mui-theme` | Delete them: the package ships types, including the `lead`, `stat` and `appTitle` variants. A local `declare module` for that path overrides the package's types. |
+
+**What looks different:** on screens under 48rem, `.page` has 16px side
+padding instead of 24px.
+
+**The audit (rule 13):** `width: 100vw` is flagged, and any `width`,
+`min-width` or grid `minmax()` minimum over 320px is marked "check" (fine
+when a `max-width: 100%` caps it). Media and container query conditions are
+not widths and are ignored. In JS, only `sx` and `style` objects count.

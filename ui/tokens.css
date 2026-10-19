@@ -102,6 +102,7 @@
   --page-max: 1240px;                          /* Widest a .page gets. */
   --form-col-min: 240px;                       /* Narrowest a .form-grid column gets before the fields stack. */
   --filter-col-min: 176px;                     /* Narrowest a .filter-bar control gets before the bar wraps. */
+  --page-single-max: 448px;                    /* Widest a .page--single gets (a sign-in or passcode form). */
 
   /* Table */
   --table-cell-py: 12px;

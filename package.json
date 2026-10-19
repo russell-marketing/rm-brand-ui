@@ -1,6 +1,6 @@
 {
   "name": "@russell-marketing/brand-ui",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
@@ -27,7 +27,11 @@
     "./utilities": "./ui/utilities.css",
     "./a11y": "./ui/a11y.css",
     "./components/*": "./ui/components/*.css",
-    "./adapters/mui-theme": "./adapters/mui-theme.js",
+    "./adapters/mui-theme": {
+      "types": "./adapters/mui-theme.d.ts",
+      "import": "./adapters/mui-theme.js",
+      "default": "./adapters/mui-theme.js"
+    },
     "./react/SliderWithLabel": "./components/react/SliderWithLabel.jsx",
     "./react/RateField": "./components/react/RateField.jsx",
     "./react/Rating": {
