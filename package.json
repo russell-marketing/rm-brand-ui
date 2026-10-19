@@ -1,6 +1,6 @@
 {
   "name": "@russell-marketing/brand-ui",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",

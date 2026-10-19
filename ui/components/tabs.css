@@ -9,6 +9,15 @@
  * Tabs keep their labels on one line and the row scrolls sideways when they
  * don't fit; tabs are never squeezed to share the width.
  * aria-selected="true" marks the current tab (.is-active also works).
+ *
+ * Tabs that are links to pages (navigation, in .app-header__nav):
+ *   <nav class="app-header__nav" aria-label="Main"><div class="tabs">
+ *     <a class="tab" href="/" aria-current="page">Leads</a>
+ *     <a class="tab" href="/status">Status</a>
+ *   </div></nav>
+ * aria-current="page" marks the page you are on. On a phone the current tab
+ * can be past the edge: scroll it into view on load
+ * (el.scrollIntoView({ block: 'nearest', inline: 'nearest' })).
  * .tab--group-end draws a divider after a tab that ends a group. It works on
  * MUI's <Tab className="tab--group-end"> too. */
 .tabs{
@@ -20,14 +29,18 @@
 }
 .tab{
   flex:none;
+  display:inline-flex; align-items:center;
   white-space:nowrap;
+  text-decoration:none;
   height:32px; padding:0 12px; border-radius:var(--radius-s);
   border:1px solid var(--border-subtle);
   background:transparent; color:var(--text-secondary);
   font-weight:600; letter-spacing:.2px;
 }
+.tab:hover{ color:var(--text-primary); }
 .tab.is-active,
-.tab[aria-selected="true"]{
+.tab[aria-selected="true"],
+.tab[aria-current="page"]{
   background: color-mix(in oklab, var(--rm-galaxy), var(--bg-surface) 82%);
   color: var(--text-primary); border-color: color-mix(in oklab, var(--rm-galaxy), black 8%);
 }

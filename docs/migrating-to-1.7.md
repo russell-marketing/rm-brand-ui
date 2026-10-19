@@ -113,3 +113,18 @@ padding instead of 24px.
 `min-width` or grid `minmax()` minimum over 320px is marked "check" (fine
 when a `max-width: 100%` caps it). Media and container query conditions are
 not widths and are ignored. In JS, only `sx` and `style` objects count.
+
+## 1.7.2: fixes from the app updates
+
+- **Tabs that are links** (`<a class="tab">`, navigation in
+  `.app-header__nav`) now centre their label and have no underline, and
+  `aria-current="page"` marks the page you are on, as `aria-selected` does
+  for tabs that switch panels. Delete any local `a.tab` rule.
+- **MUI `ToggleButtonGroup`** buttons are now separate, with a gap, like
+  `.choices`. Joined buttons lost their left border and corners when the
+  group wrapped onto a second row on a phone.
+- On a phone the current tab can sit past the edge of a scrolling tab row.
+  For link tabs, scroll it into view on load
+  (`el.scrollIntoView({ block: 'nearest', inline: 'nearest' })`). MUI's
+  scrollable `Tabs` already does this.
+

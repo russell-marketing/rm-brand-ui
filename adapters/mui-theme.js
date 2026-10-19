@@ -438,14 +438,23 @@ export function getRMThemeConfig() {
         },
       },
 
-      // Matches .choices: exactly one chosen, marked with the accent tint.
-      // The group wraps rather than running off a phone screen.
+      // Matches .choices: separate buttons with a gap, exactly one chosen,
+      // marked with the accent tint. The group wraps rather than running off
+      // a phone screen, so buttons don't share borders: joined buttons lose
+      // their edges when they wrap onto a second row.
       MuiToggleButtonGroup: {
         styleOverrides: {
           root: {
             flexWrap: 'wrap',
             maxWidth: '100%',
+            gap: tokens.spacing[2],
           },
+          ...Object.fromEntries(['firstButton', 'middleButton', 'lastButton'].map((key) => [key, {
+            marginLeft: 0,
+            border: `1px solid ${tokens.border.subtle}`,
+            borderRadius: tokens.radius.s,
+            '&.Mui-selected': { borderColor: tokens.accent[600] },
+          }])),
         },
       },
 
