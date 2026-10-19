@@ -22,7 +22,7 @@ const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'dist', 'build', 'ou
 const EXTS = new Set(['.css', '.scss', '.tsx', '.jsx', '.ts', '.js', '.html']);
 const SYSTEM_CLASSES = ['btn', 'badge', 'pill', 'tag', 'table', 'alert', 'input', 'select', 'stat', 'stats',
   'kv', 'rating', 'surface', 'muted', 'page', 'page-header', 'table-scroll', 'textarea', 'text-blank', 'modal', 'tabs', 'tab',
-  'app-header', 'form-grid', 'filter-bar', 'rm-toast', 'rm-tooltip', 'skeleton'];
+  'app-header', 'form-grid', 'filter-bar', 'section-header', 'choices', 'rm-toast', 'rm-tooltip', 'skeleton'];
 const ALLOWED_TOKEN_OVERRIDES = new Set(['--font-display', '--font-body']);
 // The real token names, read from the copy of tokens.css that ships with
 // this script, so a check never guesses at what counts as a system token.
@@ -37,7 +37,7 @@ const findings = [];
 // audit can't see (a parent's background); a person looks and decides.
 // --strict fails on 'fix' only.
 const CHECK_RULES = new Set([6]);
-const add = (rule, file, line, msg) => findings.push({ rule, file, line, msg, level: CHECK_RULES.has(rule) ? 'check' : 'fix' });
+const add = (rule, file, line, msg, level) => findings.push({ rule, file, line, msg, level: level ?? (CHECK_RULES.has(rule) ? 'check' : 'fix') });
 
 /* ---------- rule 1: the dependency ---------- */
 const pkgPath = join(appRoot, 'package.json');
@@ -77,6 +77,24 @@ const RADIUS_RE = new RegExp(String.raw`borderRadius\s*:\s*(['"]?)([\d.]+)(px)?\
 // JSX tags whose sizes rule 13 and the icon exception care about.
 const isIconTag = (t) => !!t && /(Icon|\.icon)$|^SvgIcon$/.test(t);
 const FIELD_TAGS = new Set(['TextField', 'Select', 'FormControl', 'Autocomplete', 'DatePicker', 'input', 'select', 'textarea']);
+// A width, min-width or grid minimum over 320px: it can't fit on a phone.
+// In JS a bare number is pixels (sx treats 1 and under as a fraction).
+const PHONE_PX = 320;
+function widerThanPhone(raw, css) {
+  // A media or container query's (min-width: …) describes the screen, not an element.
+  const line = raw.replace(/\(\s*(?:min-|max-)?width\s*[:<>=][^)]*\)/g, '');
+  const px = (v, unit) => (unit === 'rem' || unit === 'em' ? Number(v) * 16 : Number(v));
+  const re = css
+    ? /(?:^|[^-\w])(?:min-)?width\s*:\s*([\d.]+)(px|rem|em)|minmax\(\s*([\d.]+)(px|rem|em)/g
+    : /\b(?:min)?[wW]idth\s*:\s*['"]?([\d.]+)(px|rem|em)?['"]?\s*(?:[,}]|$)|minmax\(\s*([\d.]+)(px|rem|em)/g;
+  for (const m of line.matchAll(re)) {
+    const v = m[1] ?? m[3];
+    const unit = m[1] !== undefined ? m[2] : m[4];
+    if (px(v, unit ?? 'px') > PHONE_PX) return true;
+  }
+  return false;
+}
+
 // The last JSX tag opened on a line, and whether its opening tag is still
 // open at the end of the line (attributes on the following lines).
 function lastTag(line) {
@@ -231,9 +249,19 @@ for (const file of files) {
       add(13, rel, n, 'tabs squeezed to share the width; remove variant="fullWidth" so they scroll (the theme makes tabs scrollable)');
     }
     // A fixed size, not 0 and not a percentage.
+    let fieldWidth = false;
     if (FIELD_TAGS.has(tagHere) && kindHere !== null && objOnTag
         && new RegExp(String.raw`\b(min)?[wW]idth\s*:\s*['"]?[1-9][\d.]*(px|rem|em)?['"]?` + END).test(line)) {
       add(13, rel, n, `fixed width on a field; let .form-grid or .filter-bar set it: ${line.trim()}`);
+      fieldWidth = true;
+    }
+    if ((cssContext || jsStyleContext) && !fieldWidth) {
+      if (/(^|[^-\w])(min-)?width\s*:\s*['"]?100vw|\b(min)?[wW]idth\s*:\s*['"]100vw/.test(line)) {
+        add(13, rel, n, `100vw is wider than the page when there is a scrollbar; use 100%: ${line.trim()}`);
+      } else if ((cssContext || kindHere !== null) && widerThanPhone(line, cssContext)) {
+        // In JS, only inside sx/style objects: elsewhere a width is data (an image's size).
+        add(13, rel, n, `wider than a 320px phone; fine only if a max-width: 100% caps it: ${line.trim()}`, 'check');
+      }
     }
 
     // deprecated names
@@ -272,9 +300,10 @@ if (!findings.length) {
 }
 for (const rule of [...byRule.keys()].sort((a, b) => a - b)) {
   const list = byRule.get(rule);
-  const tag = CHECK_RULES.has(rule) ? 'check' : 'fix';
-  console.log(`\n\x1b[1mRule ${rule}. ${TITLES[rule]}\x1b[0m  (${list.length} to ${tag})`);
-  for (const f of list) console.log(`  ${f.file}${f.line ? `:${f.line}` : ''}  ${f.msg}`);
+  const fix = list.filter((f) => f.level === 'fix').length;
+  const counts = [fix && `${fix} to fix`, list.length - fix && `${list.length - fix} to check`].filter(Boolean).join(', ');
+  console.log(`\n\x1b[1mRule ${rule}. ${TITLES[rule]}\x1b[0m  (${counts})`);
+  for (const f of list) console.log(`  ${f.file}${f.line ? `:${f.line}` : ''}  ${f.level === 'check' ? '[check] ' : ''}${f.msg}`);
 }
 console.log(`\nTotal: ${[...byRule].sort(([a], [b]) => a - b).map(([r, l]) => `rule ${r}: ${l.length}`).join(', ')}`);
 console.log(`\n${findings.length} finding(s). Rules: node_modules/@russell-marketing/brand-ui/RULES.md · Upgrading: node_modules/@russell-marketing/brand-ui/docs/\n`);

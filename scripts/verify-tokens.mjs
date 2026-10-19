@@ -108,6 +108,7 @@ const lightMap = [
   ['--page-max', tokens.layout.pageMax],
   ['--form-col-min', tokens.layout.formColMin],
   ['--filter-col-min', tokens.layout.filterColMin],
+  ['--page-single-max', tokens.layout.pageSingleMax],
   ['--table-cell-py', tokens.table.cellPadY], ['--table-cell-px', tokens.table.cellPadX],
   ['--table-head-py', tokens.table.headPadY],
   ['--opacity-disabled', tokens.opacity.disabled],
@@ -185,11 +186,14 @@ const themes = {
   light: { page: tokens.background.page, surface: tokens.background.surface,
     textPrimary: tokens.text.primary, textSecondary: tokens.text.secondary,
     link: tokens.link.default, linkHover: tokens.link.hover, hover: tokens.tint.dust12,
-    textBrand: tokens.text.brand, rating: tokens.rating, status: tokens.status },
+    textBrand: tokens.text.brand, rating: tokens.rating, status: tokens.status,
+    // .choices chosen button: --accent-ink on --accent-surface.
+    chosen: [tokens.accent[700], tokens.accent[100]] },
   dark: { page: darkTokens.background.page, surface: darkTokens.background.surface,
     textPrimary: darkTokens.text.primary, textSecondary: darkTokens.text.secondary,
     link: darkTokens.link.default, linkHover: darkTokens.link.hover, hover: darkTokens.tint.dust12,
-    textBrand: darkTokens.text.brand, rating: darkTokens.rating, status: darkTokens.status },
+    textBrand: darkTokens.text.brand, rating: darkTokens.rating, status: darkTokens.status,
+    chosen: [darkTokens.accent[600], darkTokens.accent[200]] }, // dark --accent-surface is accent-200
 };
 for (const [name, t] of Object.entries(themes)) {
   head(`4. Contrast -- ${name} theme (AA: 4.5 text, 3.0 large/secondary)`);
@@ -209,6 +213,7 @@ for (const [name, t] of Object.entries(themes)) {
     ['warn text on warn bg', t.status.warning.text, t.status.warning.bg, 4.5],
     ['danger text on danger bg', t.status.danger.text, t.status.danger.bg, 4.5],
     ['button primary', tokens.colors.moon, tokens.colors.space, 4.5],
+    ['chosen choice button', t.chosen[0], t.chosen[1], 4.5],
   ];
   for (const [label, fg, bg, min] of checks) {
     const r = ratio(fg, bg);

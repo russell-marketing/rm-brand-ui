@@ -75,6 +75,23 @@ writeFileSync(join(app, 'src/Nav.jsx'), [
   '  </Tabs>',
   ');',
 ].join('\n'));
+// Widths a phone can't fit, in CSS and in JS.
+writeFileSync(join(app, 'src/wide.css'), [
+  '.panel{ min-width: 400px; }',
+  '.side{ max-width: 600px; }',
+  '.grid{ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }',
+  '.cards{ grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr)); }',
+  '.shell{ width: 100vw; }',
+  '@container panel (min-width: 40rem) { .x{ display:grid; } }',
+].join('\n'));
+writeFileSync(join(app, 'src/images.js'), "export const hero = { src: 'a.png', width: 640, height: 480 };\n");
+writeFileSync(join(app, 'src/Wide.jsx'), [
+  'export const W = () => (',
+  "  <Box sx={{ minWidth: '340px', width: 0.5 }}>",
+  "    <Box sx={{ width: 300, maxWidth: 900 }} />",
+  '  </Box>',
+  ');',
+].join('\n'));
 writeFileSync(join(app, 'src/fonts.css'), '.a{ font-family: "Roboto Mono", monospace; }\n.b{ font-family: var(--font-body); }\n');
 
 /* ---------- rm-brand-copy ---------- */
@@ -117,6 +134,13 @@ check(flagged('src/Nav.jsx', 9), 'flags a fixed width on a TextField from inside
 check(!flagged('src/Nav.jsx', 11), "width: '100%' and minWidth: 0 are not fixed widths");
 check(flagged('src/Nav.jsx', 13), 'flags the last property of an object when it has no comma');
 check(flagged('src/Nav.jsx', 15), 'flags borderRadius at the end of a line with no comma');
+check(flagged('src/wide.css', 1) && /\[check\] wider than a 320px phone/.test(audit.stdout), 'min-width: 400px is a "check" (rule 13)');
+check(!flagged('src/wide.css', 2), 'max-width is never wider than a phone');
+check(!flagged('src/wide.css', 3) && flagged('src/wide.css', 4), 'minmax(300px) fits a phone, minmax(24rem) = 384px does not');
+check(flagged('src/wide.css', 5) && /100vw is wider than the page/.test(audit.stdout), 'flags width: 100vw');
+check(!flagged('src/wide.css', 6), 'a container query (min-width: 40rem) is not an element width');
+check(!flagged('src/images.js', 1), "an image's width in a data object is not a style");
+check(flagged('src/Wide.jsx', 2) && !flagged('src/Wide.jsx', 3), "sx minWidth '340px' is flagged; width: 300 and maxWidth are not");
 check(run('audit.mjs', '.', '--strict').status === 1, '--strict fails on a "fix" finding');
 
 /* ---------- /layout import (rule 2) ---------- */

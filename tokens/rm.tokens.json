@@ -1042,6 +1042,17 @@
         "$extensions": {
           "co.russellmarketing.css": "--filter-col-min"
         }
+      },
+      "pageSingleMax": {
+        "$type": "dimension",
+        "$value": {
+          "value": 448,
+          "unit": "px"
+        },
+        "$description": "Widest a .page--single gets (a sign-in or passcode form).",
+        "$extensions": {
+          "co.russellmarketing.css": "--page-single-max"
+        }
       }
     }
   },

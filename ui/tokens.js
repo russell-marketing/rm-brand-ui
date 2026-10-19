@@ -150,6 +150,7 @@ export const tokens = {
     pageMax: '1240px',      // widest a .page gets
     formColMin: '240px',    // narrowest .form-grid column before fields stack
     filterColMin: '176px',  // narrowest .filter-bar control before the bar wraps
+    pageSingleMax: '448px', // widest a .page--single gets
   },
 
   // Table cell padding; .table--compact swaps these for --space-2

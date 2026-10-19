@@ -134,7 +134,7 @@ allowed only as a temporary step, with a backlog item to remove it.
 | Size | `.btn--sm`, `.input--sm`, `.select--sm` inside table rows only. Elsewhere, default size. |
 | Table | `.table--compact` for tables people scan; default for tables people read. Wide tables go inside `.table-scroll`. |
 | Table cell | A number or date alone in a cell: `.table__cell--num` on its `th` and `td`s (centred, equal-width figures). Text stays left. |
-| Page | `<main class="page">` for the page container, `.page-header` for its eyebrow, title and description. |
+| Page | `<main class="page">` for the page container, `.page-header` for its eyebrow, title and description. A page that is one short form (sign-in, passcode): `.page page--single`. |
 | Card | `.surface`; add `.surface--padded` when content sits directly inside it. |
 | Quiet text | `.muted`: colour only, so it fits any size of text it sits in. |
 | Multi-line input | `.textarea` with a `rows` attribute. |
@@ -142,6 +142,8 @@ allowed only as a temporary step, with a backlog item to remove it.
 | Tabs | `.tabs` with `.tab` and `aria-selected`. `.tab--group-end` on the last tab of a group draws the divider (MUI `<Tab>` too). |
 | Form | `.form-grid`; `__wide` for a field that needs the whole row, `__actions` for its buttons. |
 | Filters | `.filter-bar` above the table or list it filters; `__range` for a from/to pair, `__actions` for Apply / Clear. |
+| Section header | `.section-header` for a section's title, an optional line under it (`__sub`) and its actions (`__actions`). |
+| Choices | `.choices` with `.btn`s and `aria-pressed` when exactly one is chosen and it changes the view (sort, period). Not for navigation (tabs) or filtering a list by several values (filter bar). MUI: `<ToggleButtonGroup exclusive>`. |
 
 ## 9. Accessibility comes with the markup; use the markup
 
@@ -208,6 +210,9 @@ breaks at 375px is broken.
   set `variant="fullWidth"`.
 - **No fixed widths on fields.** The form grid or filter bar sets each
   field's width. `width: '100%'` is fine; `width: 150` is not.
+- **Nothing wider than a phone.** No `width` or `min-width` over 320px
+  unless a `max-width: 100%` caps it (a drawer, a dialog), and never
+  `100vw`, which is wider than the page whenever there is a scrollbar.
 - **Nothing positioned to sit on top of something else** in a header or
   toolbar (`position: absolute` to centre the tabs): it overlaps the moment
   the screen narrows. The header's grid centres its navigation.
