@@ -128,3 +128,11 @@ not widths and are ignored. In JS, only `sx` and `style` objects count.
   (`el.scrollIntoView({ block: 'nearest', inline: 'nearest' })`). MUI's
   scrollable `Tabs` already does this.
 
+## 1.7.3: slider labels sit with their sliders
+
+`--slider-label-gap` is 8px (was 24px), in `.slider-group` and
+`SliderWithLabel`. A label was further from its own slider than from the
+slider above it, so it read as belonging to the wrong one. While a slider is
+dragged, its value bubble now overlaps the label above it; it disappears on
+release.
+

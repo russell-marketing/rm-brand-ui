@@ -59,7 +59,7 @@ export const tokens = {
 
   // Component spacing
   component: {
-    sliderLabelGap: '1.5rem',      // Gap between slider label and slider
+    sliderLabelGap: '0.5rem',      // Label to its slider; smaller than the gap between fields
     sliderThumbSize: '20px',       // Slider thumb size
     sliderTrackHeight: '8px',      // Slider track height
     sliderContainerPadding: '2rem', // Horizontal padding to prevent thumb overlap
@@ -68,7 +68,7 @@ export const tokens = {
   // Slider styling (framework-agnostic calculations)
   slider: {
     // Spacing
-    marginTop: '1.5rem',           // Space between label and slider
+    marginTop: '0.5rem',           // Space between label and slider
     marginBottom: '1.5rem',        // Space below slider
     paddingLeft: '2rem',           // Left padding to prevent thumb overflow
     paddingRight: '2rem',          // Right padding to prevent thumb overflow

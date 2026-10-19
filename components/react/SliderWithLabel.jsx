@@ -54,7 +54,7 @@ export function SliderWithLabel({
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--slider-label-gap, 1.5rem)',
+        gap: 'var(--slider-label-gap, 0.5rem)',
         ...sx,
       }}
       {...otherProps}
