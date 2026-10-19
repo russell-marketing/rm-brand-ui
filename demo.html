@@ -31,10 +31,10 @@
 
   <style>
     /* Simple app shell just for the demo */
-    .app-shell { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; }
+    .app-shell { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); }
     .app-shell > header, .app-shell > footer { background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle); }
     .app-shell > header { position: sticky; top: 0; z-index: var(--z-sticky); }
-    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 16px; }
     .grid { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
     @media (min-width: 900px) { .grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); } }
     .card { padding: 16px; }
@@ -79,6 +79,49 @@
           <p>Dark mode + density toggles are token-driven.</p>
           <div class="alert alert--warn"><span>Remember to test contrast in dark mode.</span></div>
         </section>
+      </section>
+
+      <!-- Layout: header, form grid, filter bar. Narrow the window to see them rearrange. -->
+      <section class="demo-section surface card">
+        <h2>Layout</h2>
+        <p class="muted">Narrow the window to phone width (375px): the header stacks, the tabs scroll, fields go to one column.</p>
+
+        <header class="app-header">
+          <a class="app-header__title" href="#">Example Admin</a>
+          <nav class="app-header__nav" aria-label="Main">
+            <div class="tabs" role="tablist" aria-label="Sections">
+              <button class="tab" role="tab" aria-selected="true">Strategies</button>
+              <button class="tab" role="tab" aria-selected="false">Outputs</button>
+              <button class="tab tab--group-end" role="tab" aria-selected="false">Analytics</button>
+              <button class="tab" role="tab" aria-selected="false">Prompts</button>
+              <button class="tab" role="tab" aria-selected="false">Settings</button>
+            </div>
+          </nav>
+          <div class="app-header__meta"><span class="badge badge--neutral">Live</span></div>
+        </header>
+
+        <div class="spacer"></div>
+
+        <div class="filter-bar">
+          <div><label for="f-cat">Category</label><select id="f-cat" class="select"><option>All</option></select></div>
+          <div><label for="f-flag">Flag</label><select id="f-flag" class="select"><option>Unflagged only</option></select></div>
+          <div><label for="f-prov">Provider</label><select id="f-prov" class="select"><option>All</option></select></div>
+          <div class="filter-bar__range">
+            <div><label for="f-from">From</label><input id="f-from" class="input" type="date"></div>
+            <div><label for="f-to">To</label><input id="f-to" class="input" type="date"></div>
+          </div>
+          <div class="filter-bar__actions"><button class="btn">Clear</button><button class="btn btn--primary">Apply</button></div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="form-grid">
+          <div><label for="g-name">Name</label><input id="g-name" class="input" value="Desk lamp"></div>
+          <div><label for="g-goal">Goal</label><input id="g-goal" class="input" value="$25,000"></div>
+          <div><label for="g-launch">Launch</label><input id="g-launch" class="input" type="date"></div>
+          <div class="form-grid__wide"><label for="g-notes">Notes</label><textarea id="g-notes" class="textarea" rows="3"></textarea></div>
+          <div class="form-grid__actions"><button class="btn">Cancel</button><button class="btn btn--primary">Save</button></div>
+        </div>
       </section>
 
       <!-- Sliders -->
@@ -295,6 +338,7 @@
 
           <div class="spacer"></div>
 
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Leads, scrolls sideways">
           <table class="table table--compact">
             <thead>
               <tr>
@@ -334,6 +378,7 @@
               </tr>
             </tbody>
           </table>
+          </div>
 
           <div class="spacer"></div>
 

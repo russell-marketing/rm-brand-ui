@@ -1,0 +1,13 @@
+/* ui/layout.entry.css
+ *
+ * Layout only, for apps whose whole UI is MUI and that style it through the
+ * theme (RULES.md rule 2): the tokens, plus the header, form grid, filter
+ * bar and tabs classes. No base styles, so nothing here restyles MUI.
+ * Every other app loads the full stylesheet, which already includes this.
+ *
+ * No dark.css: the MUI theme is light-only until it gets a dark scheme, and
+ * the layout colours must match it.
+ */
+@import "./tokens.css";
+@import "./components/layout.css";
+@import "./components/tabs.css";

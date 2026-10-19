@@ -1020,6 +1020,28 @@
         "$extensions": {
           "co.russellmarketing.css": "--page-max"
         }
+      },
+      "formColMin": {
+        "$type": "dimension",
+        "$value": {
+          "value": 240,
+          "unit": "px"
+        },
+        "$description": "Narrowest a .form-grid column gets before the fields stack.",
+        "$extensions": {
+          "co.russellmarketing.css": "--form-col-min"
+        }
+      },
+      "filterColMin": {
+        "$type": "dimension",
+        "$value": {
+          "value": 176,
+          "unit": "px"
+        },
+        "$description": "Narrowest a .filter-bar control gets before the bar wraps.",
+        "$extensions": {
+          "co.russellmarketing.css": "--filter-col-min"
+        }
       }
     }
   },

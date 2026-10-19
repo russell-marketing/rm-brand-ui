@@ -1,12 +1,49 @@
-.tabs{ display:flex; gap:8px; padding:6px; background:transparent; }
+/* ui/components/tabs.css
+ *
+ *   <div class="tabs" role="tablist">
+ *     <button class="tab" role="tab" aria-selected="true">Leads</button>
+ *     <button class="tab tab--group-end" role="tab" aria-selected="false">Sent</button>
+ *     <button class="tab" role="tab" aria-selected="false">Settings</button>
+ *   </div>
+ *
+ * Tabs keep their labels on one line and the row scrolls sideways when they
+ * don't fit; tabs are never squeezed to share the width.
+ * aria-selected="true" marks the current tab (.is-active also works).
+ * .tab--group-end draws a divider after a tab that ends a group. It works on
+ * MUI's <Tab className="tab--group-end"> too. */
+.tabs{
+  display:flex; gap:var(--space-2); padding:6px; background:transparent;
+  max-width:100%;
+  overflow-x:auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
 .tab{
+  flex:none;
+  white-space:nowrap;
   height:32px; padding:0 12px; border-radius:var(--radius-s);
   border:1px solid var(--border-subtle);
   background:transparent; color:var(--text-secondary);
   font-weight:600; letter-spacing:.2px;
 }
-.tab.is-active{
+.tab.is-active,
+.tab[aria-selected="true"]{
   background: color-mix(in oklab, var(--rm-galaxy), var(--bg-surface) 82%);
   color: var(--text-primary); border-color: color-mix(in oklab, var(--rm-galaxy), black 8%);
 }
 .tab:focus-visible{ outline:2px solid var(--rm-galaxy); outline-offset:2px; }
+
+/* The divider sits on the tab's inside edge, because MUI's Tab clips
+ * anything outside it. In .tabs, where tabs have their own border, it moves
+ * into the gap after the tab. */
+.tab--group-end{ position:relative; }
+.tab--group-end::after{
+  content:"";
+  position:absolute;
+  inset-block: 20%;
+  inset-inline-end:0;
+  border-inline-end: 1px solid var(--border-subtle);
+  pointer-events:none;
+}
+.tabs > .tab--group-end{ margin-inline-end: var(--space-3); }
+.tabs > .tab--group-end::after{ inset-inline-end: calc(-1 * (var(--space-3) + var(--space-2)) / 2); }
