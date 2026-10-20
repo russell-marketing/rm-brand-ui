@@ -100,6 +100,7 @@ writeFileSync(join(app, 'src/Icons.jsx'), [
   "  <HomeIcon sx={{ fontSize: '1.5rem' }} />",
   '</>);',
 ].join('\n'));
+writeFileSync(join(app, 'src/scoped.css'), 'button:not(.btn){ margin-bottom: var(--space-2); }\n.btn{ color: var(--text-primary); }\n');
 writeFileSync(join(app, 'src/fonts.css'), '.a{ font-family: "Roboto Mono", monospace; }\n.b{ font-family: var(--font-body); }\n');
 
 /* ---------- rm-brand-copy ---------- */
@@ -152,6 +153,7 @@ check(flagged('src/Wide.jsx', 2) && !flagged('src/Wide.jsx', 3), "sx minWidth '3
 check(!flagged('src/Icons.jsx', 2), 'an icon at 20px is on the icon scale');
 check(flagged('src/Icons.jsx', 3) && /icon size 14px is off the icon scale/.test(audit.stdout), 'an icon at 14px is off the icon scale');
 check(!flagged('src/Icons.jsx', 4), "an icon at '1.5rem' (24px) is on the icon scale");
+check(!flagged('src/scoped.css', 1) && flagged('src/scoped.css', 2), 'button:not(.btn) is not a restyle of .btn; .btn { … } is');
 check(run('audit.mjs', '.', '--strict').status === 1, '--strict fails on a "fix" finding');
 
 /* ---------- /layout import (rule 2) ---------- */

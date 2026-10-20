@@ -41,8 +41,10 @@ as in Asana. It is round only here: a round box means "complete this task"
 
 ## What looks different
 
-- **MUI icons:** `fontSize="medium"` (the default) is 20px, was 24px;
-  `"small"` is 16px, was 20px; `"large"` is 24px, was 35px.
+- **MUI icons:** `fontSize="medium"` (the default) is 20px; `"small"` 16px;
+  `"large"` 24px. They were larger than MUI's usual 24 / 20 / 35px: the
+  theme's 16px base font scales MUI's sizes by 16/14, so they measured
+  about 27 / 23 / 40px. Checkbox and switch rows get shorter to match.
 - **MUI tabs with an icon** are 48px tall, were 72px.
 - **MUI selected tab and DataGrid rows** use the token tints (same colours,
   now from tokens, so dark mode can change them).
@@ -50,9 +52,10 @@ as in Asana. It is round only here: a round box means "complete this task"
   a phone's edge.
 - **MUI transitions** (ripples, small fades) use the system's 150 / 200ms
   and its easing.
-- **`.filter-bar__actions`** sit in the last column: at the end of the last
-  row of filters when that cell is free, instead of always on a row of
-  their own.
+- **`.filter-bar__actions`**: in a bar four columns wide or more, they take
+  the last two columns, at the end of the last row of filters when those
+  cells are free (1.8.3; 1.8.0 used one column, which wrapped a switch and
+  a button). In narrower bars, a row of their own, as before.
 - **`.app-header__title`** keeps its colour on hover (a link title used to
   turn link purple).
 - **`tokens.fonts.mono`** is the device's monospace font instead of Roboto
@@ -90,4 +93,15 @@ SVG needs no `width` or `height`.
 | Estrella or Dust text on a Space background set with `--rm-*` | `--ink-on-space-accent`, `--ink-on-space-quiet` |
 
 TypeScript: `variant="code"` (14px mono) now type-checks, as `codeSm` did.
+
+## 1.8.3: fixes from the 1.8 updates
+
+- **Filter-bar actions** take two columns at the end of a wide bar, not
+  one: one wrapped "Use Sample Data" and Search and pushed the filters down.
+- **`.code-block`** no longer widens its container: a long line scrolls
+  inside the block instead of making a table column or a flex row as wide
+  as the line. Delete any local `width: 0; min-width: 100%` workaround.
+- **The audit** no longer reports `button:not(.btn)` as restyling `.btn`.
+- The 1.8 note on MUI icon sizes is corrected (they were about 27px, not
+  24px, before 1.8).
 
