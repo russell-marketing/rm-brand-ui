@@ -71,3 +71,13 @@ as in Asana. It is round only here: a round box means "complete this task"
 Run `npx rm-brand-audit`, then look at every changed screen at 375px wide
 and at desktop width, light and dark, and put the screenshots in the pull
 request.
+
+## 1.8.1: icon buttons
+
+| If the app has its own… | Use |
+|---|---|
+| A button holding only an icon (`button.icon`, a close or menu button) | `.btn btn--icon` with an `aria-label`; add `.btn--text` for no box, `.btn--sm` for a small one. `aria-expanded` / `aria-pressed` "true" colours it as open or on |
+
+Icons inside it size themselves (20px, or 16px with `.btn--sm`), so the
+SVG needs no `width` or `height`.
+

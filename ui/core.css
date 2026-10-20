@@ -46,6 +46,26 @@ h3,.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-c
 }
 .btn--text:hover{ background:none; color: var(--link-hover,#4B386F); text-decoration:underline; text-underline-offset:3px; }
 
+/* Icon button: a button whose only content is an icon (close, menu, a
+ * settings toggle). Square, with the icon at --icon-md (--icon-sm with
+ * .btn--sm). It has no visible text, so it must have an aria-label.
+ * aria-expanded or aria-pressed "true" marks it open or on.
+ *
+ *   <button class="btn btn--icon" aria-label="Settings"><svg aria-hidden="true">…</svg></button>
+ *   <button class="btn btn--text btn--icon" aria-label="Close">…</button>   no box */
+.btn--icon{
+  width: var(--control-h,40px);
+  min-width: var(--hit-min,24px);
+  min-height: var(--hit-min,24px);
+  padding:0;
+}
+.btn--icon svg{ width: var(--icon-md,20px); height: var(--icon-md,20px); flex:none; }
+.btn--sm.btn--icon svg{ width: var(--icon-sm,16px); height: var(--icon-sm,16px); }
+.btn--text.btn--icon{ color: var(--text-secondary,#4B5163); }
+.btn--text.btn--icon:hover{ color: var(--text-primary,#18191E); text-decoration:none; }
+.btn--icon[aria-expanded="true"],
+.btn--icon[aria-pressed="true"]{ color: var(--accent-ink,#5A4286); }
+
 /* Disabled: one look for every button variant, and no hover or press.
  * aria-disabled is for a button that must stay in the tab order (screen
  * readers announce it as unavailable); the app must still ignore its clicks. */
