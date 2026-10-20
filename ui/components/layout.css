@@ -154,8 +154,10 @@
  * and take two columns when there is room for two. __group holds a set of
  * checkboxes or choices that filter together ("Facebook", "Instagram"): it
  * also takes two columns when there is room, and its items wrap.
- * __actions sits in the last column, at the end of the last row of filters
- * when that cell is free, otherwise on a row of its own. */
+ * __actions takes its own row, aligned right. In a bar with room for four
+ * columns or more it takes the last two instead, at the end of the last row
+ * of filters when those cells are free: two columns fit a switch and a
+ * button, where one cell wrapped them. */
 .filter-bar{
   container: filter-bar / inline-size;
   display:grid;
@@ -186,11 +188,14 @@
   .filter-bar__group{ grid-column: span 2; }
 }
 .filter-bar__actions{
-  grid-column: -2 / -1;
+  grid-column: 1 / -1;
   display:flex;
   flex-wrap:wrap;
   justify-content:flex-end;
   gap: var(--space-2);
+}
+@container filter-bar (width >= 48rem){
+  .filter-bar__actions{ grid-column: -3 / -1; }
 }
 
 /* Section header: a section's title, an optional line under it, and the

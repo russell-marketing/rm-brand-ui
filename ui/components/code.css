@@ -22,6 +22,10 @@
   overflow-wrap:anywhere;
 }
 .code-block{
+  /* No width of its own: it fills its container and scrolls, instead of a
+   * long line widening the container (a table column, a flex row). */
+  width:0;
+  min-width:100%;
   margin:0;
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-s);

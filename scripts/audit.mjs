@@ -194,7 +194,8 @@ for (const file of files) {
     const jsStyleContext = !isCss && (kindHere !== null || /:\s*\{?\s*['"`]?(#|\d|rgba?\()/.test(line));
 
     // rule 4: restyling system classes / redefining system tokens
-    const selector = line.includes('{') ? line.split('{')[0] : '';
+    // :not(.btn) excludes a system class rather than restyling it.
+    const selector = line.includes('{') ? line.split('{')[0].replace(/:not\([^)]*\)/g, '') : '';
     const hitsSystemClass = isModule
       ? [...selector.matchAll(/:global\(([^)]*)\)/g)].some((m) => sysClassRe.test(m[1]))
       : sysClassRe.test(selector);
