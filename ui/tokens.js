@@ -156,6 +156,8 @@ export const tokens = {
   // backgrounds themselves.
   ink: {
     onSpace: '#F7F8F6',
+    onSpaceAccent: '#D0A732', // Estrella: a title on Space
+    onSpaceQuiet: '#DBE6E3',  // Dust: quiet text on Space
     onRussell: '#F7F8F6',
     onGalaxy: '#F7F8F6',
     onDust: '#2D334D',
@@ -375,6 +377,8 @@ export const darkTokens = {
   },
   ink: {
     onSpace: '#F7F8F6',
+    onSpaceAccent: '#D0A732', // Estrella: a title on Space
+    onSpaceQuiet: '#DBE6E3',  // Dust: quiet text on Space
     onRussell: '#F7F8F6',
     onGalaxy: '#F7F8F6',
     onDust: '#2D334D',

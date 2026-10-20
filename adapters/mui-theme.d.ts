@@ -15,12 +15,14 @@ declare module '@mui/material/styles' {
     lead: CSSProperties;
     stat: CSSProperties;
     appTitle: CSSProperties;
+    code: CSSProperties;
     codeSm: CSSProperties;
   }
   interface TypographyVariantsOptions {
     lead?: CSSProperties;
     stat?: CSSProperties;
     appTitle?: CSSProperties;
+    code?: CSSProperties;
     codeSm?: CSSProperties;
   }
   interface Palette {
@@ -38,6 +40,7 @@ declare module '@mui/material/Typography' {
     lead: true;
     stat: true;
     appTitle: true;
+    code: true;
     codeSm: true;
   }
 }

@@ -81,3 +81,13 @@ request.
 Icons inside it size themselves (20px, or 16px with `.btn--sm`), so the
 SVG needs no `width` or `height`.
 
+## 1.8.2: card titles and the brand panel
+
+| If the app has its own… | Use |
+|---|---|
+| A small caps title at the top of a card | `.surface__title` |
+| A navy panel that highlights one thing, with gold or Dust text in it | `.surface surface--brand`: its `.surface__title` turns Estrella and `.muted` turns Dust |
+| Estrella or Dust text on a Space background set with `--rm-*` | `--ink-on-space-accent`, `--ink-on-space-quiet` |
+
+TypeScript: `variant="code"` (14px mono) now type-checks, as `codeSm` did.
+

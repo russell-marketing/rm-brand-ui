@@ -232,6 +232,8 @@ for (const [name, t] of Object.entries(themes)) {
 head('5. Ink on brand backgrounds (fixed in both themes)');
 for (const [label, fg, bg] of [
   ['--ink-on-space', tokens.ink.onSpace, tokens.colors.space],
+  ['--ink-on-space-accent', tokens.ink.onSpaceAccent, tokens.colors.space],
+  ['--ink-on-space-quiet', tokens.ink.onSpaceQuiet, tokens.colors.space],
   ['--ink-on-russell', tokens.ink.onRussell, tokens.colors.russell],
   ['--ink-on-galaxy', tokens.ink.onGalaxy, tokens.colors.galaxy],
   ['--ink-on-dust', tokens.ink.onDust, tokens.colors.dust],
