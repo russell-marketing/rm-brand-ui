@@ -22,7 +22,7 @@ const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'dist', 'build', 'ou
 const EXTS = new Set(['.css', '.scss', '.tsx', '.jsx', '.ts', '.js', '.html']);
 const SYSTEM_CLASSES = ['btn', 'badge', 'pill', 'tag', 'table', 'alert', 'input', 'select', 'stat', 'stats',
   'kv', 'rating', 'surface', 'muted', 'page', 'page-header', 'table-scroll', 'textarea', 'text-blank', 'modal', 'tabs', 'tab',
-  'app-header', 'form-grid', 'filter-bar', 'section-header', 'choices', 'rm-toast', 'rm-tooltip', 'skeleton'];
+  'app-header', 'form-grid', 'filter-bar', 'section-header', 'choices', 'checkbox', 'checkbox-field', 'task-list', 'code', 'code-block', 'rm-toast', 'rm-tooltip', 'skeleton'];
 const ALLOWED_TOKEN_OVERRIDES = new Set(['--font-display', '--font-body']);
 // The real token names, read from the copy of tokens.css that ships with
 // this script, so a check never guesses at what counts as a system token.
@@ -76,6 +76,7 @@ const FONT_SIZE_RE = new RegExp(String.raw`font-size\s*:\s*[\d.]+(px|rem|em)|fon
 const RADIUS_RE = new RegExp(String.raw`borderRadius\s*:\s*(['"]?)([\d.]+)(px)?\1` + END);
 // JSX tags whose sizes rule 13 and the icon exception care about.
 const isIconTag = (t) => !!t && /(Icon|\.icon)$|^SvgIcon$/.test(t);
+const ICON_SIZES = new Set([16, 20, 24]);
 const FIELD_TAGS = new Set(['TextField', 'Select', 'FormControl', 'Autocomplete', 'DatePicker', 'input', 'select', 'textarea']);
 // A width, min-width or grid minimum over 320px: it can't fit on a phone.
 // In JS a bare number is pixels (sx treats 1 and under as a fraction).
@@ -212,8 +213,16 @@ for (const file of files) {
       const colourText = line.replace(/var\(\s*(--[\w-]+)\s*,[^)]*\)/g,
         (m, name) => (SYSTEM_TOKENS.has(name) ? `var(${name})` : m));
       if (STYLE_PROP.test(line) && /#[0-9a-fA-F]{3,8}\b|rgba?\(/.test(colourText)) add(5, rel, n, `hard-coded colour: ${line.trim()}`);
-      // An icon's fontSize is its size, not a text size.
-      if (FONT_SIZE_RE.test(line) && !isIconTag(tagHere)) add(5, rel, n, `font size not from --fs-*: ${line.trim()}`);
+      // An icon's fontSize is its size, not a text size: it goes on the icon
+      // scale (16 / 20 / 24px), not the type scale.
+      if (FONT_SIZE_RE.test(line)) {
+        if (!isIconTag(tagHere)) add(5, rel, n, `font size not from --fs-*: ${line.trim()}`);
+        else {
+          const m = line.match(/fontSize\s*:\s*['"]?([\d.]+)(px|rem|em)?['"]?/);
+          const px = m ? (m[2] === 'rem' || m[2] === 'em' ? Number(m[1]) * 16 : Number(m[1])) : null;
+          if (px !== null && !ICON_SIZES.has(px)) add(5, rel, n, `icon size ${px}px is off the icon scale; use fontSize="small" | "medium" | "large" (16 / 20 / 24px): ${line.trim()}`);
+        }
+      }
       const radius = line.match(RADIUS_RE);
       if (/border-radius\s*:\s*\d+px/.test(line)) {
         add(5, rel, n, `radius not from --radius-*: ${line.trim()}`);
@@ -227,7 +236,7 @@ for (const file of files) {
         }
       }
       if (/font-family\s*:\s*(?!var\(|inherit|initial|unset)['"]?[A-Za-z]/.test(line) || /fontFamily\s*:\s*['"`](?!inherit)/.test(line)) {
-        add(5, rel, n, `font not from --font-* / tokens.fonts: ${line.trim()}`);
+        add(5, rel, n, `font not from --font-* / tokens.fonts (monospace: var(--font-mono) / tokens.fonts.mono): ${line.trim()}`);
       }
     }
 

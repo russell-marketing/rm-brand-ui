@@ -16,7 +16,7 @@ npx rm-brand-audit --strict   # exit 1 on any finding, for CI
 ## 1. Install with a version range
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.7.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.8.0"
 ```
 
 - The range gets every fix and addition, and never a breaking 2.0 by surprise.
@@ -95,6 +95,25 @@ page itself comes from `.page` (rule 8).
 | `--fs-2xl` | 24px | Stat values |
 | `--fs-3xl` | 32px | Page titles |
 
+Code, keys and IDs use `--font-mono` (the device's own monospace font) at
+`--fs-sm`, or `--fs-xs` in dense tables and logs. MUI: Typography `code` /
+`codeSm`.
+
+### Icon sizes
+
+| Token | Size | For | MUI |
+|---|---|---|---|
+| `--icon-sm` | 16px | Next to 14px text | `fontSize="small"` |
+| `--icon-md` | 20px | The default UI icon | `fontSize="medium"` (the default) |
+| `--icon-lg` | 24px | Stands alone or leads a row | `fontSize="large"` |
+
+### Radius
+
+`--radius-xs` (4px: icons, thumbnails, inline code), `--radius-s` (6px:
+buttons, small controls), `--radius-m` (8px: inputs, cards). In MUI `sx`,
+`borderRadius` 0.5, 0.75 and 1 are those three; or use the token itself,
+`'var(--radius-xs)'`, which `/layout` provides.
+
 ## 6. Brand colours are never text colours
 
 `--rm-space`, `--rm-galaxy` and the other `--rm-*` brand colours are fixed
@@ -110,12 +129,15 @@ For text use a role token, which flips with the theme:
 | Purple text (eyebrows, tags, emphasis) | `--accent-ink` |
 | Links | `--link` / `--link-hover` |
 | Status text | `--success-text`, `--warning-text`, `--danger-text` |
+| Text on a brand background | `--ink-on-space`, `--ink-on-russell`, `--ink-on-galaxy`, `--ink-on-dust`, `--ink-on-estrella` |
 
-Brand colours are for backgrounds, borders and fills. The one exception is
-brand text **on a brand background**, such as Moon on Space in a nav bar or
-a table header: both stay fixed, so the pair keeps its contrast in both
-themes. The audit can't always see a parent's background, so it marks these
-findings "check", not "fix".
+Brand colours are for backgrounds, borders and fills. Text **on** a brand
+background, such as a Space nav bar or a Dust panel, uses that background's
+ink token. The background is fixed in both themes, so its text must be
+fixed too: a role token there would flip in dark mode and vanish (brand-blue
+text on Dust is 1.43:1 in dark). The audit marks a brand colour used as text
+"check", since it can't always see the parent's background; the ink tokens
+are the answer it is asking for.
 
 ## 7. Every app supports dark mode
 
@@ -128,7 +150,10 @@ allowed only as a temporary step, with a backlog item to remove it.
 | Choice | Rule |
 |---|---|
 | `.badge` or `.tag` | Badge = the **state** of a thing (new, ready, needs attention). Tag = its **kind** or source ("Updates", "Discord"). |
-| Badge variant | `--new`, `--ready`, `--warn`, `--neutral` (present, not asking for attention). |
+| Badge variant | `--new`, `--ready`, `--warn`, `--error` (broken or failed), `--neutral` (present, not asking for attention). |
+| Checkbox or done tick | `.checkbox` (square) to choose an option or turn a setting on. `.task-list` and its round `__done` tick to complete a task. Never a round checkbox for looks (decision 0004). |
+| Task list | `.task-list` for tasks someone ticks off: done tick, task, due date. Ticks and dates line up down the list. |
+| Code | `<code class="code">` inline; `<pre class="code-block">` for blocks (`--sm` for long logs). |
 | Button | `.btn--primary`: the one main action in a view. `.btn`: other actions. `.btn--text`: low-emphasis or inline actions. |
 | Alert | `--ok`, `--warn`, `--error` for status; `--accent` for a question to the person ("Did you send it?"). Add `--sm` inside rows. |
 | Size | `.btn--sm`, `.input--sm`, `.select--sm` inside table rows only. Elsewhere, default size. |
@@ -141,7 +166,7 @@ allowed only as a temporary step, with a backlog item to remove it.
 | App header | `.app-header` with `__title`, `__nav`, `__meta`: the app's name, main navigation and extras (environment badge, user). One per app. |
 | Tabs | `.tabs` with `.tab` and `aria-selected`. `.tab--group-end` on the last tab of a group draws the divider (MUI `<Tab>` too). |
 | Form | `.form-grid`; `__wide` for a field that needs the whole row, `__actions` for its buttons. |
-| Filters | `.filter-bar` above the table or list it filters; `__range` for a from/to pair, `__actions` for Apply / Clear. |
+| Filters | `.filter-bar` above the table or list it filters; `__range` for a from/to pair, `__group` for a set of checkboxes that filter together, `__actions` for Apply / Clear. |
 | Section header | `.section-header` for a section's title, an optional line under it (`__sub`) and its actions (`__actions`). |
 | Choices | `.choices` with `.btn`s and `aria-pressed` when exactly one is chosen and it changes the view (sort, period). Not for navigation (tabs) or filtering a list by several values (filter bar). MUI: `<ToggleButtonGroup exclusive>`. |
 
@@ -169,7 +194,10 @@ styles them to match. For page structure put the layout classes on a `Box`
 (`<Box component="header" className="app-header">`) with MUI components
 inside, and use the theme's Typography variants for text (`lead` for an
 intro line, `stat` for a stat card's number, `appTitle` for the app's name
-in the header). The theme has no dark scheme yet: that gap is this
+in the header). The palette carries the accent ramp
+(`palette.accent[100]`) and code colours (`palette.code.bg`); icons size
+with `fontSize="small|medium|large"`; MUI's own transitions use the
+system's durations and easing. The theme has no dark scheme yet: that gap is this
 system's to fix, not the app's.
 
 **React components** (`@russell-marketing/brand-ui/react/*`) depend on React

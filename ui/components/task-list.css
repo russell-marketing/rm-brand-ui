@@ -1,0 +1,87 @@
+/* ui/components/task-list.css
+ *
+ * A list of tasks someone can tick off: the done tick, what the task is, and
+ * when it is due.
+ *
+ *   <ul class="task-list">
+ *     <li class="task-list__item">
+ *       <input type="checkbox" class="task-list__done" id="t1">
+ *       <label class="task-list__label" for="t1">Licensor approval expected</label>
+ *       <time class="task-list__date" datetime="2026-07-28">Jul 28</time>
+ *     </li>
+ *   </ul>
+ *
+ * The columns are shared by every row (subgrid), so ticks and dates line up
+ * down the list whatever each date says: "Sep 1", "Aug 12", "Jan 3, 2027".
+ * A long task name wraps; the date never does, and the tick and date stay
+ * level with its first line, as in Asana.
+ *
+ * The tick is round because completing a task is a different job from
+ * choosing an option: a circle is how Asana, which RM works in, and Apple
+ * Reminders mark a task done (decision 0004). Use it only for that.
+ */
+.task-list{
+  display:grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  column-gap: var(--space-3);
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.task-list__item{
+  display:grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items:start;
+  padding-block: var(--space-2);
+  border-bottom:1px solid var(--border-subtle);
+}
+.task-list__label{
+  margin:0;
+  line-height: 1.5rem;
+  font-weight: var(--fw-regular);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+  cursor:pointer;
+}
+.task-list__date{
+  justify-self:end;
+  line-height: 1.5rem;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space:nowrap;
+}
+
+/* The done tick: an empty ring, filled with a check once ticked. A real
+ * checkbox underneath, so keyboard and screen readers work unchanged. */
+.task-list__done{
+  appearance:none;
+  display:grid;
+  place-content:center;
+  width: var(--icon-md);
+  height: var(--icon-md);
+  /* Centred on the first line of the task's name (1.5rem tall). */
+  margin: calc((1.5rem - var(--icon-md)) / 2) 0 0;
+  border:1.5px solid var(--text-secondary);
+  border-radius:50%;
+  background:transparent;
+  cursor:pointer;
+  transition: background var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+}
+.task-list__done::before{
+  content:"";
+  width:.6em;
+  height:.6em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background: var(--bg-surface);
+  transform: scale(0);
+  transition: transform var(--duration-fast) var(--ease);
+}
+.task-list__done:hover{ border-color: var(--success-text); }
+.task-list__done:checked{ background: var(--success-text); border-color: var(--success-text); }
+.task-list__done:checked::before{ transform: scale(1); }
+.task-list__done:focus-visible{ outline:2px solid var(--rm-galaxy); outline-offset:2px; }
+@media (prefers-reduced-motion: reduce){
+  .task-list__done, .task-list__done::before{ transition:none; }
+}

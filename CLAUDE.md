@@ -29,7 +29,7 @@ guide.
 |---|---|---|
 | Tokens | `tokens/rm.tokens.json` (source, W3C DTCG) → generated `ui/tokens.css` + `ui/dark.css`; hand-written `ui/tokens.js` + `ui/tokens.d.ts` | Every value |
 | CSS | `ui/core.css`, `ui/components/*.css`, imported by `ui/rm-ui.entry.css` | Every component, always |
-| Layout entry | `ui/layout.entry.css` (`/layout`): tokens + `layout.css` + `tabs.css`, no base styles | For MUI-only apps; layout classes never fight a component's own styles (type styles inside `:where()`) |
+| Layout entry | `ui/layout.entry.css` (`/layout`): tokens + `layout.css`, `tabs.css`, `task-list.css`, `code.css`; no base styles | For MUI-only apps; layout classes never fight a component's own styles (type styles inside `:where()`) |
 | MUI theme | `adapters/mui-theme.js` (reads `tokens.js`) | When MUI has a matching control |
 | React | `components/react/*.jsx` + `.d.ts` | Only when there is behaviour to share |
 
@@ -120,7 +120,9 @@ devDependencies and never reach apps.
 - Decide the future of the MUI-wrapped `SliderWithLabel` and `RateField`.
 
 Not tied to 2.0: the MUI theme needs a dark colour scheme, so MUI apps can
-follow the dark-mode rule. Planned order: 1.8 (theme gaps: radius, mono,
-code-block colours, icon sizes, accent palette, motion, the theme's own
-hard-coded colours), then 1.9 (dark scheme). When it lands, add `dark.css`
-to `ui/layout.entry.css` too.
+follow the dark-mode rule. Planned for 1.9 (1.8 filled the theme's other
+gaps). When it lands, add `dark.css` to `ui/layout.entry.css` too, and give
+the theme the dark values `tokens.js` already holds (`darkTokens`).
+
+A shape is allowed only when it carries a meaning users already know
+(decision 0004): the round task tick, yes; a capsule button, no.

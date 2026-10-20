@@ -79,6 +79,7 @@
     --table-row-hover:   var(--rm-dark-table-row-hover);
     --skeleton-base:     var(--rm-dark-skeleton-base);
     --shadow-soft:       var(--rm-dark-shadow-soft);
+    color-scheme: dark;
     --accent-surface:  var(--accent-200);
     --accent-border:   var(--accent-300);
     --accent-ink:      var(--accent-600);
@@ -118,6 +119,7 @@
   --table-row-hover:   var(--rm-dark-table-row-hover);
   --skeleton-base:     var(--rm-dark-skeleton-base);
   --shadow-soft:       var(--rm-dark-shadow-soft);
+  color-scheme: dark;
   --accent-surface:  var(--accent-200);
   --accent-border:   var(--accent-300);
   --accent-ink:      var(--accent-600);

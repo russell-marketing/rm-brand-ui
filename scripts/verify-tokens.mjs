@@ -109,6 +109,7 @@ const lightMap = [
   ['--form-col-min', tokens.layout.formColMin],
   ['--filter-col-min', tokens.layout.filterColMin],
   ['--page-single-max', tokens.layout.pageSingleMax],
+  ['--icon-sm', tokens.iconSize.sm], ['--icon-md', tokens.iconSize.md], ['--icon-lg', tokens.iconSize.lg],
   ['--table-cell-py', tokens.table.cellPadY], ['--table-cell-px', tokens.table.cellPadX],
   ['--table-head-py', tokens.table.headPadY],
   ['--opacity-disabled', tokens.opacity.disabled],
@@ -188,12 +189,12 @@ const themes = {
     link: tokens.link.default, linkHover: tokens.link.hover, hover: tokens.tint.dust12,
     textBrand: tokens.text.brand, rating: tokens.rating, status: tokens.status,
     // .choices chosen button: --accent-ink on --accent-surface.
-    chosen: [tokens.accent[700], tokens.accent[100]] },
+    chosen: [tokens.accent[700], tokens.accent[100]], code: tokens.code },
   dark: { page: darkTokens.background.page, surface: darkTokens.background.surface,
     textPrimary: darkTokens.text.primary, textSecondary: darkTokens.text.secondary,
     link: darkTokens.link.default, linkHover: darkTokens.link.hover, hover: darkTokens.tint.dust12,
     textBrand: darkTokens.text.brand, rating: darkTokens.rating, status: darkTokens.status,
-    chosen: [darkTokens.accent[600], darkTokens.accent[200]] }, // dark --accent-surface is accent-200
+    chosen: [darkTokens.accent[600], darkTokens.accent[200]], code: darkTokens.code }, // dark --accent-surface is accent-200
 };
 for (const [name, t] of Object.entries(themes)) {
   head(`4. Contrast -- ${name} theme (AA: 4.5 text, 3.0 large/secondary)`);
@@ -214,12 +215,33 @@ for (const [name, t] of Object.entries(themes)) {
     ['danger text on danger bg', t.status.danger.text, t.status.danger.bg, 4.5],
     ['button primary', tokens.colors.moon, tokens.colors.space, 4.5],
     ['chosen choice button', t.chosen[0], t.chosen[1], 4.5],
+    ['code text on code background', t.code.text, t.code.bg, 4.5],
+    // The task-list tick: a surface-coloured check on --success-text, and an
+    // empty circle drawn in --text-secondary (a graphic: 3:1).
+    ['done tick: check on its fill', t.surface, t.status.success.text, 3],
+    ['done tick fill on surface', t.status.success.text, t.surface, 3],
+    ['empty tick ring on surface', t.textSecondary, t.surface, 3],
   ];
   for (const [label, fg, bg, min] of checks) {
     const r = ratio(fg, bg);
     r >= min ? pass(`${r.toFixed(2).padStart(5)}:1  ${label}`)
              : fail(`${r.toFixed(2)}:1 (need ${min})  ${label}  [${fg} on ${bg}]`);
   }
+}
+
+head('5. Ink on brand backgrounds (fixed in both themes)');
+for (const [label, fg, bg] of [
+  ['--ink-on-space', tokens.ink.onSpace, tokens.colors.space],
+  ['--ink-on-russell', tokens.ink.onRussell, tokens.colors.russell],
+  ['--ink-on-galaxy', tokens.ink.onGalaxy, tokens.colors.galaxy],
+  ['--ink-on-dust', tokens.ink.onDust, tokens.colors.dust],
+  ['--ink-on-estrella', tokens.ink.onEstrella, tokens.colors.estrella],
+]) {
+  const r = ratio(fg, bg);
+  r >= 4.5 ? pass(`${r.toFixed(2).padStart(5)}:1  ${label}`) : fail(`${r.toFixed(2)}:1 (need 4.5)  ${label}  [${fg} on ${bg}]`);
+}
+for (const [k, v] of Object.entries(tokens.ink)) {
+  v === darkTokens.ink[k] ? pass(`ink.${k} is the same in both themes`) : fail(`ink.${k} differs between themes: ink must stay fixed`);
 }
 
 console.log(failures

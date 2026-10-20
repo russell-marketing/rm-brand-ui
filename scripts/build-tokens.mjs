@@ -150,11 +150,14 @@ function buildTokensCss() {
     ['Accent ramp', pick(light, 'color.accent')],
     ['Overlays — a base colour plus an alpha, so they follow their base', pick(light, 'color.overlay')],
     ['Rating', pick(light, 'color.rating')],
+    ['Code', pick(light, 'color.code')],
+    ['Ink on brand backgrounds — fixed, because the background is', pick(light, 'color.ink')],
     ['Elevation', pick(light, 'shadow')],
     ['Spacing', pick(light, 'dimension.space')],
     ['Type scale', pick(light, 'dimension.fontSize')],
     ['Radius & controls', [...pick(light, 'dimension.radius'), ...pick(light, 'dimension.control')]],
     ['Hit targets', pick(light, 'dimension.hitTarget')],
+    ['Icon sizes', pick(light, 'dimension.icon')],
     ['Layout', pick(light, 'dimension.layout')],
     ['Table', pick(light, 'dimension.table')],
     ['Opacity', pick(light, 'opacity')],
@@ -179,6 +182,9 @@ function buildDarkCss() {
     .map((t) => `    ${t.cssName}:${' '.repeat(Math.max(1, 20 - t.cssName.length))}var(${t.cssName.replace(/^--/, '--rm-dark-')});`);
   // structural reassignments: which ramp step each role points at in dark
   const structural = [
+    // Native controls (unticked checkboxes, scrollbars, date pickers) draw
+    // themselves dark too, instead of white boxes on a dark page.
+    '    color-scheme: dark;',
     '    --accent-surface:  var(--accent-200);',
     '    --accent-border:   var(--accent-300);',
     '    --accent-ink:      var(--accent-600);',

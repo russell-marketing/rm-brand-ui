@@ -63,6 +63,18 @@
   --rating-on: var(--accent-600);              /* A chosen star. */
   --rating-off: var(--text-secondary);         /* An unchosen star. */
 
+  /* Code */
+  --code-bg: var(--t-dust-12);                 /* Code block and inline code background. */
+  --code-text: var(--text-primary);
+  --code-border: var(--border-subtle);
+
+  /* Ink on brand backgrounds — fixed, because the background is */
+  --ink-on-space: var(--rm-moon);              /* Text on a Space background. Fixed in both themes, like the background. */
+  --ink-on-russell: var(--rm-moon);            /* Text on a Russell background. */
+  --ink-on-galaxy: var(--rm-moon);             /* Text on a Galaxy background. */
+  --ink-on-dust: var(--rm-space);              /* Text on a Dust background. */
+  --ink-on-estrella: var(--rm-infinite);       /* Text on an Estrella background. */
+
   /* Elevation */
   --shadow-soft: 0px 1px 2px rgba(0,0,0,.04),0px 6px 18px rgba(0,0,0,.06);
 
@@ -98,6 +110,11 @@
   --hit-min: 24px;                             /* WCAG 2.5.8 minimum. */
   --hit-ideal: 44px;                           /* WCAG 2.5.5 enhanced. */
 
+  /* Icon sizes */
+  --icon-sm: 16px;                             /* Icons inline with 14px text. */
+  --icon-md: 20px;                             /* The default UI icon. */
+  --icon-lg: 24px;                             /* Icons that stand alone or lead a row. */
+
   /* Layout */
   --page-max: 1240px;                          /* Widest a .page gets. */
   --form-col-min: 240px;                       /* Narrowest a .form-grid column gets before the fields stack. */
@@ -124,6 +141,7 @@
   /* Font families */
   --font-display: Raleway, Roboto, sans-serif;
   --font-body: Roboto, "Segoe UI", -apple-system, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; /* The device's own monospace font: nothing to load. For IDs, keys and code. */
 
   /* Font weights */
   --fw-regular: 400;

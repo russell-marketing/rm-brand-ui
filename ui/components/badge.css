@@ -26,6 +26,8 @@
 .badge--new    { background: var(--accent-100); }
 .badge--ready  { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
 .badge--warn   { background: var(--warning-bg); border-color: var(--warning-border); color: var(--warning-text); }
+/* Broken or failed: a connection that fails, a run that errored. */
+.badge--error  { background: var(--danger-bg);  border-color: var(--danger-border);  color: var(--danger-text); }
 /* Present but not asking for attention: a count, a secondary fact. */
 .badge--neutral{ background: transparent;      border-color: var(--border-subtle);   color: var(--text-secondary); }
 
