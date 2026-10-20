@@ -129,7 +129,7 @@ For text use a role token, which flips with the theme:
 | Purple text (eyebrows, tags, emphasis) | `--accent-ink` |
 | Links | `--link` / `--link-hover` |
 | Status text | `--success-text`, `--warning-text`, `--danger-text` |
-| Text on a brand background | `--ink-on-space`, `--ink-on-russell`, `--ink-on-galaxy`, `--ink-on-dust`, `--ink-on-estrella` |
+| Text on a brand background | `--ink-on-space` (with `--ink-on-space-accent` for a title, `--ink-on-space-quiet` for quiet text), `--ink-on-russell`, `--ink-on-galaxy`, `--ink-on-dust`, `--ink-on-estrella` |
 
 Brand colours are for backgrounds, borders and fills. Text **on** a brand
 background, such as a Space nav bar or a Dust panel, uses that background's
@@ -160,7 +160,7 @@ allowed only as a temporary step, with a backlog item to remove it.
 | Table | `.table--compact` for tables people scan; default for tables people read. Wide tables go inside `.table-scroll`. |
 | Table cell | A number or date alone in a cell: `.table__cell--num` on its `th` and `td`s (centred, equal-width figures). Text stays left. |
 | Page | `<main class="page">` for the page container, `.page-header` for its eyebrow, title and description. A page that is one short form (sign-in, passcode): `.page page--single`. |
-| Card | `.surface`; add `.surface--padded` when content sits directly inside it. |
+| Card | `.surface`; add `.surface--padded` when content sits directly inside it. `.surface__title` for its small caps title. `.surface--brand` for the one panel a page highlights (navy, fixed inks). |
 | Quiet text | `.muted`: colour only, so it fits any size of text it sits in. |
 | Multi-line input | `.textarea` with a `rows` attribute. |
 | App header | `.app-header` with `__title`, `__nav`, `__meta`: the app's name, main navigation and extras (environment badge, user). One per app. |

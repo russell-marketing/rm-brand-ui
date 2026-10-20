@@ -70,6 +70,8 @@
 
   /* Ink on brand backgrounds — fixed, because the background is */
   --ink-on-space: var(--rm-moon);              /* Text on a Space background. Fixed in both themes, like the background. */
+  --ink-on-space-accent: var(--rm-estrella);   /* A title or highlight on a Space background (5.47:1). */
+  --ink-on-space-quiet: var(--rm-dust);        /* Quiet text on a Space background (9.71:1). */
   --ink-on-russell: var(--rm-moon);            /* Text on a Russell background. */
   --ink-on-galaxy: var(--rm-moon);             /* Text on a Galaxy background. */
   --ink-on-dust: var(--rm-space);              /* Text on a Dust background. */

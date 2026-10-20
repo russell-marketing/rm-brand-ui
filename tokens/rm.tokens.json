@@ -697,6 +697,22 @@
           "co.russellmarketing.css": "--ink-on-space"
         }
       },
+      "onSpaceAccent": {
+        "$type": "color",
+        "$value": "{color.brand.estrella}",
+        "$description": "A title or highlight on a Space background (5.47:1).",
+        "$extensions": {
+          "co.russellmarketing.css": "--ink-on-space-accent"
+        }
+      },
+      "onSpaceQuiet": {
+        "$type": "color",
+        "$value": "{color.brand.dust}",
+        "$description": "Quiet text on a Space background (9.71:1).",
+        "$extensions": {
+          "co.russellmarketing.css": "--ink-on-space-quiet"
+        }
+      },
       "onRussell": {
         "$type": "color",
         "$value": "{color.brand.moon}",
