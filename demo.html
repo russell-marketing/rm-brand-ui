@@ -140,6 +140,45 @@
         </div>
       </section>
 
+      <!-- 1.8: task list, checkbox, code, error badge, ink on brand backgrounds -->
+      <section class="demo-section surface card" id="demo-18">
+        <h2>Tasks, checkboxes &amp; code</h2>
+        <p class="muted">Ticks and dates line up down the list whatever each date says. Round tick: complete a task. Square checkbox: choose an option.</p>
+
+        <ul class="task-list" id="demo-tasks">
+          <li class="task-list__item"><input type="checkbox" class="task-list__done" id="dt1"><label class="task-list__label" for="dt1">Approval expected (first batch)</label><time class="task-list__date" datetime="2026-07-28">Jul 28</time></li>
+          <li class="task-list__item"><input type="checkbox" class="task-list__done" id="dt2" checked><label class="task-list__label" for="dt2">Team photos and behind-the-scenes shots</label><time class="task-list__date" datetime="2026-08-12">Aug 12</time></li>
+          <li class="task-list__item"><input type="checkbox" class="task-list__done" id="dt3"><label class="task-list__label" for="dt3">Photo and video assets sent for approval (second batch, a longer task name that wraps on a phone)</label><time class="task-list__date" datetime="2026-09-01">Sep 1</time></li>
+          <li class="task-list__item"><input type="checkbox" class="task-list__done" id="dt4"><label class="task-list__label" for="dt4">Launch day</label><time class="task-list__date" datetime="2027-01-03">Jan 3, 2027</time></li>
+        </ul>
+
+        <div class="spacer"></div>
+
+        <div class="filter-bar">
+          <fieldset class="filter-bar__group"><legend class="visually-hidden">Platforms</legend>
+            <label class="checkbox-field"><input type="checkbox" class="checkbox" checked> Facebook</label>
+            <label class="checkbox-field"><input type="checkbox" class="checkbox"> Instagram</label>
+            <label class="checkbox-field"><input type="checkbox" class="checkbox"> TikTok</label>
+          </fieldset>
+          <div><label for="d18-sort">Sort</label><select id="d18-sort" class="select"><option>Newest</option></select></div>
+          <div class="filter-bar__actions"><button class="btn">Clear</button><button class="btn btn--primary">Apply</button></div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <p>Strategy <code class="code">str_6f2a91</code> failed: <span class="badge badge--error">Failing</span> <span class="badge badge--ready">Connected</span></p>
+        <pre class="code-block"><code>{ "status": "failed", "retry": true }</code></pre>
+
+        <div class="spacer"></div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:var(--space-2)">
+          <span style="background:var(--rm-space); color:var(--ink-on-space); padding:var(--space-2) var(--space-3); border-radius:var(--radius-s)">On Space</span>
+          <span style="background:var(--rm-dust); color:var(--ink-on-dust); padding:var(--space-2) var(--space-3); border-radius:var(--radius-s)">On Dust</span>
+          <span style="background:var(--rm-galaxy); color:var(--ink-on-galaxy); padding:var(--space-2) var(--space-3); border-radius:var(--radius-s)">On Galaxy</span>
+          <span style="background:var(--rm-estrella); color:var(--ink-on-estrella); padding:var(--space-2) var(--space-3); border-radius:var(--radius-s)">On Estrella</span>
+        </div>
+      </section>
+
       <!-- Sliders -->
       <section class="demo-section surface card">
         <h2>Sliders</h2>

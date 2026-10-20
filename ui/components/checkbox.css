@@ -1,0 +1,35 @@
+/* ui/components/checkbox.css
+ *
+ * A checkbox chooses an option or turns a setting on: square, the browser's
+ * own control in the brand colour, so focus, the space bar, the label and
+ * screen readers all work as they always do.
+ *
+ *   <label class="checkbox-field">
+ *     <input type="checkbox" class="checkbox"> Show live only
+ *   </label>
+ *
+ * Completing a task is a different job with a different control: the round
+ * tick in task-list.css. Never make a checkbox round to change its look
+ * (decision 0004).
+ */
+.checkbox{
+  width: var(--icon-md);
+  height: var(--icon-md);
+  margin:0;
+  flex:none;
+  accent-color: var(--accent-600);
+  cursor:pointer;
+}
+.checkbox:focus-visible{ outline:2px solid var(--rm-galaxy); outline-offset:2px; }
+.checkbox:disabled{ cursor:not-allowed; opacity: var(--opacity-disabled); }
+
+/* The label is the hit target, so the whole line can be clicked. */
+.checkbox-field{
+  display:inline-flex;
+  align-items:center;
+  gap: var(--space-2);
+  min-height: var(--hit-min);
+  margin:0;
+  font-weight: var(--fw-regular);
+  cursor:pointer;
+}

@@ -663,6 +663,72 @@
           "co.russellmarketing.css": "--rating-off"
         }
       }
+    },
+    "code": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.surface.dustTint}",
+        "$description": "Code block and inline code background.",
+        "$extensions": {
+          "co.russellmarketing.css": "--code-bg"
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": "{color.text.primary}",
+        "$extensions": {
+          "co.russellmarketing.css": "--code-text"
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.surface.borderSubtle}",
+        "$extensions": {
+          "co.russellmarketing.css": "--code-border"
+        }
+      }
+    },
+    "ink": {
+      "onSpace": {
+        "$type": "color",
+        "$value": "{color.brand.moon}",
+        "$description": "Text on a Space background. Fixed in both themes, like the background.",
+        "$extensions": {
+          "co.russellmarketing.css": "--ink-on-space"
+        }
+      },
+      "onRussell": {
+        "$type": "color",
+        "$value": "{color.brand.moon}",
+        "$description": "Text on a Russell background.",
+        "$extensions": {
+          "co.russellmarketing.css": "--ink-on-russell"
+        }
+      },
+      "onGalaxy": {
+        "$type": "color",
+        "$value": "{color.brand.moon}",
+        "$description": "Text on a Galaxy background.",
+        "$extensions": {
+          "co.russellmarketing.css": "--ink-on-galaxy"
+        }
+      },
+      "onDust": {
+        "$type": "color",
+        "$value": "{color.brand.space}",
+        "$description": "Text on a Dust background.",
+        "$extensions": {
+          "co.russellmarketing.css": "--ink-on-dust"
+        }
+      },
+      "onEstrella": {
+        "$type": "color",
+        "$value": "{color.brand.infinite}",
+        "$description": "Text on an Estrella background.",
+        "$extensions": {
+          "co.russellmarketing.css": "--ink-on-estrella"
+        }
+      }
     }
   },
   "dimension": {
@@ -1055,6 +1121,41 @@
           "co.russellmarketing.css": "--page-single-max"
         }
       }
+    },
+    "icon": {
+      "sm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "Icons inline with 14px text.",
+        "$extensions": {
+          "co.russellmarketing.css": "--icon-sm"
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "$description": "The default UI icon.",
+        "$extensions": {
+          "co.russellmarketing.css": "--icon-md"
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "Icons that stand alone or lead a row.",
+        "$extensions": {
+          "co.russellmarketing.css": "--icon-lg"
+        }
+      }
     }
   },
   "fontWeight": {
@@ -1119,6 +1220,21 @@
       ],
       "$extensions": {
         "co.russellmarketing.css": "--font-body"
+      }
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": [
+        "ui-monospace",
+        "SFMono-Regular",
+        "Menlo",
+        "Consolas",
+        "Liberation Mono",
+        "monospace"
+      ],
+      "$description": "The device's own monospace font: nothing to load. For IDs, keys and code.",
+      "$extensions": {
+        "co.russellmarketing.css": "--font-mono"
       }
     }
   },

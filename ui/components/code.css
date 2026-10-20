@@ -1,0 +1,34 @@
+/* ui/components/code.css
+ *
+ * Code, keys and IDs in the device's own monospace font.
+ *
+ *   <code class="code">strategy_6f2a</code>            inline, in a sentence or a cell
+ *   <pre class="code-block"><code>{ "ok": true }</code></pre>
+ *
+ * Inline code is 0.9em, so it sits in text of any size; a block is 14px
+ * (--fs-sm), or 12px (--fs-xs) with .code-block--sm for long logs.
+ */
+.code,
+.code-block{
+  font-family: var(--font-mono);
+  color: var(--code-text);
+  background: var(--code-bg);
+  border:1px solid var(--code-border);
+}
+.code{
+  font-size:.9em;
+  padding:0 var(--space-1);
+  border-radius: var(--radius-xs);
+  overflow-wrap:anywhere;
+}
+.code-block{
+  margin:0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-s);
+  font-size: var(--fs-sm);
+  line-height:1.5;
+  overflow:auto;
+  white-space:pre;
+}
+.code-block code{ font:inherit; color:inherit; background:none; border:0; padding:0; }
+.code-block--sm{ font-size: var(--fs-xs); }

@@ -6,7 +6,7 @@ export const tokens = {
   fonts: {
     display: '"Raleway", "Roboto", sans-serif',
     body: '"Roboto", "Segoe UI", -apple-system, system-ui, sans-serif',
-    mono: '"Roboto Mono", "Courier New", monospace',
+    mono: 'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace', // the device's own; nothing to load
   },
 
   // Brand base colors
@@ -143,6 +143,30 @@ export const tokens = {
     paddingX: '14px',
     heightSm: '28px',       // controls inside table rows
     paddingXSm: '10px',
+  },
+
+  // Code blocks and inline code (--code-*)
+  code: {
+    bg: '#EEF3F1',          // = tint.dust12
+    text: '#18191E',        // = text.primary
+    border: '#CDD3DB',      // = border.subtle
+  },
+
+  // Text on a brand background (--ink-on-*). Fixed in both themes, like the
+  // backgrounds themselves.
+  ink: {
+    onSpace: '#F7F8F6',
+    onRussell: '#F7F8F6',
+    onGalaxy: '#F7F8F6',
+    onDust: '#2D334D',
+    onEstrella: '#18191E',
+  },
+
+  // Icon sizes (--icon-*)
+  iconSize: {
+    sm: '16px',             // inline with 14px text
+    md: '20px',             // the default UI icon
+    lg: '24px',             // stands alone or leads a row
   },
 
   // Page layout
@@ -344,6 +368,19 @@ export const darkTokens = {
 
   // Neutral hover tint. The light value is near-white, which put
   // near-white .btn text on a near-white hover (1.03:1).
+  code: {
+    bg: '#232838',          // = tint.dust12
+    text: '#EDEFF3',        // = text.primary
+    border: '#30364A',      // = border.subtle
+  },
+  ink: {
+    onSpace: '#F7F8F6',
+    onRussell: '#F7F8F6',
+    onGalaxy: '#F7F8F6',
+    onDust: '#2D334D',
+    onEstrella: '#18191E',
+  },
+
   tint: {
     dust12: '#232838',
   },

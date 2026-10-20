@@ -92,6 +92,14 @@ writeFileSync(join(app, 'src/Wide.jsx'), [
   '  </Box>',
   ');',
 ].join('\n'));
+// Icon sizes go on the icon scale (16 / 20 / 24px).
+writeFileSync(join(app, 'src/Icons.jsx'), [
+  'export const I = () => (<>',
+  '  <HomeIcon sx={{ fontSize: 20 }} />',
+  '  <HomeIcon sx={{ fontSize: 14 }} />',
+  "  <HomeIcon sx={{ fontSize: '1.5rem' }} />",
+  '</>);',
+].join('\n'));
 writeFileSync(join(app, 'src/fonts.css'), '.a{ font-family: "Roboto Mono", monospace; }\n.b{ font-family: var(--font-body); }\n');
 
 /* ---------- rm-brand-copy ---------- */
@@ -141,6 +149,9 @@ check(flagged('src/wide.css', 5) && /100vw is wider than the page/.test(audit.st
 check(!flagged('src/wide.css', 6), 'a container query (min-width: 40rem) is not an element width');
 check(!flagged('src/images.js', 1), "an image's width in a data object is not a style");
 check(flagged('src/Wide.jsx', 2) && !flagged('src/Wide.jsx', 3), "sx minWidth '340px' is flagged; width: 300 and maxWidth are not");
+check(!flagged('src/Icons.jsx', 2), 'an icon at 20px is on the icon scale');
+check(flagged('src/Icons.jsx', 3) && /icon size 14px is off the icon scale/.test(audit.stdout), 'an icon at 14px is off the icon scale');
+check(!flagged('src/Icons.jsx', 4), "an icon at '1.5rem' (24px) is on the icon scale");
 check(run('audit.mjs', '.', '--strict').status === 1, '--strict fails on a "fix" finding');
 
 /* ---------- /layout import (rule 2) ---------- */

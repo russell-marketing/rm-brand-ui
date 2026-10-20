@@ -7,16 +7,29 @@ import type { CSSProperties } from 'react';
 export function getRMThemeConfig(): ThemeOptions;
 export { tokens } from '../ui/tokens.js';
 
+type AccentRamp = { 50: string; 100: string; 200: string; 300: string; 600: string; 700: string };
+type CodeColours = { bg: string; text: string; border: string };
+
 declare module '@mui/material/styles' {
   interface TypographyVariants {
     lead: CSSProperties;
     stat: CSSProperties;
     appTitle: CSSProperties;
+    codeSm: CSSProperties;
   }
   interface TypographyVariantsOptions {
     lead?: CSSProperties;
     stat?: CSSProperties;
     appTitle?: CSSProperties;
+    codeSm?: CSSProperties;
+  }
+  interface Palette {
+    accent: AccentRamp;
+    code: CodeColours;
+  }
+  interface PaletteOptions {
+    accent?: AccentRamp;
+    code?: CodeColours;
   }
 }
 
@@ -25,5 +38,6 @@ declare module '@mui/material/Typography' {
     lead: true;
     stat: true;
     appTitle: true;
+    codeSm: true;
   }
 }

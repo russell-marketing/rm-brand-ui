@@ -58,6 +58,10 @@ export function getRMThemeConfig() {
             main: tokens.link.default,
             hover: tokens.link.hover,
           },
+          // The accent ramp, for tints and emphasis: palette.accent[100] etc.
+          accent: { ...tokens.accent },
+          // Code blocks and inline code; matches .code / .code-block.
+          code: { ...tokens.code },
           divider: tokens.border.subtle,
         },
       },
@@ -145,15 +149,35 @@ export function getRMThemeConfig() {
         fontSize: tokens.fontSize.xs,
         fontWeight: tokens.fontWeight.regular,
       },
+      // Code, keys and IDs in the device's own monospace font: 14px, and
+      // 12px (codeSm) for dense tables and logs.
       code: {
         fontFamily: tokens.fonts.mono,
         fontSize: tokens.fontSize.sm,
+        fontWeight: tokens.fontWeight.regular,
+      },
+      codeSm: {
+        fontFamily: tokens.fonts.mono,
+        fontSize: tokens.fontSize.xs,
         fontWeight: tokens.fontWeight.regular,
       },
     },
 
     shape: {
       borderRadius: parseInt(tokens.radius.m),
+    },
+
+    // The system's motion: short UI transitions use its durations and ease.
+    // Longer MUI transitions (dialogs, drawers) keep MUI's own durations.
+    transitions: {
+      easing: {
+        easeInOut: tokens.motion.ease,
+        easeOut: tokens.motion.ease,
+      },
+      duration: {
+        shortest: parseInt(tokens.motion.durationFast),
+        shorter: parseInt(tokens.motion.durationBase),
+      },
     },
 
     // Spacing system from RM tokens (0.25rem per unit)
@@ -207,9 +231,19 @@ export function getRMThemeConfig() {
         },
       },
 
+      // Icon sizes: fontSize="small" | "medium" (the default) | "large" are
+      // 16, 20 and 24px: --icon-sm / --icon-md / --icon-lg.
+      MuiSvgIcon: {
+        styleOverrides: {
+          fontSizeSmall: { fontSize: tokens.iconSize.sm },
+          fontSizeMedium: { fontSize: tokens.iconSize.md },
+          fontSizeLarge: { fontSize: tokens.iconSize.lg },
+        },
+      },
+
       MuiTypography: {
         defaultProps: {
-          variantMapping: { lead: 'p', stat: 'p', appTitle: 'p' },
+          variantMapping: { lead: 'p', stat: 'p', appTitle: 'p', code: 'code', codeSm: 'code' },
         },
       },
 
@@ -410,9 +444,15 @@ export function getRMThemeConfig() {
             color: tokens.text.secondary,
             '&.Mui-selected': {
               color: tokens.colors.galaxy,
-              backgroundColor: `rgba(122, 100, 160, 0.05)`,
+              backgroundColor: tokens.accent[50],
               fontWeight: tokens.fontWeight.semibold,
             },
+          },
+          // MUI makes a tab with an icon 72px tall, for an icon above the
+          // label. With the icon beside the label it only needs the normal
+          // height; an icon above still grows the tab to fit.
+          labelIcon: {
+            minHeight: 48,
           },
         },
       },
@@ -569,11 +609,11 @@ export function getRMThemeConfig() {
           },
           row: {
             '&:nth-of-type(even)': {
-              backgroundColor: 'rgba(219, 230, 227, 0.3)', // RM Dust at 30%
+              backgroundColor: tokens.surfaces.tableRowAlt,
             },
             '&:hover': {
-              backgroundColor: 'rgba(224, 193, 105, 0.2) !important', // RM Estrella at 20%
-              transition: 'background-color 0.2s ease',
+              backgroundColor: `${tokens.surfaces.tableRowHover} !important`,
+              transition: `background-color ${tokens.motion.durationBase} ${tokens.motion.ease}`,
             },
           },
           footerContainer: {
@@ -597,6 +637,13 @@ export function getRMThemeConfig() {
             '& .MuiSlider-thumb': {
               width: tokens.slider.thumbWidth,
               height: tokens.slider.thumbHeight,
+              // MUI's invisible touch area is 42px, which reaches past a
+              // phone's 16px page edge and widens the page. The system's
+              // minimum hit target (24px) stays inside it.
+              '&::after': {
+                width: tokens.hitTarget.min,
+                height: tokens.hitTarget.min,
+              },
               backgroundColor: tokens.slider.thumbBackgroundColor,
               '&:hover': {
                 boxShadow: tokens.slider.thumbHoverBoxShadow,

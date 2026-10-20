@@ -173,6 +173,9 @@ export interface Tokens {
   };
 
   layout: { pageMax: string; formColMin: string; filterColMin: string; pageSingleMax: string };
+  code: { bg: string; text: string; border: string };
+  ink: { onSpace: string; onRussell: string; onGalaxy: string; onDust: string; onEstrella: string };
+  iconSize: { sm: string; md: string; lg: string };
 
   table: { cellPadY: string; cellPadX: string; headPadY: string };
 
@@ -257,6 +260,8 @@ export interface DarkTokens {
   };
   link: { default: string; hover: string };
   tint: { dust12: string };
+  code: { bg: string; text: string; border: string };
+  ink: { onSpace: string; onRussell: string; onGalaxy: string; onDust: string; onEstrella: string };
   status: {
     success: { bg: string; text: string; border: string };
     warning: { bg: string; text: string; border: string };
