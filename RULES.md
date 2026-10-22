@@ -154,7 +154,7 @@ allowed only as a temporary step, with a backlog item to remove it.
 | Checkbox or done tick | `.checkbox` (square) to choose an option or turn a setting on. `.task-list` and its round `__done` tick to complete a task. Never a round checkbox for looks (decision 0004). |
 | Task list | `.task-list` for tasks someone ticks off: done tick, task, due date. Ticks and dates line up down the list. |
 | Code | `<code class="code">` inline; `<pre class="code-block">` for blocks (`--sm` for long logs). |
-| Button | `.btn--primary`: the one main action in a view. `.btn`: other actions. `.btn--text`: low-emphasis or inline actions. `.btn--icon`: a button whose only content is an icon; it must have an `aria-label`. MUI: `<IconButton aria-label>`. |
+| Button | `.btn--primary`: the one main action in a view. `.btn`: other actions. `.btn--text`: low-emphasis or inline actions. `.btn--icon`: a button whose only content is an icon; it must have an `aria-label`. MUI: `<IconButton aria-label>`. `.btn--described` (with `.btn__sub`): an action with a line under it saying what it does, in a short list someone picks from. |
 | Alert | `--ok`, `--warn`, `--error` for status; `--accent` for a question to the person ("Did you send it?"). Add `--sm` inside rows. |
 | Size | `.btn--sm`, `.input--sm`, `.select--sm` inside table rows only. Elsewhere, default size. |
 | Table | `.table--compact` for tables people scan; default for tables people read. Wide tables go inside `.table-scroll`. |

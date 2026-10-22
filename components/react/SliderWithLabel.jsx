@@ -69,23 +69,19 @@ export function SliderWithLabel({
       >
         {label}
       </Typography>
-      {/* Inset by half a thumb so the end handles stay inside the box: two
-          sliders side by side then don't read as one. The theme keeps padding
-          off the Slider itself (see MuiSlider in adapters/mui-theme.js).
-          Flex, not block: MUI's Slider is inline-block, and in a block box it
-          would sit on a line of text and gain space above and below. */}
-      <Box sx={{ display: 'flex', px: 'calc(var(--slider-thumb-size, 20px) / 2)' }}>
-        <Slider
-          value={value}
-          onChange={onChange}
-          min={min}
-          max={max}
-          step={step}
-          valueLabelDisplay={valueLabelDisplay}
-          valueLabelFormat={valueLabelFormat}
-          {...sliderProps}
-        />
-      </Box>
+      {/* The theme insets the slider by half a thumb and makes it a block,
+          so its end handles stay inside this box (see MuiSlider in
+          adapters/mui-theme.js). */}
+      <Slider
+        value={value}
+        onChange={onChange}
+        min={min}
+        max={max}
+        step={step}
+        valueLabelDisplay={valueLabelDisplay}
+        valueLabelFormat={valueLabelFormat}
+        {...sliderProps}
+      />
     </Box>
   );
 }

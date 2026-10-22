@@ -66,6 +66,34 @@ h3,.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-c
 .btn--icon[aria-expanded="true"],
 .btn--icon[aria-pressed="true"]{ color: var(--accent-ink,#5A4286); }
 
+/* Described button: an action with a line under it that says what it does,
+ * for a short list of actions someone picks from (an extension popup's
+ * "Collect from this page / Reads campaign links on a listing page"). Full
+ * width, text left, the name in the button's weight, the line under it
+ * quiet. Sizes through the control tokens, like .btn--text. Stack several
+ * with .stack-2.
+ *
+ *   <button class="btn btn--described">
+ *     Collect from this page
+ *     <span class="btn__sub">Reads campaign links on a listing page</span>
+ *   </button> */
+.btn--described{
+  --control-h:auto;
+  --control-pad-x: var(--space-3,.75rem);
+  flex-direction:column;
+  align-items:flex-start;
+  width:100%;
+  padding-block: var(--space-2,.5rem);
+  text-align:left;
+  white-space:normal;
+}
+.btn__sub{
+  font-size: var(--fs-xs,.75rem);
+  font-weight: var(--fw-regular,400);
+  color: var(--text-secondary,#4B5163);
+}
+.btn--primary .btn__sub{ color: var(--ink-on-space-quiet,#DBE6E3); }
+
 /* Disabled: one look for every button variant, and no hover or press.
  * aria-disabled is for a button that must stay in the tab order (screen
  * readers announce it as unavailable); the app must still ignore its clicks. */
