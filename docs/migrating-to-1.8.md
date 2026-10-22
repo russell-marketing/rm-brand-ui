@@ -105,3 +105,19 @@ TypeScript: `variant="code"` (14px mono) now type-checks, as `codeSm` did.
 - The 1.8 note on MUI icon sizes is corrected (they were about 27px, not
   24px, before 1.8).
 
+## 1.8.4: described buttons, MUI button height, MUI slider inset
+
+| If the app has its own… | Use |
+|---|---|
+| A button with a second line describing the action | `.btn btn--described` with `<span class="btn__sub">` |
+| A wrapper padding an MUI `<Slider>` so its handles line up (`px: 1`, `px: 2.5`) | Nothing: delete the wrapper. The theme insets every horizontal slider by half a handle |
+
+**What looks different:**
+- **MUI buttons** are 40px tall (the control height, like `.btn` and a
+  small field), were 46px.
+- **MUI horizontal sliders** are inset by half a handle on each side and no
+  longer sit on a line of text, so the space above and below them shrinks
+  by a few pixels. Their end handles line up with the fields around them.
+- **`SliderWithLabel`** gets the same inset from the theme (it used to add
+  its own), so it looks the same.
+

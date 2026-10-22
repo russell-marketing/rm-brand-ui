@@ -253,8 +253,11 @@ export function getRMThemeConfig() {
             textTransform: 'none',
             fontWeight: tokens.fontWeight.semibold,
             borderRadius: tokens.radius.m,
-            padding: `8px ${tokens.control.paddingX}`,
+            // The control height, like .btn and a small field: vertical
+            // padding plus the text's line height made MUI buttons 46px.
+            padding: `0 ${tokens.control.paddingX}`,
             minHeight: tokens.control.height,
+            lineHeight: 1.5,
           },
           // Matches .btn--sm: for controls inside table rows.
           sizeSmall: {
@@ -634,6 +637,15 @@ export function getRMThemeConfig() {
             // slider breathing room, pad/margin a wrapper around it instead.
             padding: 0,
             boxSizing: 'border-box',
+            // Inset by half a thumb with margin (not padding), so the end
+            // handles sit inside the slider's own box and line up with the
+            // fields around it. Block, not inline-block, so it doesn't sit on
+            // a line of text and gain space above and below.
+            '&:not(.MuiSlider-vertical)': {
+              display: 'block',
+              marginInline: `calc(${tokens.slider.thumbWidth} / 2)`,
+              width: `calc(100% - ${tokens.slider.thumbWidth})`,
+            },
             '& .MuiSlider-thumb': {
               width: tokens.slider.thumbWidth,
               height: tokens.slider.thumbHeight,
