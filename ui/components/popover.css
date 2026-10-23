@@ -6,7 +6,7 @@
  * every keystroke.
  *
  *   <div class="popover-anchor">
- *     <input class="input" … aria-expanded="true" aria-controls="results">
+ *     <input class="input" role="combobox" … aria-expanded="true" aria-controls="results">
  *     <div class="popover" id="results">…</div>
  *   </div>
  *

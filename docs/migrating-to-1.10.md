@@ -43,7 +43,8 @@ overrides for it, and a local `.table--grouped` candidate.
 ### A header that stays in view: `.table--sticky-head`
 
 The header row stays at the top while a long table scrolls, in the page or
-in a scrolling box around the table. Its labels stay on one line. A table
+in a scrolling box around the table. Inside `.table-scroll` (from 1.10.1)
+the wrapper caps its height and the table scrolls inside it. Its labels stay on one line. A table
 too wide for a phone goes inside `.table-scroll`, as before.
 
 **Replace:** a local `position: sticky` on `thead th` and any `overflow: clip`
@@ -56,7 +57,7 @@ results don't push the page down as someone types:
 
 ```html
 <div class="popover-anchor">
-  <input class="input" aria-expanded="true" aria-controls="results">
+  <input class="input" role="combobox" aria-expanded="true" aria-controls="results">
   <div class="popover" id="results">…</div>
 </div>
 ```
@@ -161,3 +162,45 @@ RULES.md rule 8. Prefer a `<label class="visually-hidden">` to an
 - **Rule 13** says a floating panel can't use `max-width: 100%` (use
   `.popover`), and that a panel meant to cover the page is not the header
   layout the "nothing on top" bullet is about.
+
+## 1.10.1
+
+Mostly for MUI apps; the two fixes below apply to every app.
+
+- **Chips are 12px**, like `.badge` and `.tag` (they were MUI's 13px).
+  Delete local chip font sizes rather than swapping them for `caption`.
+- **`overline` is defined:** 12px small caps in the display face, for a
+  label over a value or a group. Delete local `fontSize` and
+  `letterSpacing` on `variant="overline"`.
+- **`<Accordion>` matches `.disclosure`:** a bordered box with the system's
+  radius, no divider line above it, no spacing jump when it opens
+  (`disableGutters` is on by default), and a semibold summary. Delete local
+  `border`, `borderRadius`, `overflow` and `:before` styling on accordions.
+  Space them with a `Stack`.
+- **RULES.md** names the MUI matches: `<Table stickyHeader>` for
+  `.table--sticky-head`, `<Accordion>` for `.disclosure`.
+
+**New, for every app:**
+
+- **`.surface--compact`:** a small inset (4px by 8px) for a box with
+  little room, such as a node in a Sankey. Replaces a local padding on the
+  box or its name.
+- **`.overline`:** the CSS twin of MUI's `overline`: a small-caps label
+  over a value, a group or a chart column. Replaces `.surface__title` used
+  outside a card.
+
+**Fixes:**
+
+- **A sticky header inside `.table-scroll`** now works: the wrapper caps
+  its height at 80% of the screen and the table scrolls inside it. Before,
+  the header stuck to the wrapper, which never scrolled up and down, so it
+  scrolled away with the page.
+
+- **Links on `.surface--brand`** are Moon, underlined, Estrella on hover.
+  They kept the page's link colour before, 1.5:1 on Space. Delete a staged
+  `.surface--brand a` candidate.
+- **The popover example** puts `role="combobox"` on the input that opens
+  it: `aria-expanded` isn't allowed on a plain text input.
+
+**What looks different:** chips are 1px smaller. Accordions an app hasn't
+styled lose MUI's shadow and divider line and gain the border.
