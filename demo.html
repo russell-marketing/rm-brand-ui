@@ -236,7 +236,7 @@
           <section class="surface surface--padded surface--dense stack-2" aria-labelledby="dc1"><h3 class="surface__title" id="dc1">Gadgets</h3><p>Headphones, speakers, earbuds and turntables.</p><p class="cluster"><span class="tag">Audio</span><span class="tag">Phones</span></p><button class="btn" type="button">Open</button></section>
           <section class="surface surface--padded stack-2" aria-labelledby="dc2"><h3 class="surface__title" id="dc2">Gadgets</h3><p>Headphones, speakers, earbuds and turntables.</p><p class="cluster"><span class="tag">Audio</span><span class="tag">Phones</span></p><button class="btn" type="button">Open</button></section>
         </div>
-        <div class="cluster" style="margin-top:var(--space-4)">
+        <div style="margin-top:var(--space-4); min-height:15rem">
           <div class="popover-anchor" style="width:14rem">
             <label class="visually-hidden" for="pop-q">Find a file</label>
             <input class="input" id="pop-q" placeholder="Find a file" aria-expanded="true" aria-controls="pop-r" value="brand">
@@ -245,6 +245,23 @@
         </div>
         <p class="muted" style="margin-top:var(--space-3)">The panel floats over this text instead of pushing it down.</p>
         <p class="muted">Left: .surface--dense. Right: a plain card. Text is 14px against 16px; the button stays the same.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(14rem, 1fr)); gap:var(--space-4); align-items:start; margin-top:var(--space-4)">
+          <section class="surface surface--padded stack-2" aria-labelledby="col1">
+            <h3 class="section-header__title" id="col1">Gadgets</h3>
+            <div class="pick-list" role="listbox" aria-label="Gadgets entries"><div class="pick-list__scroll">
+              <div role="group" aria-labelledby="col1-g1"><div class="pick-list__group" id="col1-g1">Audio</div>
+                <div class="pick-list__item" role="option" aria-selected="false" tabindex="0"><span class="pick-list__label">Headphones</span><span class="pick-list__meta">A</span></div>
+                <div class="pick-list__item" role="option" aria-selected="false" tabindex="-1"><span class="pick-list__label">Speakers</span><span class="pick-list__meta">B</span></div></div>
+              <div role="group" aria-labelledby="col1-g2"><div class="pick-list__group" id="col1-g2">Phones</div>
+                <div class="pick-list__item" role="option" aria-selected="false" tabindex="-1"><span class="pick-list__label">Phone cases</span><span class="pick-list__meta">B</span></div></div>
+            </div></div>
+          </section>
+          <section class="surface surface--padded surface--interactive stack-2" id="ic3"><h3 class="surface__title"><button class="surface__action" type="button">Art</button></h3><p class="muted">Send the picked entry to:</p><p class="cluster"><button class="tag" type="button">Illustration</button><button class="tag" type="button" aria-current="true">Prints</button><button class="tag" type="button">Fine art</button></p></section>
+        </div>
+        <details class="disclosure surface surface--padded" style="margin-top:var(--space-4)" id="disc1">
+          <summary>Changes <span class="badge badge--neutral">3</span></summary>
+          <p>Moved Headphones to Audio. Moved Posters to Prints. Retired Gizmos.</p>
+        </details>
       </section>
 
       <!-- 1.10.0: grouped rows, header that stays in view -->

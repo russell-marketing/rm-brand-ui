@@ -165,6 +165,7 @@ app turns it on, it stays light, as before.
 | Choice | Rule |
 |---|---|
 | `.badge` or `.tag` | Badge = the **state** of a thing (new, ready, needs attention). Tag = its **kind** or source ("Updates", "Discord"). |
+| Clickable tag | `<button class="tag">` (or `<a class="tag">`) when picking a tag does something: filter by it, send an entry there. It gets a hover, a focus ring and a 24px target, and sits above a `.surface--interactive` card's click area by itself. |
 | Badge variant | `--new`, `--ready`, `--warn`, `--error` (broken or failed), `--neutral` (present, not asking for attention). |
 | Checkbox or done tick | `.checkbox` (square) to choose an option or turn a setting on. `.task-list` and its round `__done` tick to complete a task. Never a round checkbox for looks (decision 0004). |
 | Task list | `.task-list` for tasks someone ticks off: done tick, task, due date. Ticks and dates line up down the list. |
@@ -183,13 +184,14 @@ app turns it on, it stays light, as before.
 | Dense card | `.surface--dense` for a card people scan rather than read (entries beside a pick list): 14px text. Controls keep their size. MUI: `variant="body2"`. |
 | Quiet text | `.muted`: colour only, so it fits any size of text it sits in. |
 | Screen-reader text | `.visually-hidden` for text screen readers read and the screen doesn't show: a field's `<label>` when the design has none, "(mapped)" after a mark. Prefer it to `aria-label` when the text could be a real element. |
+| Opens and closes | `<details class="disclosure">` with a one-row `<summary>` (add a `.badge--neutral` count if it has one): a section someone opens when they need it. The arrow follows `open`. Not for tabs or navigation. |
 | Floating panel | `.popover` inside `.popover-anchor` for a panel that hangs from the control that opened it and covers the page (search results, autocomplete, a menu), so the page doesn't move. `--end` hangs it from the right edge. MUI: `<Popper>` / `<Popover>`. |
 | Multi-line input | `.textarea` with a `rows` attribute. |
 | App header | `.app-header` with `__title`, `__nav`, `__meta`: the app's name, main navigation and extras (environment badge, user). One per app. |
 | Tabs | `.tabs` with `.tab` and `aria-selected`. `.tab--group-end` on the last tab of a group draws the divider (MUI `<Tab>` too). |
 | Form | `.form-grid`; `__wide` for a field that needs the whole row, `__actions` for its buttons. |
 | Filters | `.filter-bar` above the table or list it filters; `__range` for a from/to pair, `__group` for a set of checkboxes that filter together, `__actions` for Apply / Clear. |
-| Section header | `.section-header` for a section's title, an optional line under it (`__sub`) and its actions (`__actions`). |
+| Section header | `.section-header` for a section's title, an optional line under it (`__sub`) and its actions (`__actions`). `__title` looks the same on any heading level. A card that is a column or section of its own (a card-sort column) names itself with `.section-header__title`, and its groups use `.pick-list__group`: two levels, big over small caps. `.surface__title` is for a card that is one item among many. |
 | Choices | `.choices` with `.btn`s and `aria-pressed` when exactly one is chosen and it changes the view (sort, period). Not for navigation (tabs) or filtering a list by several values (filter bar). MUI: `<ToggleButtonGroup exclusive>`. |
 
 ## 9. Accessibility comes with the markup; use the markup

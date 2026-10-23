@@ -14,7 +14,9 @@ a:where(:not(.btn)){ color: var(--link,#5A4286); text-underline-offset:3px; }
 a:where(:not(.btn)):hover{ color: var(--link-hover,#4B386F); }
 
 /* Head/table caps */
-h3,.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-caps,.5px); font-weight:var(--fw-extrabold,800); }
+/* A .section-header__title is the same at any heading level, so a column's
+ * name can be an h3 without turning to capitals. */
+h3:where(:not(.section-header__title)),.table caption,.table th{ text-transform:uppercase; letter-spacing:var(--ls-caps,.5px); font-weight:var(--fw-extrabold,800); }
 
 /* Buttons */
 .btn{

@@ -1,9 +1,9 @@
 # Moving an app to 1.10
 
 1.10 adds grouped tables, a table header that stays in view, a floating
-panel and a dense card, and two audit fixes. **Nothing changes for an app
-until it uses them**, apart from the one change under "What looks
-different". Apps on `#semver:^1.9.0` get 1.10 with
+panel, a dense card, a section that opens and closes, clickable tags, and
+two audit fixes. **Nothing changes for an app until it uses them**, apart
+from the two changes under "What looks different". Apps on `#semver:^1.9.0` get 1.10 with
 `npm update @russell-marketing/brand-ui`; then raise the floor to `^1.10.0`.
 
 ## New
@@ -76,6 +76,38 @@ fields inside keep their size.
 
 **Replace:** a local `font-size` on a card's content.
 
+### A section that opens and closes: `.disclosure`
+
+A native `<details>` with a one-row summary and an arrow that turns when it
+opens:
+
+```html
+<details class="disclosure surface surface--padded">
+  <summary>Changes <span class="badge badge--neutral">3</span></summary>
+  …
+</details>
+```
+
+**Replace:** a `<details>` with the browser's default look, or a local
+open/close toggle.
+
+### Clickable tags
+
+`<button class="tag">` or `<a class="tag">` for a tag that does something
+when picked. It keeps the tag's look and gets a hover, a focus ring and a
+24px target. Inside a `.surface--interactive` card it already sits above
+the card's click area.
+
+**Replace:** a local `position: relative; z-index: 1` or `cursor` on a tag,
+and any button reset on it.
+
+### A card that is a column: section title over grouped lists
+
+A card that is a column or section of its own (a card-sort column) names
+itself with `.section-header__title` and its groups with
+`.pick-list__group`. `.surface__title` stays for a card that is one item
+among many.
+
 ### Already there: `.visually-hidden`
 
 Text that screen readers read and the screen doesn't show, for a field
@@ -84,6 +116,9 @@ RULES.md rule 8. Prefer a `<label class="visually-hidden">` to an
 `aria-label` when the text could be a real element.
 
 ## What looks different
+
+- **`.section-header__title` on an `h3`** no longer turns to capitals. It
+  now looks the same at every heading level (it already did on `h2`).
 
 - **`.table` clips its corners with `overflow: clip`** instead of
   `overflow: hidden`. It looks the same; the difference is that a sticky
@@ -100,8 +135,10 @@ RULES.md rule 8. Prefer a `<label class="visually-hidden">` to an
 
 ## Rules
 
-- **Rule 8** gains Grouped rows, Dense card, Screen-reader text and Floating
-  panel, and the Table row mentions `.table--sticky-head`.
+- **Rule 8** gains Grouped rows, Dense card, Screen-reader text, Floating
+  panel, Opens and closes and Clickable tag. The Table row mentions
+  `.table--sticky-head`, and the Section header row says when a card uses
+  a section title.
 - **Rule 13** says a floating panel can't use `max-width: 100%` (use
   `.popover`), and that a panel meant to cover the page is not the header
   layout the "nothing on top" bullet is about.
