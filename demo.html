@@ -229,6 +229,77 @@
         </div>
       </section>
 
+      <!-- 1.10.0: dense card, popover -->
+      <section class="demo-section surface card" id="demo-110b">
+        <h2>Dense card &amp; popover</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(14rem, 1fr)); gap:var(--space-4); align-items:start">
+          <section class="surface surface--padded surface--dense stack-2" aria-labelledby="dc1"><h3 class="surface__title" id="dc1">Gadgets</h3><p>Headphones, speakers, earbuds and turntables.</p><p class="cluster"><span class="tag">Audio</span><span class="tag">Phones</span></p><button class="btn" type="button">Open</button></section>
+          <section class="surface surface--padded stack-2" aria-labelledby="dc2"><h3 class="surface__title" id="dc2">Gadgets</h3><p>Headphones, speakers, earbuds and turntables.</p><p class="cluster"><span class="tag">Audio</span><span class="tag">Phones</span></p><button class="btn" type="button">Open</button></section>
+        </div>
+        <div style="margin-top:var(--space-4); min-height:15rem">
+          <div class="popover-anchor" style="width:14rem">
+            <label class="visually-hidden" for="pop-q">Find a file</label>
+            <input class="input" id="pop-q" placeholder="Find a file" aria-expanded="true" aria-controls="pop-r" value="brand">
+            <div class="popover" id="pop-r"><p class="muted">3 files</p><p>Logos / Fonts / Brand &amp; Style Guidelines</p><p>Brand board.pdf</p><p>Old brand.zip</p></div>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:var(--space-3)">The panel floats over this text instead of pushing it down.</p>
+        <p class="muted">Left: .surface--dense. Right: a plain card. Text is 14px against 16px; the button stays the same.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(14rem, 1fr)); gap:var(--space-4); align-items:start; margin-top:var(--space-4)">
+          <section class="surface surface--padded stack-2" aria-labelledby="col1">
+            <h3 class="section-header__title" id="col1">Gadgets</h3>
+            <div class="pick-list" role="listbox" aria-label="Gadgets entries"><div class="pick-list__scroll">
+              <div role="group" aria-labelledby="col1-g1"><div class="pick-list__group" id="col1-g1">Audio</div>
+                <div class="pick-list__item" role="option" aria-selected="true" tabindex="0"><span class="pick-list__label">Headphones</span><span class="pick-list__meta">A</span></div>
+                <div class="pick-list__item pick-list__item--related" role="option" aria-selected="false" tabindex="-1"><span class="pick-list__label">Speakers <span class="visually-hidden">(in Audio)</span></span><span class="pick-list__meta">B</span></div>
+                <div class="pick-list__item pick-list__item--related" role="option" aria-selected="false" tabindex="-1"><span class="pick-list__label">Earbuds <span class="visually-hidden">(in Audio)</span></span><span class="pick-list__meta">C</span></div></div>
+              <div role="group" aria-labelledby="col1-g2"><div class="pick-list__group" id="col1-g2">Phones</div>
+                <div class="pick-list__item" role="option" aria-selected="false" tabindex="-1"><span class="pick-list__label">Phone cases</span><span class="pick-list__meta">B</span></div></div>
+            </div></div>
+          </section>
+          <section class="surface surface--padded surface--unmatched stack-2" id="um1" aria-labelledby="um1t"><h3 class="surface__title" id="um1t">Games</h3><p>Doesn't match the search; stays for context.</p><p class="cluster"><span class="tag">Board games</span><span class="tag">Video games</span></p></section>
+          <section class="surface surface--padded surface--interactive stack-2" id="ic3"><h3 class="surface__title"><button class="surface__action" type="button">Art</button></h3><p class="muted">Send the picked entry to:</p><p class="cluster"><button class="tag" type="button">Illustration</button><button class="tag" type="button" aria-current="true">Prints</button><button class="tag" type="button">Fine art</button></p></section>
+        </div>
+        <details class="disclosure surface surface--padded" style="margin-top:var(--space-4)" id="disc1">
+          <summary>Changes <span class="badge badge--neutral">3</span></summary>
+          <p>Moved Headphones to Audio. Moved Posters to Prints. Retired Gizmos.</p>
+        </details>
+      </section>
+
+      <!-- 1.10.0: grouped rows, header that stays in view -->
+      <section class="demo-section surface card" id="demo-110">
+        <h2>Grouped table</h2>
+        <p class="muted">One &lt;tbody&gt; per category; group names are &lt;th scope="rowgroup"&gt; spanning their rows. Scroll the box: the header stays, and each group's name stays in view until its group ends.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Category map, scrolls" id="grouped-scroll" style="max-height:22rem; overflow-y:auto">
+          <table class="table table--compact table--sticky-head">
+            <thead><tr><th>Category</th><th>Subcategory</th><th>Platform's word</th><th>Platform</th></tr></thead>
+                <tbody>
+                  <tr><th scope="rowgroup" rowspan="5"><span class="table__group-name">Art</span></th><th scope="rowgroup" rowspan="3"><span class="table__group-name">Illustration</span></th><td>Digital illustration</td><td><span class="tag">Platform A</span></td></tr>
+                  <tr><td>Drawing</td><td><span class="tag">Platform B</span></td></tr>
+                  <tr><td>Comics art</td><td><span class="tag">Platform A</span></td></tr>
+                  <tr><th scope="rowgroup" rowspan="2"><span class="table__group-name">Prints</span></th><td>Posters</td><td><span class="tag">Platform B</span></td></tr>
+                  <tr><td>Art prints</td><td><span class="tag">Platform A</span></td></tr>
+                </tbody>
+                <tbody>
+                  <tr><th scope="rowgroup" rowspan="7"><span class="table__group-name">Gadgets</span></th><th scope="rowgroup" rowspan="4"><span class="table__group-name">Audio</span></th><td>Headphones</td><td><span class="tag">Platform A</span></td></tr>
+                  <tr><td>Speakers</td><td><span class="tag">Platform B</span></td></tr>
+                  <tr><td>Earbuds</td><td><span class="tag">Platform C</span></td></tr>
+                  <tr><td>Turntables</td><td><span class="tag">Platform A</span></td></tr>
+                  <tr><th scope="rowgroup" rowspan="2"><span class="table__group-name">Phones</span></th><td>Phone cases</td><td><span class="tag">Platform B</span></td></tr>
+                  <tr><td>Chargers</td><td><span class="tag">Platform A</span></td></tr>
+                  <tr><th scope="rowgroup">Wearables</th><td>Watches</td><td><span class="tag">Platform A</span></td></tr>
+                </tbody>
+                <tbody>
+                  <tr><th scope="rowgroup" rowspan="5"><span class="table__group-name">Games</span></th><th scope="rowgroup" rowspan="3"><span class="table__group-name">Board games</span></th><td>Tabletop</td><td><span class="tag">Platform A</span></td></tr>
+                  <tr><td>Card games</td><td><span class="tag">Platform B</span></td></tr>
+                  <tr><td>Party games</td><td><span class="tag">Platform C</span></td></tr>
+                  <tr><th scope="rowgroup" rowspan="2"><span class="table__group-name">Video games</span></th><td>Indie games</td><td><span class="tag">Platform A</span></td></tr>
+                  <tr><td>Mobile games</td><td><span class="tag">Platform B</span></td></tr>
+                </tbody>
+          </table>
+        </div>
+      </section>
+
       <!-- Sliders -->
       <section class="demo-section surface card">
         <h2>Sliders</h2>

@@ -41,6 +41,18 @@
   font-weight: var(--fw-bold);
   white-space:nowrap;
 }
+/* A tag that does something: a <button class="tag"> (pick this
+ * subcategory, send an entry here) or an <a class="tag">. It keeps the
+ * tag's look, gets a hover, a focus ring and a 24px hit target. Inside a
+ * .surface--interactive card it sits above the card's own click area. */
+:is(button, a).tag{
+  min-height: var(--hit-min);
+  background: transparent;
+  cursor:pointer;
+  text-decoration:none;
+}
+:is(button, a).tag:hover{ background: var(--accent-50); }
+:is(button, a).tag:focus-visible{ outline:2px solid var(--rm-galaxy); outline-offset:2px; }
 /* aria-current="true": the one tag in a set that the current selection
  * points at, in the selection colour. */
 .tag[aria-current="true"]{

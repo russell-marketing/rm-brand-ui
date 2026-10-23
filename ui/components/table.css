@@ -11,7 +11,11 @@
   border-spacing:0;
   background: var(--bg-surface);
   border:1px solid var(--border-subtle);
-  border-radius:10px; overflow:hidden; /* rounds thead corners */
+  border-radius:10px;
+  /* Rounds the header corners. clip, not hidden: hidden makes the table a
+   * scroll container, which stops a sticky header; clip doesn't. Browsers
+   * without clip keep hidden. */
+  overflow:hidden; overflow:clip;
 }
 
 /* Head */
@@ -82,7 +86,43 @@
   white-space:nowrap;
 }
 
-/* Wide tables scroll inside this wrapper. .table hides its own overflow to
+/* Header that stays in view while the table scrolls, in the page or in a
+ * scrolling box around it. Its labels stay on one line, so the header's
+ * height is known: --table-head-h, which group names stick below. A table
+ * too wide for the screen scrolls sideways in .table-scroll. */
+.table--sticky-head{ --table-head-h: calc(var(--table-head-py) * 2 + 1.25em + 2px); }
+.table--sticky-head thead th{ position:sticky; top:0; z-index: var(--z-sticky); white-space:nowrap; line-height:1.25; }
+
+/* Grouped rows: a cell that names a group spans the group's rows.
+ * The markup carries it, no modifier: one <tbody> per top-level group, and
+ * each group's name is <th scope="rowgroup" rowspan="n">, nested groups
+ * included. Where groups start and end is drawn as a line, darker than the
+ * row lines; between top-level groups it is 2px. Zebra rows turn off, since
+ * a spanning cell would take one stripe's colour for its whole group. */
+.table:has(th[scope="rowgroup"]) tbody tr:nth-child(even){ background:none; }
+.table tbody th[scope="rowgroup"]{
+  padding: var(--table-cell-py) var(--table-cell-px);
+  text-align:left;
+  vertical-align:top;
+  /* A group's name is data, so it keeps its own case and the body font. */
+  text-transform:none;
+  letter-spacing:normal;
+  font-family: inherit;
+  font-weight: var(--fw-semibold);
+  border-bottom:1px solid var(--text-secondary);
+}
+/* A group's last row closes it in every column it spans: the row before a
+ * nested group starts, and each tbody's last row. Between tbodies the line
+ * doubles to 2px. */
+.table tbody tr:has(+ tr > th[scope="rowgroup"]) > td,
+.table:has(th[scope="rowgroup"]) tbody > tr:last-child > td{ border-bottom-color: var(--text-secondary); }
+.table:has(th[scope="rowgroup"]) tbody + tbody > tr:first-child > *{ border-top:1px solid var(--text-secondary); }
+/* A long group keeps its name in view while its rows scroll past: wrap the
+ * name in .table__group-name. It sticks inside its own cell, so it leaves
+ * with its group. */
+.table__group-name{ position:sticky; top: calc(var(--table-head-h, 0px) + var(--table-cell-py)); display:block; }
+
+/* Wide tables scroll inside this wrapper. .table clips its own overflow to
  * round the header corners, so it can't scroll itself. Give the wrapper
  * tabindex="0", role="region" and an aria-label so keyboard users can
  * scroll it too. Inside a grid or a flex row, the column holding it needs
