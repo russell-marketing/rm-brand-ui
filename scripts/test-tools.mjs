@@ -183,6 +183,16 @@ const pageAudit = spawnSync(process.execPath, [join(root, 'scripts', 'audit.mjs'
 check(pageAudit.status === 0 && /No package\.json: rule 1/.test(pageAudit.stdout), 'a folder with no package.json is audited, rule 1 skipped');
 check(!/view\.html:3 /.test(pageAudit.stdout) && /view\.html:7 /.test(pageAudit.stdout), 'the inlined stylesheet is skipped; the page\'s own CSS is checked');
 check(!/Rule 2\./.test(pageAudit.stdout), 'an inlined stylesheet counts as loading it (rule 2)');
+// Folders listed in .rm-brand-auditignore are skipped and named.
+mkdirSync(join(page, 'stages', 'step-1'), { recursive: true });
+writeFileSync(join(page, 'stages', 'step-1', 'old.html'), '<style>.old{ color: #abcdef; }</style>');
+writeFileSync(join(page, '.rm-brand-auditignore'), '# saved snapshots\nstages/\n');
+const ignoredAudit = spawnSync(process.execPath, [join(root, 'scripts', 'audit.mjs'), page], { encoding: 'utf8' });
+check(!/old\.html/.test(ignoredAudit.stdout) && /Skipped, listed in \.rm-brand-auditignore: stages/.test(ignoredAudit.stdout), 'folders in .rm-brand-auditignore are skipped and named');
+// A rule-2 finding names the file that loads the stylesheet, not a package.json the folder doesn't have.
+writeFileSync(join(page, 'extra.html'), '<link rel="stylesheet" href="ui/layout.entry.css">');
+const doubleAudit = spawnSync(process.execPath, [join(root, 'scripts', 'audit.mjs'), page], { encoding: 'utf8' });
+check(/extra\.html:1 {2}loads \/layout, and \/styles at view\.html:2/.test(doubleAudit.stdout) && !/package\.json:0/.test(doubleAudit.stdout), 'rule 2 names the file and line, not package.json');
 rmSync(page, { recursive: true, force: true });
 
 rmSync(app, { recursive: true, force: true });

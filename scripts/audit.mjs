@@ -22,7 +22,7 @@ const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'dist', 'build', 'ou
 const EXTS = new Set(['.css', '.scss', '.tsx', '.jsx', '.ts', '.js', '.html']);
 const SYSTEM_CLASSES = ['btn', 'badge', 'pill', 'tag', 'table', 'alert', 'input', 'select', 'stat', 'stats',
   'kv', 'rating', 'surface', 'muted', 'page', 'page-header', 'table-scroll', 'textarea', 'text-blank', 'modal', 'tabs', 'tab',
-  'app-header', 'form-grid', 'filter-bar', 'section-header', 'choices', 'checkbox', 'checkbox-field', 'task-list', 'code', 'code-block', 'pick-list', 'connector', 'rm-toast', 'rm-tooltip', 'skeleton'];
+  'app-header', 'form-grid', 'filter-bar', 'section-header', 'choices', 'checkbox', 'checkbox-field', 'task-list', 'code', 'code-block', 'pick-list', 'connector', 'popover', 'popover-anchor', 'rm-toast', 'rm-tooltip', 'skeleton'];
 const ALLOWED_TOKEN_OVERRIDES = new Set(['--font-display', '--font-body']);
 // The real token names, read from the copy of tokens.css that ships with
 // this script, so a check never guesses at what counts as a system token.
@@ -106,6 +106,16 @@ function lastTag(line) {
 }
 
 /* ---------- source files ---------- */
+// .rm-brand-auditignore at the app root lists folders or files that aren't
+// the app (saved snapshots, fixtures), one path per line from the root.
+// Lines starting with # are notes. Skipped paths are named in the report.
+const IGNORE_FILE = '.rm-brand-auditignore';
+const ignored = existsSync(join(appRoot, IGNORE_FILE))
+  ? readFileSync(join(appRoot, IGNORE_FILE), 'utf8').split('\n')
+    .map((l) => l.trim().replace(/^\.\//, '').replace(/\/+$/, ''))
+    .filter((l) => l && !l.startsWith('#'))
+  : [];
+const ignoredHit = new Set();
 const files = [];
 (function walk(dir) {
   for (const e of readdirSync(dir)) {
@@ -114,6 +124,8 @@ const files = [];
     // app. Deeper _folders are real code (Next.js private folders).
     if (dir === appRoot && (e.startsWith('_') || e === 'docs')) continue;
     const p = join(dir, e);
+    const relP = relative(appRoot, p).split('\\').join('/');
+    if (ignored.includes(relP)) { ignoredHit.add(relP); continue; }
     const st = statSync(p);
     if (st.isDirectory()) walk(p);
     else if (EXTS.has(extname(e)) && !e.endsWith('.d.ts') && !/\.(test|spec)\./.test(e)) files.push(p);
@@ -125,6 +137,9 @@ const sysClassRe = new RegExp(`\\.(${SYSTEM_CLASSES.join('|')})(?![\\w-])`);
 let usesTheme = false;
 let importsStyles = false;
 let importsLayout = false;
+// Where each import was seen, so a rule-2 finding names the file.
+let stylesAt = null;
+let layoutAt = null;
 const pieceImports = [];
 
 for (const file of files) {
@@ -160,13 +175,13 @@ for (const file of files) {
 
   lines.forEach((raw, i) => {
     const n = i + 1;
-    if (raw.includes('rm-brand-inline:start')) { inInline = true; importsStyles = true; }
+    if (raw.includes('rm-brand-inline:start')) { inInline = true; importsStyles = true; stylesAt ??= [rel, n]; }
     if (inInline) { if (raw.includes('rm-brand-inline:end')) inInline = false; return; }
     const line = raw.replace(/\/\/.*$|\/\*.*?\*\//g, '');
 
     if (/brand-(ui|styles)\/adapters\/mui-theme/.test(line)) usesTheme = true;
-    if (/brand-ui\/styles['"]|rm-ui\.entry\.css/.test(line)) importsStyles = true;
-    if (/brand-ui\/layout['"]|layout\.entry\.css/.test(line)) importsLayout = true;
+    if (/brand-ui\/styles['"]|rm-ui\.entry\.css/.test(line)) { importsStyles = true; stylesAt ??= [rel, n]; }
+    if (/brand-ui\/layout['"]|layout\.entry\.css/.test(line)) { importsLayout = true; layoutAt ??= [rel, n]; }
     const piece = line.match(/brand-(?:ui|styles)\/(tokens|core|dark|utilities|a11y|components\/[\w-]+)['"]/);
     if (piece && !/tokens\.js/.test(line)) pieceImports.push([rel, n, piece[1]]);
 
@@ -299,12 +314,12 @@ if (usesTheme && importsLayout) pieceImports.splice(0, pieceImports.length, ...p
 if (pieceImports.length) {
   for (const [rel, n, piece] of pieceImports) add(2, rel, n, `imports a piece (${piece}); import '@russell-marketing/brand-ui/styles' once instead`);
 } else if (!importsStyles && !usesTheme) {
-  add(2, 'package.json', 0, 'never loads the stylesheet or the MUI theme');
+  add(2, hasPkg ? 'package.json' : '(the folder)', 0, 'never loads the stylesheet or the MUI theme');
 }
 // /layout is for MUI-only apps, alongside the theme. With the full
 // stylesheet it is already included.
-if (importsLayout && importsStyles) add(2, 'package.json', 0, "imports /layout and /styles; /styles already includes the layout classes, so drop /layout");
-if (importsLayout && !usesTheme && !importsStyles) add(2, 'package.json', 0, "imports /layout without the MUI theme; /layout is for MUI-only apps, so import '@russell-marketing/brand-ui/styles' instead");
+if (importsLayout && importsStyles) add(2, ...layoutAt, `loads /layout, and /styles at ${stylesAt.join(':')}; /styles already includes the layout classes, so drop /layout`);
+if (importsLayout && !usesTheme && !importsStyles) add(2, ...layoutAt, "loads /layout without the MUI theme; /layout is for MUI-only apps, so load '@russell-marketing/brand-ui/styles' instead");
 
 /* ---------- report ---------- */
 const byRule = new Map();
@@ -320,6 +335,9 @@ const ver = (() => {
 })();
 
 if (!hasPkg) console.log('\nNo package.json: rule 1 (the dependency) not checked.');
+if (ignored.length) {
+  console.log(`\nSkipped, listed in ${IGNORE_FILE}: ${ignored.map((p) => p + (ignoredHit.has(p) ? '' : ' (not found)')).join(', ')}`);
+}
 console.log(`\nrm-brand-audit  ${relative(process.cwd(), appRoot) || '.'}  (installed brand-ui: ${ver})`);
 if (!findings.length) {
   console.log('\n\x1b[32mNo findings.\x1b[0m\n');

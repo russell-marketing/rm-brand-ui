@@ -1,0 +1,47 @@
+/* ui/components/popover.css
+ *
+ * A panel that hangs from the control that opened it and floats over the
+ * page: search results, an autocomplete list, a menu. Floating keeps the
+ * page still: results in the normal flow push everything below them down on
+ * every keystroke.
+ *
+ *   <div class="popover-anchor">
+ *     <input class="input" … aria-expanded="true" aria-controls="results">
+ *     <div class="popover" id="results">…</div>
+ *   </div>
+ *
+ * Hide it with the hidden attribute while it's closed.
+ *
+ * Its width: never narrower than the control it hangs from, as wide as its
+ * content wants, and never wider than 30rem or the screen less its gutters.
+ * (A percentage max-width can't do that job here: on a positioned panel it
+ * resolves against the anchor, not the page. RULES.md rule 13.) */
+.popover-anchor{ position:relative; }
+
+.popover{
+  position:absolute;
+  top:100%;
+  left:0;
+  z-index: var(--z-dropdown);
+  min-width:100%;
+  width:max-content;
+  max-width: min(30rem, calc(100vw - 2 * var(--space-4)));
+  max-height:24rem;
+  overflow-y:auto;
+  margin-top: var(--space-1);
+  padding: var(--space-3);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border:1px solid var(--border-subtle);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Its padding is the space at its edges, so the first and last child's
+ * margins don't add to it. */
+.popover > :first-child{ margin-top:0; }
+.popover > :last-child{ margin-bottom:0; }
+
+/* Hangs from the control's right edge and grows leftward: for a control at
+ * the right of a header, where a left-hung panel would run off the screen. */
+.popover--end{ left:auto; right:0; }

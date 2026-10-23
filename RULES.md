@@ -16,7 +16,7 @@ npx rm-brand-audit --strict   # exit 1 on any finding, for CI
 ## 1. Install with a version range
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.9.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.10.0"
 ```
 
 - The range gets every fix and addition, and never a breaking 2.0 by surprise.
@@ -175,11 +175,15 @@ app turns it on, it stays light, as before.
 | Button | `.btn--primary`: the one main action in a view. `.btn`: other actions. `.btn--text`: low-emphasis or inline actions. `.btn--icon`: a button whose only content is an icon; it must have an `aria-label`. MUI: `<IconButton aria-label>`. `.btn--described` (with `.btn__sub`): an action with a line under it saying what it does, in a short list someone picks from. |
 | Alert | `--ok`, `--warn`, `--error` for status; `--accent` for a question to the person ("Did you send it?"). Add `--sm` inside rows. |
 | Size | `.btn--sm`, `.input--sm`, `.select--sm` inside table rows only. Elsewhere, default size. |
-| Table | `.table--compact` for tables people scan; default for tables people read. Wide tables go inside `.table-scroll`. |
+| Table | `.table--compact` for tables people scan; default for tables people read. Wide tables go inside `.table-scroll`. `.table--sticky-head` for a long table whose header should stay in view. |
+| Grouped rows | When a cell names a group of rows: one `<tbody>` per top-level group, and each group's name in `<th scope="rowgroup" rowspan="n">`, nested groups too. The markup turns on the group lines and turns off the zebra rows; no modifier. `.table__group-name` around the name keeps it in view while its group scrolls past. |
 | Table cell | A number or date alone in a cell: `.table__cell--num` on its `th` and `td`s (centred, equal-width figures). Text stays left. |
 | Page | `<main class="page">` for the page container, `.page-header` for its eyebrow, title and description. A page that is one short form (sign-in, passcode): `.page page--single`. |
 | Card | `.surface`; add `.surface--padded` when content sits directly inside it. `.surface__title` for its small caps title. `.surface--brand` for the one panel a page highlights (navy, fixed inks). `.surface--interactive` for a card that does one thing when clicked: its title holds a `<button>` or `<a>` with `.surface__action`, never `role="button"` on the card. |
+| Dense card | `.surface--dense` for a card people scan rather than read (entries beside a pick list): 14px text. Controls keep their size. MUI: `variant="body2"`. |
 | Quiet text | `.muted`: colour only, so it fits any size of text it sits in. |
+| Screen-reader text | `.visually-hidden` for text screen readers read and the screen doesn't show: a field's `<label>` when the design has none, "(mapped)" after a mark. Prefer it to `aria-label` when the text could be a real element. |
+| Floating panel | `.popover` inside `.popover-anchor` for a panel that hangs from the control that opened it and covers the page (search results, autocomplete, a menu), so the page doesn't move. `--end` hangs it from the right edge. MUI: `<Popper>` / `<Popover>`. |
 | Multi-line input | `.textarea` with a `rows` attribute. |
 | App header | `.app-header` with `__title`, `__nav`, `__meta`: the app's name, main navigation and extras (environment badge, user). One per app. |
 | Tabs | `.tabs` with `.tab` and `aria-selected`. `.tab--group-end` on the last tab of a group draws the divider (MUI `<Tab>` too). |
@@ -271,8 +275,13 @@ breaks at 375px is broken.
 - **Nothing wider than a phone.** No `width` or `min-width` over 320px
   unless a `max-width: 100%` caps it (a drawer, a dialog), and never
   `100vw`, which is wider than the page whenever there is a scrollbar.
-- **Nothing positioned to sit on top of something else** in a header or
-  toolbar (`position: absolute` to centre the tabs): it overlaps the moment
-  the screen narrows. The header's grid centres its navigation.
+  A floating panel is the exception to `max-width: 100%`: on a positioned
+  element a percentage is measured against the control it hangs from, not
+  the page. Use `.popover`, which caps itself against the screen.
+- **Nothing in a header or toolbar positioned to sit on top of something
+  else** to lay it out (`position: absolute` to centre the tabs): it
+  overlaps the moment the screen narrows. The header's grid centres its
+  navigation. A panel that opens on demand and is meant to cover the page
+  (`.popover`, a dialog) is not layout and is fine.
 - **Look at it.** Every pull request that changes a screen includes a
   screenshot of it at 375px wide as well as at desktop width.
