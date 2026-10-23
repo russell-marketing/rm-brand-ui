@@ -1,4 +1,6 @@
 /* Visuals pair with .rm-toasts container in a11y.css and toast.helper.js */
-.toast--ok{ border-left:4px solid var(--success-text) }
-.toast--warn{ border-left:4px solid var(--warning-text) }
-.toast--error{ border-left:4px solid var(--danger-text) }
+/* Status is a tinted fill with a full border, like .alert: never a bar
+ * down one side. */
+.toast--ok{ background:var(--success-bg); border-color:var(--success-border); color:var(--success-text) }
+.toast--warn{ background:var(--warning-bg); border-color:var(--warning-border); color:var(--warning-text) }
+.toast--error{ background:var(--danger-bg); border-color:var(--danger-border); color:var(--danger-text) }

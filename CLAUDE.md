@@ -73,6 +73,9 @@ this and wrap MUI; they are MUI-only.
 - **Contrast:** text 4.5:1, graphics (stars, icons, focus rings) 3:1, in
   both themes. `npm test` checks token pairs.
 - **Hit targets:** at least `--hit-min` (24px).
+- **No bars down one side.** State and emphasis are a fill, a full border
+  or ring, weight or a badge, never a thick border or inset bar on the left
+  (or left and right) of an element. Ruth's call, 2026-10-22.
 - **Semantics carry the styling** where they can: the sort arrow is drawn
   from `aria-sort`, so correct markup is the only way to get the look.
 - **Changing an existing class's look** is allowed in a minor release only

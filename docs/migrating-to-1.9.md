@@ -74,3 +74,20 @@ Per-item colours for many categories are not part of the system: 26 hues
 can't be told apart or kept readable in both themes. Match items with their
 names and the selection colour instead.
 
+## 1.9.2: no bars down one side
+
+A picked `.pick-list` row, toasts and the form error summary no longer mark
+their state with a bar down the left edge.
+
+- **`.pick-list__item[aria-selected="true"]`**: the accent fill, a 1px ring
+  all the way round in the selection colour and a semibold label, like
+  `.surface--selected` (1.9.1 had a 3px bar on the left).
+- **`.toast--ok` / `--warn` / `--error`** and an alert toast
+  (`.rm-toast[role="alert"]`): the status's tinted fill, border and text
+  colour, like `.alert` (were a 4px left bar on a white toast).
+- **`.error-summary`**: a full border in `--danger-border` with rounded
+  corners and danger text (was a 4px left bar).
+
+The system doesn't use side bars for state or emphasis: use a fill, a full
+border or ring, text weight, or a badge.
+
