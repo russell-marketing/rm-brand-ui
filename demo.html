@@ -154,6 +154,13 @@
 
         <div class="spacer"></div>
 
+        <div style="height:12rem; overflow:auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap:var(--space-3)" id="ic-scroll">
+          <section class="surface surface--padded surface--interactive stack-2" id="ic1"><h3 class="surface__title"><button class="surface__action" type="button" id="ic1-btn">Creative projects</button></h3><p class="muted">Click anywhere on the card. <a href="#" id="ic1-link">A link inside</a> still works.</p></section>
+          <section class="surface surface--padded surface--interactive surface--selected stack-2" id="ic2"><h3 class="surface__title"><button class="surface__action" type="button">Gadgets</button></h3><p class="muted">Selected and clickable.</p></section>
+        </div>
+
+        <div class="spacer"></div>
+
         <div class="filter-bar">
           <fieldset class="filter-bar__group"><legend class="visually-hidden">Platforms</legend>
             <label class="checkbox-field"><input type="checkbox" class="checkbox" checked> Facebook</label>

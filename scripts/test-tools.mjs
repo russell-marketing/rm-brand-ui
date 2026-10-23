@@ -167,6 +167,24 @@ check(!/Rule 2\./.test(run('audit.mjs', '.').stdout), 'an MUI app with the theme
 writeFileSync(join(app, 'src/layout.js'), "import '@russell-marketing/brand-ui/layout';\nimport '@russell-marketing/brand-ui/dark';\nimport { getRMThemeConfig } from '@russell-marketing/brand-ui/adapters/mui-theme';\n");
 check(!/Rule 2\./.test(run('audit.mjs', '.').stdout), 'an MUI app with the theme, /layout and /dark passes rule 2');
 
+/* ---------- a static page with no package.json (rule 12) ---------- */
+const page = mkdtempSync(join(cache, 'rm-ui-page-'));
+writeFileSync(join(page, 'view.html'), [
+  '<style>',
+  '/* rm-brand-inline:start @russell-marketing/brand-ui v1.9.5 */',
+  '.btn{ color: #123456; }',
+  '/* rm-brand-inline:end */',
+  '</style>',
+  '<style>',
+  '.mine{ color: #654321; }',
+  '</style>',
+].join('\n'));
+const pageAudit = spawnSync(process.execPath, [join(root, 'scripts', 'audit.mjs'), page], { encoding: 'utf8' });
+check(pageAudit.status === 0 && /No package\.json: rule 1/.test(pageAudit.stdout), 'a folder with no package.json is audited, rule 1 skipped');
+check(!/view\.html:3 /.test(pageAudit.stdout) && /view\.html:7 /.test(pageAudit.stdout), 'the inlined stylesheet is skipped; the page\'s own CSS is checked');
+check(!/Rule 2\./.test(pageAudit.stdout), 'an inlined stylesheet counts as loading it (rule 2)');
+rmSync(page, { recursive: true, force: true });
+
 rmSync(app, { recursive: true, force: true });
 console.log(failures ? `\n\x1b[31m${failures} failure(s)\x1b[0m\n` : '\n\x1b[32mAll tool checks passed.\x1b[0m\n');
 process.exit(failures ? 1 : 0);
