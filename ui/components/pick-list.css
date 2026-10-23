@@ -28,6 +28,7 @@
  * Selection marks across the system use one colour, --accent-600: this
  * row's ring and mark, .surface--selected, .connector. */
 .pick-list{
+  container: pick-list / inline-size;
   display:flex;
   flex-direction:column;
   margin:0;
@@ -44,9 +45,10 @@
   color: var(--text-brand);
 }
 .pick-list__item{
-  display:flex;
+  display:grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items:center;
-  gap: var(--space-2);
+  column-gap: var(--space-2);
   min-height: var(--hit-min);
   padding: 0 var(--space-2) 0 var(--space-6);
   border-radius: var(--radius-s);
@@ -60,10 +62,16 @@
 }
 .pick-list__item[aria-selected="true"] .pick-list__label{ font-weight: var(--fw-semibold); }
 .pick-list__item:focus-visible{ outline:2px solid var(--rm-galaxy); outline-offset:-2px; }
-.pick-list__label{ flex:1; min-width:0; overflow-wrap:anywhere; }
-.pick-list__meta{ font-size: var(--fs-xs); color: var(--text-secondary); white-space:nowrap; }
+.pick-list__label{ grid-column:2; min-width:0; overflow-wrap:break-word; }
+.pick-list__meta{ grid-column:3; font-size: var(--fs-xs); color: var(--text-secondary); white-space:nowrap; }
+/* In a narrow list the meta goes under the label instead of squeezing it,
+ * and a label only breaks between words. */
+@container pick-list (width < 20rem){
+  .pick-list__item{ padding-block: var(--space-1); }
+  .pick-list__meta{ grid-column:2; white-space:normal; }
+}
 .pick-list__mark{
-  flex:none;
+  grid-column:1;
   width: var(--space-2);
   height: var(--space-2);
   border-radius:50%;

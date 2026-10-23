@@ -41,3 +41,9 @@
   font-weight: var(--fw-bold);
   white-space:nowrap;
 }
+/* aria-current="true": the one tag in a set that the current selection
+ * points at, in the selection colour. */
+.tag[aria-current="true"]{
+  background: var(--accent-surface);
+  border-color: var(--accent-600);
+}
