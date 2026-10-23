@@ -179,6 +179,15 @@ Mostly for MUI apps; the two fixes below apply to every app.
 - **RULES.md** names the MUI matches: `<Table stickyHeader>` for
   `.table--sticky-head`, `<Accordion>` for `.disclosure`.
 
+**New, for every app:**
+
+- **`.surface--compact`:** a small inset (4px by 8px) for a box with
+  little room, such as a node in a Sankey. Replaces a local padding on the
+  box or its name.
+- **`.overline`:** the CSS twin of MUI's `overline`: a small-caps label
+  over a value, a group or a chart column. Replaces `.surface__title` used
+  outside a card.
+
 **Fixes:**
 
 - **Links on `.surface--brand`** are Moon, underlined, Estrella on hover.
