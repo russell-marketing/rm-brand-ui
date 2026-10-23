@@ -84,6 +84,13 @@ writeFileSync(join(app, 'src/wide.css'), [
   '.shell{ width: 100vw; }',
   '@container panel (min-width: 40rem) { .x{ display:grid; } }',
 ].join('\n'));
+// Scroll areas inside the page (rule 14): up and down is a check, sideways is fine.
+writeFileSync(join(app, 'src/scroll.css'), [
+  '.col{ max-height: 30rem; overflow-y: auto; }',
+  '.wide{ overflow-x: auto; }',
+  '.box{ overflow: hidden; }',
+].join('\n'));
+writeFileSync(join(app, 'src/Scroll.jsx'), "export const S = () => <Box sx={{ overflowY: 'auto' }} />;\n");
 writeFileSync(join(app, 'src/images.js'), "export const hero = { src: 'a.png', width: 640, height: 480 };\n");
 writeFileSync(join(app, 'src/Wide.jsx'), [
   'export const W = () => (',
@@ -157,6 +164,9 @@ check(!flagged('src/Icons.jsx', 4), "an icon at '1.5rem' (24px) is on the icon s
 check(!flagged('src/scoped.css', 1) && flagged('src/scoped.css', 2), 'button:not(.btn) is not a restyle of .btn; .btn { … } is');
 check(flagged('src/bars.css', 1) && flagged('src/bars.css', 2), 'a 4px left border and a 3px inset bar are side bars (rule 8)');
 check(!flagged('src/bars.css', 3) && !flagged('src/bars.css', 4), 'a 1px divider and a full inset ring are not');
+check(flagged('src/scroll.css', 1) && /\[check\] scrolls on its own/.test(audit.stdout), 'overflow-y: auto is a "check" (rule 14)');
+check(!flagged('src/scroll.css', 2) && !flagged('src/scroll.css', 3), 'overflow-x: auto and overflow: hidden are not');
+check(flagged('src/Scroll.jsx', 1), "sx overflowY: 'auto' is flagged (rule 14)");
 check(run('audit.mjs', '.', '--strict').status === 1, '--strict fails on a "fix" finding');
 
 /* ---------- /layout import (rule 2) ---------- */

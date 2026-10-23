@@ -289,3 +289,29 @@ breaks at 375px is broken.
   (`.popover`, a dialog) is not layout and is fine.
 - **Look at it.** Every pull request that changes a screen includes a
   screenshot of it at 375px wide as well as at desktop width.
+
+## 14. The page scrolls, not its panels
+
+A screen scrolls as one page. A column or panel grows with its content and
+the page grows with it; nothing inside the layout gets its own up-and-down
+scrollbar. Two scrollbars side by side make people hunt for which one moves
+what, and a short panel with a scrollbar hides content that the page had
+room for.
+
+- **A part of the page scrolls on its own only to keep something in view
+  while its content moves:**
+  - something that floats over the page: `.popover`, a menu, a drawer, a
+    dialog. It can't grow the page it sits on, so it caps its height and
+    scrolls;
+  - a long table whose header stays in view: `.table--sticky-head` inside
+    `.table-scroll` caps the wrapper at 80% of the screen;
+  - two lists someone compares side by side (a pick list and the cards it
+    points at). Each fills the screen's height, never a fixed pixel height.
+- **A long list shows more as the person scrolls the page** (load more at
+  the foot of the list), instead of sitting in a scroll box. One tall column
+  shouldn't decide how long the whole screen is.
+- **Sideways is different.** A table too wide for the screen scrolls
+  sideways in `.table-scroll` (rule 13).
+
+The audit lists every up-and-down scroll area as a check: confirm it is one
+of the three, or let the page scroll. (Decision 0005.)
