@@ -91,3 +91,12 @@ their state with a bar down the left edge.
 The system doesn't use side bars for state or emphasis: use a fill, a full
 border or ring, text weight, or a badge.
 
+## 1.9.3: pick lists on phones, the current tag
+
+- **`.pick-list` rows in a narrow list** (under 20rem): `.pick-list__meta`
+  goes under the label instead of squeezing it, and labels break only
+  between words ("Crochet", not "Croch|et").
+- **`.tag[aria-current="true"]`**: the one tag in a set that the current
+  selection points at (the subcategory a picked row maps to), in the
+  selection colour.
+
