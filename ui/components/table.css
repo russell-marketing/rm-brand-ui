@@ -129,4 +129,9 @@
  * min-width:0 (or minmax(0, 1fr)), or the column grows to fit the table and
  * the whole page scrolls instead. Inside .page it works as is. */
 .table-scroll{ overflow-x:auto; }
+/* A sticky header inside .table-scroll: the wrapper is a scroll box (one
+ * axis of overflow makes both scroll), so the header sticks to the
+ * wrapper, not the page. Capping its height makes the table scroll inside
+ * it, with the header in view. */
+.table-scroll:has(> .table--sticky-head){ max-height: 80dvh; }
 

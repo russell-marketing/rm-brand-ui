@@ -43,7 +43,8 @@ overrides for it, and a local `.table--grouped` candidate.
 ### A header that stays in view: `.table--sticky-head`
 
 The header row stays at the top while a long table scrolls, in the page or
-in a scrolling box around the table. Its labels stay on one line. A table
+in a scrolling box around the table. Inside `.table-scroll` (from 1.10.1)
+the wrapper caps its height and the table scrolls inside it. Its labels stay on one line. A table
 too wide for a phone goes inside `.table-scroll`, as before.
 
 **Replace:** a local `position: sticky` on `thead th` and any `overflow: clip`
@@ -189,6 +190,11 @@ Mostly for MUI apps; the two fixes below apply to every app.
   outside a card.
 
 **Fixes:**
+
+- **A sticky header inside `.table-scroll`** now works: the wrapper caps
+  its height at 80% of the screen and the table scrolls inside it. Before,
+  the header stuck to the wrapper, which never scrolled up and down, so it
+  scrolled away with the page.
 
 - **Links on `.surface--brand`** are Moon, underlined, Estrella on hover.
   They kept the page's link colour before, 1.5:1 on Space. Delete a staged
