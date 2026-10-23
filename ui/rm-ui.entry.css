@@ -13,10 +13,12 @@
 @import "./components/badge.css";
 @import "./components/checkbox.css";
 @import "./components/code.css";
+@import "./components/connector.css";
 @import "./components/kv.css";
 @import "./components/layout.css";
 @import "./components/modal.css";
 @import "./components/page.css";
+@import "./components/pick-list.css";
 @import "./components/rating.css";
 @import "./components/slider.css";
 @import "./components/stat.css";

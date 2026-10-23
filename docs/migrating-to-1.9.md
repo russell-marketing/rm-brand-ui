@@ -58,3 +58,19 @@ in light mode, and stays light on a device set to dark.
 
 An MUI app that imports `/dark` alongside the theme and `/layout` passes
 rule 2.
+
+## 1.9.1: pick lists, selected cards, connector lines
+
+From the Category Map Viewer's candidates.
+
+| If the app has its own… | Use |
+|---|---|
+| A grouped list someone picks one row from (`.tree`, `.tree__item--selected`) | `.pick-list` with `__group`, `__item`, `__label`, `__meta`; mark the picked row with `aria-selected="true"`, not a class |
+| A dot saying a row has a value or none (`.tree__dot`) | `.pick-list__mark`, `.pick-list__mark--empty` |
+| A highlighted card (`.surface--selected`) | `.surface--selected`: the selection colour (`--accent-600`), not `--accent-border`, which is 1.8:1 against white and too faint to show a state |
+| An SVG line linking a row to its target | `<svg class="connector" aria-hidden="true">` over a `position: relative` parent; the page draws the path |
+
+Per-item colours for many categories are not part of the system: 26 hues
+can't be told apart or kept readable in both themes. Match items with their
+names and the selection colour instead.
+

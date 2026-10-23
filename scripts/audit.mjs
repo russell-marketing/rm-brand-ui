@@ -22,7 +22,7 @@ const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'dist', 'build', 'ou
 const EXTS = new Set(['.css', '.scss', '.tsx', '.jsx', '.ts', '.js', '.html']);
 const SYSTEM_CLASSES = ['btn', 'badge', 'pill', 'tag', 'table', 'alert', 'input', 'select', 'stat', 'stats',
   'kv', 'rating', 'surface', 'muted', 'page', 'page-header', 'table-scroll', 'textarea', 'text-blank', 'modal', 'tabs', 'tab',
-  'app-header', 'form-grid', 'filter-bar', 'section-header', 'choices', 'checkbox', 'checkbox-field', 'task-list', 'code', 'code-block', 'rm-toast', 'rm-tooltip', 'skeleton'];
+  'app-header', 'form-grid', 'filter-bar', 'section-header', 'choices', 'checkbox', 'checkbox-field', 'task-list', 'code', 'code-block', 'pick-list', 'connector', 'rm-toast', 'rm-tooltip', 'skeleton'];
 const ALLOWED_TOKEN_OVERRIDES = new Set(['--font-display', '--font-body']);
 // The real token names, read from the copy of tokens.css that ships with
 // this script, so a check never guesses at what counts as a system token.

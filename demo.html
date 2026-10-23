@@ -197,6 +197,30 @@
         </div>
       </section>
 
+      <!-- 1.9.1: pick list, selected card, connector -->
+      <section class="demo-section surface card" id="demo-191">
+        <h2>Pick list &amp; connector</h2>
+        <p class="muted">Pick a row; the card it maps to is selected and a line joins them.</p>
+        <div style="position:relative; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap:var(--space-6)" id="pl-wrap">
+          <div class="pick-list" role="listbox" aria-label="Example categories" id="pl">
+            <div role="group" aria-labelledby="pg1">
+              <div class="pick-list__group" id="pg1">Art</div>
+              <div class="pick-list__item" role="option" aria-selected="true" tabindex="0" data-card="c2"><span class="pick-list__mark" aria-hidden="true"></span><span class="pick-list__label">Illustration <span class="visually-hidden">(mapped)</span></span><span class="pick-list__meta">Art</span></div>
+              <div class="pick-list__item" role="option" aria-selected="false" tabindex="-1"><span class="pick-list__mark pick-list__mark--empty" aria-hidden="true"></span><span class="pick-list__label">Performance art <span class="visually-hidden">(not mapped)</span></span></div>
+            </div>
+            <div role="group" aria-labelledby="pg2">
+              <div class="pick-list__group" id="pg2">Design</div>
+              <div class="pick-list__item" role="option" aria-selected="false" tabindex="-1" data-card="c1"><span class="pick-list__mark" aria-hidden="true"></span><span class="pick-list__label">Product design <span class="visually-hidden">(mapped)</span></span><span class="pick-list__meta">Gadgets</span></div>
+            </div>
+          </div>
+          <div class="stack-2">
+            <section class="surface surface--padded" id="c1"><h3 class="surface__title">Gadgets</h3><p class="muted">Tech and devices.</p></section>
+            <section class="surface surface--padded surface--selected" id="c2"><h3 class="surface__title">Art</h3><p class="muted">Prints, illustration, fine art.</p></section>
+          </div>
+          <svg class="connector" aria-hidden="true" id="pl-line"><path d=""/></svg>
+        </div>
+      </section>
+
       <!-- Sliders -->
       <section class="demo-section surface card">
         <h2>Sliders</h2>
@@ -503,6 +527,24 @@
 
     // Tabs
     initTabs(document.getElementById('demoTabs'));
+    // .pick-list + .connector: pick a row, select its card, draw the line.
+    (function () {
+      const wrap = document.getElementById('pl-wrap'), list = document.getElementById('pl'), path = document.querySelector('#pl-line path');
+      function draw() {
+        const row = list.querySelector('[aria-selected="true"]'), card = row && row.dataset.card && document.getElementById(row.dataset.card);
+        if (!card) { path.setAttribute('d', ''); return; }
+        const w = wrap.getBoundingClientRect(), r = row.getBoundingClientRect(), c = card.getBoundingClientRect();
+        const x1 = r.right - w.left, y1 = r.top + r.height / 2 - w.top, x2 = c.left - w.left, y2 = c.top + 24 - w.top;
+        path.setAttribute('d', x2 > x1 ? `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}` : '');
+      }
+      list.addEventListener('click', (e) => {
+        const row = e.target.closest('.pick-list__item'); if (!row) return;
+        list.querySelectorAll('.pick-list__item').forEach((x) => { x.setAttribute('aria-selected', String(x === row)); x.tabIndex = x === row ? 0 : -1; });
+        document.querySelectorAll('#demo-191 .surface').forEach((c) => c.classList.toggle('surface--selected', c.id === row.dataset.card));
+        draw();
+      });
+      addEventListener('resize', draw); draw();
+    })();
     // .choices: exactly one pressed.
     document.querySelectorAll('.choices').forEach((g) => g.addEventListener('click', (e) => {
       const b = e.target.closest('.btn'); if (!b) return;

@@ -1,0 +1,27 @@
+/* ui/components/connector.css
+ *
+ * A line drawn from a picked row to what it points at (a category card).
+ * An SVG laid over a positioned parent; the page's script works out the
+ * path, this sets how it looks. It is decoration: the picked row and the
+ * card already say the same thing in text.
+ *
+ *   <div style="position: relative">   …the list and the cards…
+ *     <svg class="connector" aria-hidden="true"><path d="M…"/></svg>
+ *   </div>
+ *
+ * Drawn in the selection colour, --accent-600, like the row and card it
+ * joins. */
+.connector{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+}
+.connector :is(path, line, polyline){
+  fill:none;
+  stroke: var(--accent-600);
+  stroke-width:1.5;
+  stroke-linecap:round;
+}
