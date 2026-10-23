@@ -191,7 +191,7 @@
 
         <div class="grid" style="grid-template-columns:repeat(auto-fit, minmax(min(100%, 14rem), 1fr))">
           <section class="surface surface--padded stack-2" aria-labelledby="bp1"><h3 class="surface__title" id="bp1">Done this week</h3><p>Two tasks finished.</p></section>
-          <section class="surface surface--padded surface--brand stack-2" id="brandpanel" aria-labelledby="bp2"><h3 class="surface__title" id="bp2">Waiting on you</h3><p class="muted">Nothing waiting on you right now.</p></section>
+          <section class="surface surface--padded surface--brand stack-2" id="brandpanel" aria-labelledby="bp2"><h3 class="surface__title" id="bp2">Waiting on you</h3><p class="muted">Nothing waiting on you right now. <a href="#" id="bp-link">See past requests</a>.</p></section>
         </div>
 
         <div class="spacer"></div>
@@ -239,7 +239,7 @@
         <div style="margin-top:var(--space-4); min-height:15rem">
           <div class="popover-anchor" style="width:14rem">
             <label class="visually-hidden" for="pop-q">Find a file</label>
-            <input class="input" id="pop-q" placeholder="Find a file" aria-expanded="true" aria-controls="pop-r" value="brand">
+            <input class="input" id="pop-q" placeholder="Find a file" role="combobox" aria-expanded="true" aria-controls="pop-r" value="brand">
             <div class="popover" id="pop-r"><p class="muted">3 files</p><p>Logos / Fonts / Brand &amp; Style Guidelines</p><p>Brand board.pdf</p><p>Old brand.zip</p></div>
           </div>
         </div>

@@ -56,7 +56,7 @@ results don't push the page down as someone types:
 
 ```html
 <div class="popover-anchor">
-  <input class="input" aria-expanded="true" aria-controls="results">
+  <input class="input" role="combobox" aria-expanded="true" aria-controls="results">
   <div class="popover" id="results">…</div>
 </div>
 ```
@@ -164,7 +164,7 @@ RULES.md rule 8. Prefer a `<label class="visually-hidden">` to an
 
 ## 1.10.1
 
-For MUI apps. Plain-CSS apps: nothing changes.
+Mostly for MUI apps; the two fixes below apply to every app.
 
 - **Chips are 12px**, like `.badge` and `.tag` (they were MUI's 13px).
   Delete local chip font sizes rather than swapping them for `caption`.
@@ -178,6 +178,14 @@ For MUI apps. Plain-CSS apps: nothing changes.
   Space them with a `Stack`.
 - **RULES.md** names the MUI matches: `<Table stickyHeader>` for
   `.table--sticky-head`, `<Accordion>` for `.disclosure`.
+
+**Fixes:**
+
+- **Links on `.surface--brand`** are Moon, underlined, Estrella on hover.
+  They kept the page's link colour before, 1.5:1 on Space. Delete a staged
+  `.surface--brand a` candidate.
+- **The popover example** puts `role="combobox"` on the input that opens
+  it: `aria-expanded` isn't allowed on a plain text input.
 
 **What looks different:** chips are 1px smaller. Accordions an app hasn't
 styled lose MUI's shadow and divider line and gain the border.
