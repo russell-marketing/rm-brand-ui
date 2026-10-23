@@ -4,8 +4,10 @@
 import type { ThemeOptions } from '@mui/material/styles';
 import type { CSSProperties } from 'react';
 
-export function getRMThemeConfig(): ThemeOptions;
-export { tokens } from '../ui/tokens.js';
+/** `dark: true` adds the dark colour scheme (RULES.md rule 7); load
+ *  `@russell-marketing/brand-ui/dark` with `/layout` when you turn it on. */
+export function getRMThemeConfig(options?: { dark?: boolean }): ThemeOptions;
+export { tokens, darkTokens } from '../ui/tokens.js';
 
 type AccentRamp = { 50: string; 100: string; 200: string; 300: string; 600: string; 700: string };
 type CodeColours = { bg: string; text: string; border: string };

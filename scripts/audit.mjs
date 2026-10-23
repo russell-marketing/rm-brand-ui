@@ -280,6 +280,9 @@ for (const file of files) {
 }
 
 /* ---------- rule 2: how the stylesheet is loaded ---------- */
+// An MUI app on the theme + /layout loads /dark too when it turns dark mode
+// on: that is the one piece allowed.
+if (usesTheme && importsLayout) pieceImports.splice(0, pieceImports.length, ...pieceImports.filter(([, , piece]) => piece !== 'dark'));
 if (pieceImports.length) {
   for (const [rel, n, piece] of pieceImports) add(2, rel, n, `imports a piece (${piece}); import '@russell-marketing/brand-ui/styles' once instead`);
 } else if (!importsStyles && !usesTheme) {

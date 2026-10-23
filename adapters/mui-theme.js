@@ -2,7 +2,13 @@
 // MUI theme adapter for Russell Marketing brand styles
 // Import this in your MUI app to apply RM brand tokens to all MUI components
 
-import { tokens } from '../ui/tokens.js';
+import { tokens, darkTokens } from '../ui/tokens.js';
+
+// A colour that follows the page's theme: the system's CSS variable, with
+// the light value as fallback for an app that hasn't loaded the tokens.
+// With /layout and /dark loaded, these flip with the theme (data-theme),
+// and the theme's own dark scheme (below) keeps MUI's palette in step.
+const v = (name, fallback) => `var(${name}, ${fallback})`;
 
 /**
  * Creates a Material-UI theme configuration using RM brand tokens
@@ -14,11 +20,30 @@ import { tokens } from '../ui/tokens.js';
  *
  * const theme = createTheme(getRMThemeConfig());
  * ```
+ *
+ * Dark mode (RULES.md rule 7) is opt-in, so an app turns it on once its own
+ * colours come from the theme and tokens:
+ *
+ * ```jsx
+ * import '@russell-marketing/brand-ui/layout';
+ * import '@russell-marketing/brand-ui/dark';
+ * const theme = extendTheme(getRMThemeConfig({ dark: true }));
+ * ```
+ *
+ * The theme then follows the device's setting, and marks the page with
+ * data-theme="light" | "dark" so the system's CSS variables (layout classes,
+ * var(--…) in sx) switch with it.
  */
-export function getRMThemeConfig() {
+export function getRMThemeConfig({ dark = false } = {}) {
   return {
     // Support for both createTheme and extendTheme
+    ...(dark ? {
+      // extendTheme reads colorSchemeSelector; createTheme reads cssVariables.
+      colorSchemeSelector: '[data-theme="%s"]',
+      cssVariables: { colorSchemeSelector: '[data-theme="%s"]' },
+    } : {}),
     colorSchemes: {
+      ...(dark ? { dark: { palette: darkPalette() } } : {}),
       light: {
         palette: {
           primary: {
@@ -186,7 +211,7 @@ export function getRMThemeConfig() {
     // Extended shadows beyond base config
     shadows: [
       'none',
-      tokens.shadow.soft, // RM soft shadow
+      v('--shadow-soft', tokens.shadow.soft), // RM soft shadow
       '0 2px 4px rgba(0,0,0,.06), 0 8px 20px rgba(0,0,0,.08)',
       '0 4px 8px rgba(0,0,0,.08), 0 12px 24px rgba(0,0,0,.1)',
       '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
@@ -218,10 +243,10 @@ export function getRMThemeConfig() {
           // Not on MUI buttons rendered as links (<Button href>): link colours
           // would win on hover and put dark purple on the button.
           'a:where(:not(.MuiButtonBase-root))': {
-            color: tokens.link.default,
+            color: v('--link', tokens.link.default),
             textUnderlineOffset: '3px',
             '&:hover': {
-              color: tokens.link.hover,
+              color: v('--link-hover', tokens.link.hover),
             },
           },
           '*[disabled], *[readonly]': {
@@ -266,9 +291,9 @@ export function getRMThemeConfig() {
             fontSize: tokens.fontSize.sm,
           },
           contained: {
-            boxShadow: tokens.shadow.soft,
+            boxShadow: v('--shadow-soft', tokens.shadow.soft),
             '&:hover': {
-              boxShadow: tokens.shadow.soft,
+              boxShadow: v('--shadow-soft', tokens.shadow.soft),
             },
           },
         },
@@ -280,11 +305,11 @@ export function getRMThemeConfig() {
             '& .MuiOutlinedInput-root': {
               borderRadius: tokens.radius.m,
               '& fieldset': {
-                borderColor: tokens.border.subtle,
+                borderColor: v('--border-subtle', tokens.border.subtle),
                 borderWidth: '1px',
               },
               '&:hover fieldset': {
-                borderColor: tokens.text.secondary,
+                borderColor: v('--text-secondary', tokens.text.secondary),
               },
               // A border only: a box-shadow here would ignore the gap MUI
               // leaves for the floating label and draw a line through it.
@@ -302,10 +327,10 @@ export function getRMThemeConfig() {
           root: {
             backgroundColor: 'transparent',
             '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: tokens.border.subtle,
+              borderColor: v('--border-subtle', tokens.border.subtle),
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: tokens.text.secondary,
+              borderColor: v('--text-secondary', tokens.text.secondary),
             },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
               borderColor: tokens.colors.galaxy,
@@ -313,7 +338,7 @@ export function getRMThemeConfig() {
             },
           },
           input: {
-            color: tokens.text.primary,
+            color: v('--text-primary', tokens.text.primary),
             fontWeight: tokens.fontWeight.regular,
           },
         },
@@ -322,7 +347,7 @@ export function getRMThemeConfig() {
       MuiSelect: {
         styleOverrides: {
           select: {
-            color: tokens.text.primary,
+            color: v('--text-primary', tokens.text.primary),
             fontWeight: tokens.fontWeight.regular,
             backgroundColor: 'transparent',
           },
@@ -343,9 +368,11 @@ export function getRMThemeConfig() {
       MuiInputLabel: {
         styleOverrides: {
           root: {
-            color: tokens.text.secondary,
+            color: v('--text-secondary', tokens.text.secondary),
+            // Galaxy in light; the light accent in dark, where Galaxy as text
+            // is too dark to read.
             '&.Mui-focused': {
-              color: tokens.colors.galaxy,
+              color: v('--accent-600', tokens.accent[600]),
             },
           },
           outlined: {
@@ -368,13 +395,13 @@ export function getRMThemeConfig() {
       MuiPaper: {
         styleOverrides: {
           root: {
-            backgroundColor: tokens.background.surface,
-            boxShadow: tokens.shadow.soft,
+            backgroundColor: v('--bg-surface', tokens.background.surface),
+            boxShadow: v('--shadow-soft', tokens.shadow.soft),
             borderRadius: tokens.radius.m,
             backgroundImage: 'none',
           },
           elevation1: {
-            boxShadow: tokens.shadow.soft,
+            boxShadow: v('--shadow-soft', tokens.shadow.soft),
           },
         },
       },
@@ -382,7 +409,7 @@ export function getRMThemeConfig() {
       MuiCard: {
         styleOverrides: {
           root: {
-            boxShadow: tokens.shadow.soft,
+            boxShadow: v('--shadow-soft', tokens.shadow.soft),
             borderRadius: tokens.radius.m,
           },
         },
@@ -398,40 +425,40 @@ export function getRMThemeConfig() {
             // Only set background for default color when NOT overridden by sx
             // Using :not([style*="background"]) selector to allow sx overrides
             '&.MuiChip-colorDefault:not([style*="background"])': {
-              backgroundColor: tokens.accent[100],
-              color: tokens.accent[700],
+              backgroundColor: v('--accent-surface', tokens.accent[100]),
+              color: v('--accent-ink', tokens.accent[700]),
               '&.MuiChip-clickable:hover': {
-                backgroundColor: tokens.accent[200],
+                backgroundColor: v('--accent-200', tokens.accent[200]),
               },
             },
           },
           // Matches .badge--neutral: present, not asking for attention.
           outlined: {
             '&.MuiChip-colorDefault': {
-              borderColor: tokens.border.subtle,
-              color: tokens.text.secondary,
+              borderColor: v('--border-subtle', tokens.border.subtle),
+              color: v('--text-secondary', tokens.text.secondary),
             },
           },
           // Explicit overrides for status colors to ensure they use the correct tokens
           colorSuccess: {
-            backgroundColor: tokens.status.success.bg,
-            color: tokens.status.success.text,
+            backgroundColor: v('--success-bg', tokens.status.success.bg),
+            color: v('--success-text', tokens.status.success.text),
             '&.MuiChip-clickable:hover': {
-              backgroundColor: tokens.status.success.border,
+              backgroundColor: v('--success-border', tokens.status.success.border),
             },
           },
           colorWarning: {
-            backgroundColor: tokens.status.warning.bg,
-            color: tokens.status.warning.text,
+            backgroundColor: v('--warning-bg', tokens.status.warning.bg),
+            color: v('--warning-text', tokens.status.warning.text),
             '&.MuiChip-clickable:hover': {
-              backgroundColor: tokens.status.warning.border,
+              backgroundColor: v('--warning-border', tokens.status.warning.border),
             },
           },
           colorError: {
-            backgroundColor: tokens.status.danger.bg,
-            color: tokens.status.danger.text,
+            backgroundColor: v('--danger-bg', tokens.status.danger.bg),
+            color: v('--danger-text', tokens.status.danger.text),
             '&.MuiChip-clickable:hover': {
-              backgroundColor: tokens.status.danger.border,
+              backgroundColor: v('--danger-border', tokens.status.danger.border),
             },
           },
         },
@@ -444,10 +471,10 @@ export function getRMThemeConfig() {
             fontSize: tokens.fontSize.md,
             fontWeight: tokens.fontWeight.semibold,
             textTransform: 'none',
-            color: tokens.text.secondary,
+            color: v('--text-secondary', tokens.text.secondary),
             '&.Mui-selected': {
-              color: tokens.colors.galaxy,
-              backgroundColor: tokens.accent[50],
+              color: v('--accent-600', tokens.accent[600]),
+              backgroundColor: v('--accent-50', tokens.accent[50]),
               fontWeight: tokens.fontWeight.semibold,
             },
           },
@@ -494,9 +521,9 @@ export function getRMThemeConfig() {
           },
           ...Object.fromEntries(['firstButton', 'middleButton', 'lastButton'].map((key) => [key, {
             marginLeft: 0,
-            border: `1px solid ${tokens.border.subtle}`,
+            border: `1px solid ${v('--border-subtle', tokens.border.subtle)}`,
             borderRadius: tokens.radius.s,
-            '&.Mui-selected': { borderColor: tokens.accent[600] },
+            '&.Mui-selected': { borderColor: v('--accent-600', tokens.accent[600]) },
           }])),
         },
       },
@@ -506,12 +533,12 @@ export function getRMThemeConfig() {
           root: {
             textTransform: 'none',
             fontWeight: tokens.fontWeight.semibold,
-            color: tokens.text.secondary,
-            borderColor: tokens.border.subtle,
+            color: v('--text-secondary', tokens.text.secondary),
+            borderColor: v('--border-subtle', tokens.border.subtle),
             '&.Mui-selected, &.Mui-selected:hover': {
-              backgroundColor: tokens.accent[100],
-              color: tokens.accent[700],
-              borderColor: tokens.accent[600],
+              backgroundColor: v('--accent-surface', tokens.accent[100]),
+              color: v('--accent-ink', tokens.accent[700]),
+              borderColor: v('--accent-600', tokens.accent[600]),
             },
           },
         },
@@ -537,10 +564,10 @@ export function getRMThemeConfig() {
           root: {
             '& .MuiTableRow-root': {
               '&:nth-of-type(even)': {
-                backgroundColor: tokens.surfaces.tableRowAlt,
+                backgroundColor: v('--table-row-alt', tokens.surfaces.tableRowAlt),
               },
               '&:hover': {
-                backgroundColor: tokens.surfaces.tableRowHover,
+                backgroundColor: v('--table-row-hover', tokens.surfaces.tableRowHover),
                 transition: 'background-color 0.2s ease',
               },
             },
@@ -551,7 +578,7 @@ export function getRMThemeConfig() {
       MuiTableCell: {
         styleOverrides: {
           root: {
-            borderBottom: `1px solid ${tokens.border.subtle}`,
+            borderBottom: `1px solid ${v('--border-subtle', tokens.border.subtle)}`,
           },
           // Matches .table--compact.
           sizeSmall: {
@@ -563,9 +590,9 @@ export function getRMThemeConfig() {
       // Matches ui/components/rating.css. Galaxy, never Estrella (under 3:1).
       MuiRating: {
         styleOverrides: {
-          iconFilled: { color: tokens.rating.on },
-          iconHover: { color: tokens.rating.on },
-          iconEmpty: { color: tokens.rating.off },
+          iconFilled: { color: v('--rating-on', tokens.rating.on) },
+          iconHover: { color: v('--rating-on', tokens.rating.on) },
+          iconEmpty: { color: v('--rating-off', tokens.rating.off) },
         },
       },
 
@@ -573,7 +600,7 @@ export function getRMThemeConfig() {
       MuiDataGrid: {
         styleOverrides: {
           root: {
-            border: `1px solid ${tokens.border.subtle}`,
+            border: `1px solid ${v('--border-subtle', tokens.border.subtle)}`,
             borderRadius: '10px',
             fontFamily: tokens.fonts.body,
           },
@@ -604,7 +631,7 @@ export function getRMThemeConfig() {
             color: tokens.colors.galaxy,
           },
           cell: {
-            borderBottom: `1px solid ${tokens.border.subtle}`,
+            borderBottom: `1px solid ${v('--border-subtle', tokens.border.subtle)}`,
             '&:focus, &:focus-within': {
               outline: `2px solid ${tokens.colors.galaxy}`,
               outlineOffset: '-2px',
@@ -612,15 +639,15 @@ export function getRMThemeConfig() {
           },
           row: {
             '&:nth-of-type(even)': {
-              backgroundColor: tokens.surfaces.tableRowAlt,
+              backgroundColor: v('--table-row-alt', tokens.surfaces.tableRowAlt),
             },
             '&:hover': {
-              backgroundColor: `${tokens.surfaces.tableRowHover} !important`,
+              backgroundColor: `${v('--table-row-hover', tokens.surfaces.tableRowHover)} !important`,
               transition: `background-color ${tokens.motion.durationBase} ${tokens.motion.ease}`,
             },
           },
           footerContainer: {
-            borderTop: `1px solid ${tokens.border.subtle}`,
+            borderTop: `1px solid ${v('--border-subtle', tokens.border.subtle)}`,
           },
         },
       },
@@ -686,7 +713,56 @@ export function getRMThemeConfig() {
   };
 }
 
+// The dark scheme's palette, from darkTokens. Primary is the light accent
+// (Galaxy itself is too dark to read as text or an outline on the dark
+// page), with dark text on it; secondary is Russell, which keeps Moon text
+// readable.
+function darkPalette() {
+  return {
+    primary: {
+      main: darkTokens.accent[600],
+      dark: darkTokens.accent[700],
+      light: darkTokens.accent[300],
+      contrastText: tokens.colors.infinite,
+    },
+    secondary: {
+      main: tokens.colors.russell,
+      contrastText: tokens.colors.moon,
+    },
+    background: {
+      default: darkTokens.background.page,
+      paper: darkTokens.background.surface,
+    },
+    text: {
+      primary: darkTokens.text.primary,
+      secondary: darkTokens.text.secondary,
+    },
+    error: {
+      main: darkTokens.status.danger.bg,
+      dark: darkTokens.status.danger.text,
+      contrastText: darkTokens.status.danger.text,
+    },
+    warning: {
+      main: darkTokens.status.warning.bg,
+      dark: darkTokens.status.warning.text,
+      contrastText: darkTokens.status.warning.text,
+    },
+    success: {
+      main: darkTokens.status.success.bg,
+      dark: darkTokens.status.success.text,
+      contrastText: darkTokens.status.success.text,
+    },
+    link: {
+      main: darkTokens.link.default,
+      hover: darkTokens.link.hover,
+    },
+    accent: { ...darkTokens.accent },
+    code: { ...darkTokens.code },
+    divider: darkTokens.border.subtle,
+  };
+}
+
 /**
  * Export tokens directly for custom component styling
  */
-export { tokens };
+export { tokens, darkTokens };

@@ -119,10 +119,14 @@ devDependencies and never reach apps.
 - Decide whether `core.css` keeps styling bare `label`, `h3` and `a`.
 - Decide the future of the MUI-wrapped `SliderWithLabel` and `RateField`.
 
-Not tied to 2.0: the MUI theme needs a dark colour scheme, so MUI apps can
-follow the dark-mode rule. Planned for 1.9 (1.8 filled the theme's other
-gaps). When it lands, add `dark.css` to `ui/layout.entry.css` too, and give
-the theme the dark values `tokens.js` already holds (`darkTokens`).
+The MUI theme's dark scheme shipped in 1.9 as an opt-in
+(`getRMThemeConfig({ dark: true })`). In the theme's component overrides,
+colours that change with the theme are `v('--token', lightValue)` (a CSS
+variable with the light value as fallback), never a bare `tokens.*` colour;
+brand colours that stay fixed in both themes (Space table headers, Galaxy
+outlines) stay bare. `ui/layout.entry.css` stays light-only: an app that
+turns dark on also imports `/dark`. Making dark the default is a 2.0
+decision.
 
 A shape is allowed only when it carries a meaning users already know
 (decision 0004): the round task tick, yes; a capsule button, no.
