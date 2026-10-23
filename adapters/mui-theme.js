@@ -174,6 +174,16 @@ export function getRMThemeConfig({ dark = false } = {}) {
         fontSize: tokens.fontSize.xs,
         fontWeight: tokens.fontWeight.regular,
       },
+      // A small-caps label over a value or a group (a drawer's section
+      // label): 12px, in the display face, like .pick-list__group's caps.
+      overline: {
+        fontFamily: tokens.fonts.display,
+        fontSize: tokens.fontSize.xs,
+        fontWeight: tokens.fontWeight.extrabold,
+        letterSpacing: tokens.letterSpacing.caps,
+        textTransform: 'uppercase',
+        lineHeight: 1.5,
+      },
       // Code, keys and IDs in the device's own monospace font: 14px, and
       // 12px (codeSm) for dense tables and logs.
       code: {
@@ -417,8 +427,10 @@ export function getRMThemeConfig({ dark = false } = {}) {
 
       MuiChip: {
         styleOverrides: {
+          // 12px, like .badge and .tag.
           root: {
             borderRadius: tokens.radius.s,
+            fontSize: tokens.fontSize.xs,
             fontWeight: tokens.fontWeight.semibold,
           },
           filled: {
@@ -461,6 +473,30 @@ export function getRMThemeConfig({ dark = false } = {}) {
               backgroundColor: v('--danger-border', tokens.status.danger.border),
             },
           },
+        },
+      },
+
+      // A section that opens and closes, like .disclosure: a bordered box
+      // with a semibold one-row summary. No divider line above it and no
+      // jump in spacing when it opens (disableGutters); the app spaces
+      // accordions with a Stack.
+      MuiAccordion: {
+        defaultProps: { disableGutters: true },
+        styleOverrides: {
+          root: {
+            border: `1px solid ${v('--border-subtle', tokens.border.subtle)}`,
+            borderRadius: tokens.radius.m,
+            boxShadow: 'none',
+            backgroundColor: v('--bg-surface', tokens.background.surface),
+            overflow: 'hidden',
+            '&::before': { display: 'none' },
+            '&:first-of-type, &:last-of-type': { borderRadius: tokens.radius.m },
+          },
+        },
+      },
+      MuiAccordionSummary: {
+        styleOverrides: {
+          content: { fontWeight: tokens.fontWeight.semibold },
         },
       },
 

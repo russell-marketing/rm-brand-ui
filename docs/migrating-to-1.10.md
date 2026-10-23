@@ -161,3 +161,23 @@ RULES.md rule 8. Prefer a `<label class="visually-hidden">` to an
 - **Rule 13** says a floating panel can't use `max-width: 100%` (use
   `.popover`), and that a panel meant to cover the page is not the header
   layout the "nothing on top" bullet is about.
+
+## 1.10.1
+
+For MUI apps. Plain-CSS apps: nothing changes.
+
+- **Chips are 12px**, like `.badge` and `.tag` (they were MUI's 13px).
+  Delete local chip font sizes rather than swapping them for `caption`.
+- **`overline` is defined:** 12px small caps in the display face, for a
+  label over a value or a group. Delete local `fontSize` and
+  `letterSpacing` on `variant="overline"`.
+- **`<Accordion>` matches `.disclosure`:** a bordered box with the system's
+  radius, no divider line above it, no spacing jump when it opens
+  (`disableGutters` is on by default), and a semibold summary. Delete local
+  `border`, `borderRadius`, `overflow` and `:before` styling on accordions.
+  Space them with a `Stack`.
+- **RULES.md** names the MUI matches: `<Table stickyHeader>` for
+  `.table--sticky-head`, `<Accordion>` for `.disclosure`.
+
+**What looks different:** chips are 1px smaller. Accordions an app hasn't
+styled lose MUI's shadow and divider line and gain the border.
