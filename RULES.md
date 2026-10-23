@@ -169,6 +169,7 @@ app turns it on, it stays light, as before.
 | Checkbox or done tick | `.checkbox` (square) to choose an option or turn a setting on. `.task-list` and its round `__done` tick to complete a task. Never a round checkbox for looks (decision 0004). |
 | Task list | `.task-list` for tasks someone ticks off: done tick, task, due date. Ticks and dates line up down the list. |
 | Pick list | `.pick-list` for a grouped list someone picks one row from (`role="listbox"`, rows `role="option"` + `aria-selected`). Not a tree: nothing opens or closes. `__mark` / `__mark--empty`: has a value or not (say it in text too). |
+| State or emphasis | A fill, a full border or ring, text weight, or a badge. Never a bar or thick border down one side (or both sides) of a row, card, alert or toast. |
 | Selected | One colour marks a selection, `--accent-600`: `.pick-list`'s picked row, `.surface--selected` (the card it points at), `.connector` (the line between them). |
 | Code | `<code class="code">` inline; `<pre class="code-block">` for blocks (`--sm` for long logs). |
 | Button | `.btn--primary`: the one main action in a view. `.btn`: other actions. `.btn--text`: low-emphasis or inline actions. `.btn--icon`: a button whose only content is an icon; it must have an `aria-label`. MUI: `<IconButton aria-label>`. `.btn--described` (with `.btn__sub`): an action with a line under it saying what it does, in a short list someone picks from. |

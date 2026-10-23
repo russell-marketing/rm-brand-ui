@@ -13,7 +13,7 @@
 }
 
 /* Form errors */
-.error-summary{ border-left:4px solid var(--danger-text); padding:12px 16px; background:var(--danger-bg) }
+.error-summary{ border:1px solid var(--danger-border); border-radius:var(--radius-m); padding:12px 16px; background:var(--danger-bg); color:var(--danger-text) }
 .field-error{ color:var(--danger-text); margin-top:6px }
 /* Under a small control in a table row: its own line, at the floor size. */
 .field-error--sm{ display:block; margin-top:var(--space-1); font-size:var(--fs-xs) }
@@ -22,7 +22,7 @@
 .rm-toasts{ position:fixed; z-index:var(--z-toast); inset:auto 16px 16px auto; display:grid; gap:8px }
 .rm-toast{ background:var(--bg-surface); color:var(--text-primary); border:1px solid var(--border-subtle);
   border-radius:var(--radius-m); box-shadow:var(--shadow-soft); padding:10px 12px; max-width:min(360px,90vw) }
-.rm-toast[role="alert"]{ border-left:4px solid var(--danger-text) }
+.rm-toast[role="alert"]{ background:var(--danger-bg); border-color:var(--danger-border); color:var(--danger-text) }
 
 /* Utilities */
 .visually-hidden{ position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }

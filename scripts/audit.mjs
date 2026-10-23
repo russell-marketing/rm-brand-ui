@@ -274,6 +274,14 @@ for (const file of files) {
       }
     }
 
+    // rule 8: a bar down one side marking state or emphasis
+    if ((cssContext || kindHere !== null) && (
+      /border-(left|right|inline-start|inline-end)\s*:\s*([2-9]|\d{2,})px/.test(line)
+      || /border(Left|Right|InlineStart|InlineEnd)\s*:\s*['"`]([2-9]|\d{2,})px/.test(line)
+      || /inset\s+-?([2-9]|\d{2,})px\s+0(px)?\s+0(px)?(\s+0(px)?)?\s+(var|#|rgb)/.test(line))) {
+      add(8, rel, n, `a bar down one side: mark state with a fill, a full border or ring, weight or a badge: ${line.trim()}`);
+    }
+
     // deprecated names
     if (/class(Name)?=["'{`][^"'}`]*\bpill\b/.test(line)) add(8, rel, n, '.pill is deprecated; use .badge');
   });
@@ -299,7 +307,7 @@ for (const f of findings) byRule.set(f.rule, [...(byRule.get(f.rule) ?? []), f])
 const TITLES = {
   1: 'Install with a version range', 2: 'Load the whole stylesheet', 4: 'Never restyle a system class',
   5: 'No hard-coded design values', 6: 'Brand colours are never text colours',
-  7: 'Every app supports dark mode', 8: 'Deprecated names', 13: 'Every screen works at phone width',
+  7: 'Every app supports dark mode', 8: 'Choose components by meaning', 13: 'Every screen works at phone width',
 };
 const ver = (() => {
   try { return JSON.parse(readFileSync(join(appRoot, 'node_modules/@russell-marketing/brand-ui/package.json'), 'utf8')).version; }

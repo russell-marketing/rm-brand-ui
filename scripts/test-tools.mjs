@@ -100,6 +100,7 @@ writeFileSync(join(app, 'src/Icons.jsx'), [
   "  <HomeIcon sx={{ fontSize: '1.5rem' }} />",
   '</>);',
 ].join('\n'));
+writeFileSync(join(app, 'src/bars.css'), '.a{ border-left: 4px solid var(--danger-text); }\n.b{ box-shadow: inset 3px 0 0 var(--accent-600); }\n.c{ border-left: 1px solid var(--border-subtle); }\n.d{ box-shadow: inset 0 0 0 1px var(--accent-600); }\n');
 writeFileSync(join(app, 'src/scoped.css'), 'button:not(.btn){ margin-bottom: var(--space-2); }\n.btn{ color: var(--text-primary); }\n');
 writeFileSync(join(app, 'src/fonts.css'), '.a{ font-family: "Roboto Mono", monospace; }\n.b{ font-family: var(--font-body); }\n');
 
@@ -154,6 +155,8 @@ check(!flagged('src/Icons.jsx', 2), 'an icon at 20px is on the icon scale');
 check(flagged('src/Icons.jsx', 3) && /icon size 14px is off the icon scale/.test(audit.stdout), 'an icon at 14px is off the icon scale');
 check(!flagged('src/Icons.jsx', 4), "an icon at '1.5rem' (24px) is on the icon scale");
 check(!flagged('src/scoped.css', 1) && flagged('src/scoped.css', 2), 'button:not(.btn) is not a restyle of .btn; .btn { … } is');
+check(flagged('src/bars.css', 1) && flagged('src/bars.css', 2), 'a 4px left border and a 3px inset bar are side bars (rule 8)');
+check(!flagged('src/bars.css', 3) && !flagged('src/bars.css', 4), 'a 1px divider and a full inset ring are not');
 check(run('audit.mjs', '.', '--strict').status === 1, '--strict fails on a "fix" finding');
 
 /* ---------- /layout import (rule 2) ---------- */
