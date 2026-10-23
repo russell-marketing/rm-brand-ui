@@ -1,8 +1,8 @@
 # Moving an app to 1.10
 
 1.10 adds grouped tables, a table header that stays in view, a floating
-panel, a dense card, a section that opens and closes, clickable tags, and
-two audit fixes. **Nothing changes for an app until it uses them**, apart
+panel, a dense card, a section that opens and closes, clickable tags,
+related rows, unmatched cards, and two audit fixes. **Nothing changes for an app until it uses them**, apart
 from the two changes under "What looks different". Apps on `#semver:^1.9.0` get 1.10 with
 `npm update @russell-marketing/brand-ui`; then raise the floor to `^1.10.0`.
 
@@ -108,6 +108,24 @@ itself with `.section-header__title` and its groups with
 `.pick-list__group`. `.surface__title` stays for a card that is one item
 among many.
 
+### Related rows and unmatched cards
+
+- **`.pick-list__item--related`**: rows that belong to the current
+  selection, other than the selected row (the entries that land in a picked
+  category). Light accent fill and a semibold label, no ring. Add the
+  meaning in text for screen readers, e.g.
+  `<span class="visually-hidden">(in Art)</span>`.
+- **`.surface--unmatched`**: a card that doesn't match the search or filter
+  but stays on screen. No fill, secondary text.
+
+**Replace:** `opacity` on cards or text to fade non-matches (it takes text
+below 4.5:1), and a local "related" fill.
+
+A preview (pointing or focus) uses the same looks as a kept pick.
+
+**Charts:** a picked stream is `--accent-600`; the others are
+`--text-secondary` at low fill opacity. No new tokens: both exist.
+
 ### Already there: `.visually-hidden`
 
 Text that screen readers read and the screen doesn't show, for a field
@@ -136,7 +154,8 @@ RULES.md rule 8. Prefer a `<label class="visually-hidden">` to an
 ## Rules
 
 - **Rule 8** gains Grouped rows, Dense card, Screen-reader text, Floating
-  panel, Opens and closes and Clickable tag. The Table row mentions
+  panel, Opens and closes, Clickable tag and Filtered out, still shown;
+  Pick list gains `__item--related`; Selected covers charts and previews. The Table row mentions
   `.table--sticky-head`, and the Section header row says when a card uses
   a section title.
 - **Rule 13** says a floating panel can't use `max-width: 100%` (use

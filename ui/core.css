@@ -162,6 +162,13 @@ label{ display:block; margin:0 0 6px 0; font-weight:600; color:var(--text-primar
 /* Dense: a card whose content people scan rather than read, such as a list
  * of entries beside a pick list. Its text is 14px, the size of a pick-list
  * row and of MUI's body2. Controls, tags and badges keep their own sizes. */
+/* Unmatched: a card that doesn't match the current search or filter but
+ * stays on screen for context. It sinks into the page (no fill) and its
+ * text turns secondary, which still passes 4.5:1. Never fade text with
+ * opacity: it drops below 4.5:1. */
+.surface--unmatched{ background: transparent; color: var(--text-secondary,#4B5163); box-shadow:none; }
+.surface--unmatched :is(.surface__title, .section-header__title, .pick-list__group, .tag){ color: var(--text-secondary,#4B5163); }
+.surface--unmatched .tag{ border-color: var(--border-subtle,#CDD3DB); }
 .surface--dense{ font-size: var(--fs-sm,.875rem); }
 .surface--dense :is(.btn, .input, .select, .textarea):not(.btn--sm, .input--sm, .select--sm){ font-size: var(--fs-md,1rem); }
 .surface__title{
