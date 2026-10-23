@@ -36,7 +36,7 @@ const findings = [];
 // 'fix' findings break a rule. 'check' findings may be fine in context the
 // audit can't see (a parent's background); a person looks and decides.
 // --strict fails on 'fix' only.
-const CHECK_RULES = new Set([6]);
+const CHECK_RULES = new Set([6, 14]);
 const add = (rule, file, line, msg, level) => findings.push({ rule, file, line, msg, level: level ?? (CHECK_RULES.has(rule) ? 'check' : 'fix') });
 
 /* ---------- rule 1: the dependency ---------- */
@@ -294,6 +294,15 @@ for (const file of files) {
       }
     }
 
+    // rule 14: a scroll area inside the page (up and down; sideways is rule 13's
+    // .table-scroll). A check, not a fix: floating panels, a long table's
+    // sticky header and side-by-side compared lists are allowed.
+    if ((cssContext || kindHere !== null) && (
+      /(^|[^-\w])overflow(-y)?\s*:\s*(auto|scroll)\b/.test(line)
+      || /\boverflow(Y)?\s*:\s*['"`](auto|scroll)['"`]/.test(line))) {
+      add(14, rel, n, `scrolls on its own: fine if it floats (menu, drawer, dialog), keeps a table header in view, or is one of two lists compared side by side; otherwise let the page scroll: ${line.trim()}`);
+    }
+
     // rule 8: a bar down one side marking state or emphasis
     if ((cssContext || kindHere !== null) && (
       /border-(left|right|inline-start|inline-end)\s*:\s*([2-9]|\d{2,})px/.test(line)
@@ -328,6 +337,7 @@ const TITLES = {
   1: 'Install with a version range', 2: 'Load the whole stylesheet', 4: 'Never restyle a system class',
   5: 'No hard-coded design values', 6: 'Brand colours are never text colours',
   7: 'Every app supports dark mode', 8: 'Choose components by meaning', 13: 'Every screen works at phone width',
+  14: 'The page scrolls, not its panels',
 };
 const ver = (() => {
   try { return JSON.parse(readFileSync(join(appRoot, 'node_modules/@russell-marketing/brand-ui/package.json'), 'utf8')).version; }

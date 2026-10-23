@@ -204,3 +204,20 @@ Mostly for MUI apps; the two fixes below apply to every app.
 
 **What looks different:** chips are 1px smaller. Accordions an app hasn't
 styled lose MUI's shadow and divider line and gain the border.
+
+## 1.10.2
+
+A new rule, and an audit check for it. Nothing changes on screen.
+
+- **Rule 14: the page scrolls, not its panels.** A column or panel grows
+  with its content; the page scrolls. A part of the page scrolls on its own
+  only to keep something in view: something floating (`.popover`, a menu, a
+  drawer, a dialog), a long table's sticky header (`.table--sticky-head` in
+  `.table-scroll`), or two lists compared side by side, each filling the
+  screen's height. A long list shows more as the page scrolls instead of
+  sitting in a scroll box. Sideways scrolling for wide tables is unchanged
+  (rule 13).
+- **The audit lists every up-and-down scroll area as a check**
+  (`overflow: auto|scroll`, `overflow-y`, `overflowY`). Confirm each is one
+  of the three, or remove it and let the page scroll. Checks don't fail
+  `--strict`.
