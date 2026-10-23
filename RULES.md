@@ -16,7 +16,7 @@ npx rm-brand-audit --strict   # exit 1 on any finding, for CI
 ## 1. Install with a version range
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.8.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.9.0"
 ```
 
 - The range gets every fix and addition, and never a breaking 2.0 by surprise.
@@ -145,6 +145,21 @@ Following rules 5 and 6 gives you dark mode for free; the stylesheet follows
 the OS setting. Setting `data-theme="light"` on `<html>` to opt out is
 allowed only as a temporary step, with a backlog item to remove it.
 
+**MUI apps** turn it on with the theme's dark scheme, once their own colours
+come from the theme and tokens (rule 5 clear, or close):
+
+```js
+import '@russell-marketing/brand-ui/layout';
+import '@russell-marketing/brand-ui/dark';
+const theme = extendTheme(getRMThemeConfig({ dark: true }));
+// <ThemeProvider theme={theme}> follows the device; Next.js apps add
+// <InitColorSchemeScript attribute="data-theme" /> in the root layout.
+```
+
+The theme marks the page `data-theme="light"` or `"dark"`, so the layout
+classes and any `var(--…)` in `sx` switch with MUI's own colours. Until an
+app turns it on, it stays light, as before.
+
 ## 8. Choose components by meaning, not by look
 
 | Choice | Rule |
@@ -197,8 +212,8 @@ intro line, `stat` for a stat card's number, `appTitle` for the app's name
 in the header). The palette carries the accent ramp
 (`palette.accent[100]`) and code colours (`palette.code.bg`); icons size
 with `fontSize="small|medium|large"`; MUI's own transitions use the
-system's durations and easing. The theme has no dark scheme yet: that gap is this
-system's to fix, not the app's.
+system's durations and easing. Dark mode: `getRMThemeConfig({ dark: true })`
+(rule 7).
 
 **React components** (`@russell-marketing/brand-ui/react/*`) depend on React
 only, never MUI, so they work in every React app. Next.js 15 compiles them

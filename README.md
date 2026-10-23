@@ -13,7 +13,7 @@ version: [docs/migrating-to-1.5.md](docs/migrating-to-1.5.md), then
 [docs/migrating-to-1.6.md](docs/migrating-to-1.6.md).
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.8.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.9.0"
 ```
 
 ## Using it
@@ -25,6 +25,7 @@ import "@russell-marketing/brand-ui/styles";
 // 2. MUI apps — map the tokens onto a theme, plus the layout classes
 import { getRMThemeConfig } from "@russell-marketing/brand-ui/adapters/mui-theme";
 import "@russell-marketing/brand-ui/layout"; // only when the app doesn't load /styles
+// …and for dark mode: import "@russell-marketing/brand-ui/dark"; getRMThemeConfig({ dark: true })
 
 // 3. Tokens as JS, for charts and anything CSS cannot reach
 import { tokens, darkTokens } from "@russell-marketing/brand-ui/tokens.js";

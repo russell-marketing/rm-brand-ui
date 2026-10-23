@@ -161,6 +161,8 @@ writeFileSync(join(app, 'src/layout.js'), "import '@russell-marketing/brand-ui/s
 check(/drop \/layout/.test(run('audit.mjs', '.').stdout), '/layout with /styles is flagged as a double import');
 writeFileSync(join(app, 'src/layout.js'), "import '@russell-marketing/brand-ui/layout';\nimport { getRMThemeConfig } from '@russell-marketing/brand-ui/adapters/mui-theme';\n");
 check(!/Rule 2\./.test(run('audit.mjs', '.').stdout), 'an MUI app with the theme and /layout passes rule 2');
+writeFileSync(join(app, 'src/layout.js'), "import '@russell-marketing/brand-ui/layout';\nimport '@russell-marketing/brand-ui/dark';\nimport { getRMThemeConfig } from '@russell-marketing/brand-ui/adapters/mui-theme';\n");
+check(!/Rule 2\./.test(run('audit.mjs', '.').stdout), 'an MUI app with the theme, /layout and /dark passes rule 2');
 
 rmSync(app, { recursive: true, force: true });
 console.log(failures ? `\n\x1b[31m${failures} failure(s)\x1b[0m\n` : '\n\x1b[32mAll tool checks passed.\x1b[0m\n');

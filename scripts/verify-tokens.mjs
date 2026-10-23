@@ -246,6 +246,23 @@ for (const [k, v] of Object.entries(tokens.ink)) {
   v === darkTokens.ink[k] ? pass(`ink.${k} is the same in both themes`) : fail(`ink.${k} differs between themes: ink must stay fixed`);
 }
 
+head('6. MUI theme, dark scheme (getRMThemeConfig({ dark: true }))');
+{
+  const { getRMThemeConfig } = await import('../adapters/mui-theme.js');
+  const d = getRMThemeConfig({ dark: true }).colorSchemes.dark.palette;
+  for (const [label, fg, bg, min] of [
+    ['text on paper', d.text.primary, d.background.paper, 4.5],
+    ['secondary text on paper', d.text.secondary, d.background.paper, 4.5],
+    ['primary (text buttons, selected tab, focused label) on paper', d.primary.main, d.background.paper, 4.5],
+    ['contained primary button text', d.primary.contrastText, d.primary.main, 4.5],
+    ['contained secondary button text', d.secondary.contrastText, d.secondary.main, 4.5],
+    ['link on page', d.link.main, d.background.default, 4.5],
+  ]) {
+    const r = ratio(fg, bg);
+    r >= min ? pass(`${r.toFixed(2).padStart(5)}:1  ${label}`) : fail(`${r.toFixed(2)}:1 (need ${min})  ${label}  [${fg} on ${bg}]`);
+  }
+}
+
 console.log(failures
   ? `\n\x1b[31m${failures} failure(s)\x1b[0m\n`
   : '\n\x1b[32mAll token checks passed.\x1b[0m\n');
