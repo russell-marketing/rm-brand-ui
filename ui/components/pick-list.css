@@ -1,0 +1,71 @@
+/* ui/components/pick-list.css
+ *
+ * A grouped list someone picks one row from: platform categories under
+ * their parents, items to review. It doesn't open or close (that would be
+ * a tree); every row is always visible.
+ *
+ *   <div class="pick-list" role="listbox" aria-label="Kickstarter categories">
+ *     <div role="group" aria-labelledby="g-art">
+ *       <div class="pick-list__group" id="g-art">Art</div>
+ *       <div class="pick-list__item" role="option" aria-selected="true" tabindex="0">
+ *         <span class="pick-list__mark" aria-hidden="true"></span>
+ *         <span class="pick-list__label">Illustration <span class="visually-hidden">(mapped)</span></span>
+ *         <span class="pick-list__meta">Art &amp; illustration</span>
+ *       </div>
+ *     </div>
+ *   </div>
+ *
+ * aria-selected="true" marks the picked row; the look comes from it. The
+ * page moves focus between rows with the arrow keys (one row has
+ * tabindex="0", the rest "-1") and sets aria-selected on Enter or click.
+ *
+ * __mark is a small dot: filled when the row has a value, __mark--empty
+ * (a ring) when it has none. It is decoration: say the same thing in the
+ * row's text for screen readers.
+ *
+ * Selection marks across the system use one colour, --accent-600: this
+ * row's bar and mark, .surface--selected, .connector. */
+.pick-list{
+  display:flex;
+  flex-direction:column;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.pick-list__group{
+  padding: var(--space-3) var(--space-2) var(--space-1);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-extrabold);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-brand);
+}
+.pick-list__item{
+  display:flex;
+  align-items:center;
+  gap: var(--space-2);
+  min-height: var(--hit-min);
+  padding: 0 var(--space-2) 0 var(--space-6);
+  border-radius: var(--radius-s);
+  font-size: var(--fs-sm);
+  cursor:pointer;
+}
+.pick-list__item:hover{ background: var(--table-row-hover); }
+.pick-list__item[aria-selected="true"]{
+  background: var(--accent-surface);
+  box-shadow: inset 3px 0 0 var(--accent-600);
+}
+.pick-list__item:focus-visible{ outline:2px solid var(--rm-galaxy); outline-offset:-2px; }
+.pick-list__label{ flex:1; min-width:0; overflow-wrap:anywhere; }
+.pick-list__meta{ font-size: var(--fs-xs); color: var(--text-secondary); white-space:nowrap; }
+.pick-list__mark{
+  flex:none;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius:50%;
+  background: var(--text-secondary);
+}
+.pick-list__mark--empty{ background:transparent; box-shadow: inset 0 0 0 1px var(--text-secondary); }
+.pick-list__item[aria-selected="true"] .pick-list__mark{ background: var(--accent-600); }
+.pick-list__item[aria-selected="true"] .pick-list__mark--empty{ background:transparent; box-shadow: inset 0 0 0 1px var(--accent-600); }

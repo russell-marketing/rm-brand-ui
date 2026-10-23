@@ -173,3 +173,9 @@ label{ display:block; margin:0 0 6px 0; font-weight:600; color:var(--text-primar
 }
 .surface--brand .surface__title{ color: var(--ink-on-space-accent,#D0A732); }
 .surface--brand .muted{ color: var(--ink-on-space-quiet,#DBE6E3); }
+/* --selected: the card a picked row points at. The selection colour,
+ * like .pick-list's picked row and .connector. */
+.surface--selected{
+  border-color: var(--accent-600,#7A64A0);
+  box-shadow: 0 0 0 2px var(--accent-600,#7A64A0);
+}

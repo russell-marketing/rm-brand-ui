@@ -189,12 +189,12 @@ const themes = {
     link: tokens.link.default, linkHover: tokens.link.hover, hover: tokens.tint.dust12,
     textBrand: tokens.text.brand, rating: tokens.rating, status: tokens.status,
     // .choices chosen button: --accent-ink on --accent-surface.
-    chosen: [tokens.accent[700], tokens.accent[100]], code: tokens.code },
+    chosen: [tokens.accent[700], tokens.accent[100]], code: tokens.code, select: [tokens.accent[600], tokens.accent[100]] },
   dark: { page: darkTokens.background.page, surface: darkTokens.background.surface,
     textPrimary: darkTokens.text.primary, textSecondary: darkTokens.text.secondary,
     link: darkTokens.link.default, linkHover: darkTokens.link.hover, hover: darkTokens.tint.dust12,
     textBrand: darkTokens.text.brand, rating: darkTokens.rating, status: darkTokens.status,
-    chosen: [darkTokens.accent[600], darkTokens.accent[200]], code: darkTokens.code }, // dark --accent-surface is accent-200
+    chosen: [darkTokens.accent[600], darkTokens.accent[200]], code: darkTokens.code, select: [darkTokens.accent[600], darkTokens.accent[200]] }, // dark --accent-surface is accent-200
 };
 for (const [name, t] of Object.entries(themes)) {
   head(`4. Contrast -- ${name} theme (AA: 4.5 text, 3.0 large/secondary)`);
@@ -216,6 +216,9 @@ for (const [name, t] of Object.entries(themes)) {
     ['button primary', tokens.colors.moon, tokens.colors.space, 4.5],
     ['chosen choice button', t.chosen[0], t.chosen[1], 4.5],
     ['code text on code background', t.code.text, t.code.bg, 4.5],
+    // Selection marks (picked row bar and mark, selected card ring, connector): graphics, 3:1.
+    ['selection colour on surface', t.select[0], t.surface, 3],
+    ['selection colour on the picked row', t.select[0], t.select[1], 3],
     // The task-list tick: a surface-coloured check on --success-text, and an
     // empty circle drawn in --text-secondary (a graphic: 3:1).
     ['done tick: check on its fill', t.surface, t.status.success.text, 3],
