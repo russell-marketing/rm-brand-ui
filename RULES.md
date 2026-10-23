@@ -178,7 +178,7 @@ app turns it on, it stays light, as before.
 | Table | `.table--compact` for tables people scan; default for tables people read. Wide tables go inside `.table-scroll`. |
 | Table cell | A number or date alone in a cell: `.table__cell--num` on its `th` and `td`s (centred, equal-width figures). Text stays left. |
 | Page | `<main class="page">` for the page container, `.page-header` for its eyebrow, title and description. A page that is one short form (sign-in, passcode): `.page page--single`. |
-| Card | `.surface`; add `.surface--padded` when content sits directly inside it. `.surface__title` for its small caps title. `.surface--brand` for the one panel a page highlights (navy, fixed inks). |
+| Card | `.surface`; add `.surface--padded` when content sits directly inside it. `.surface__title` for its small caps title. `.surface--brand` for the one panel a page highlights (navy, fixed inks). `.surface--interactive` for a card that does one thing when clicked: its title holds a `<button>` or `<a>` with `.surface__action`, never `role="button"` on the card. |
 | Quiet text | `.muted`: colour only, so it fits any size of text it sits in. |
 | Multi-line input | `.textarea` with a `rows` attribute. |
 | App header | `.app-header` with `__title`, `__nav`, `__meta`: the app's name, main navigation and extras (environment badge, user). One per app. |
@@ -242,6 +242,18 @@ npx rm-brand-copy extension/vendor core.css  # or name files under ui/
   update it tells you to re-copy.
 - Never edit a copy. The audit skips copied files because they are the
   system's own CSS; an edit would hide from it.
+- **A static page that inlines the whole stylesheet at build time** (an
+  artifact, a single HTML file) wraps it in markers, so the audit skips the
+  system's CSS and checks only the page's own:
+
+  ```css
+  /* rm-brand-inline:start @russell-marketing/brand-ui v1.9.5 */
+  …the inlined ui/rm-ui.entry.css…
+  /* rm-brand-inline:end */
+  ```
+
+  Run `npx rm-brand-audit <folder>` on it even without a `package.json`:
+  rule 1 is skipped and the rest applies.
 
 ## 13. Every screen works at phone width
 

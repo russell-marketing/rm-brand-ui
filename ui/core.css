@@ -181,3 +181,41 @@ label{ display:block; margin:0 0 6px 0; font-weight:600; color:var(--text-primar
   border-color: var(--accent-600,#7A64A0);
   box-shadow: inset 0 0 0 1px var(--accent-600,#7A64A0);
 }
+
+/* --interactive: a card that does one thing when clicked (opens a record,
+ * picks a category). The card's title holds a real button or link,
+ * .surface__action, stretched over the whole card, so the card has one
+ * named control for the keyboard and screen readers, and its other content
+ * stays ordinary text (a <button> can't hold headings or lists).
+ *
+ *   <section class="surface surface--padded surface--interactive">
+ *     <h3 class="surface__title"><button class="surface__action" type="button">Creative projects</button></h3>
+ *     …tags, text…
+ *   </section>
+ *
+ * Other links or buttons inside sit above the stretched area and still work.
+ * The focus ring is drawn inside the card's edge, so a scrolling panel can't
+ * clip it. */
+.surface--interactive{ position:relative; cursor:pointer; }
+.surface--interactive:hover{ border-color: var(--text-secondary,#4B5163); }
+.surface--interactive.surface--selected:hover{ border-color: var(--accent-600,#7A64A0); }
+.surface--interactive:has(.surface__action:focus-visible){
+  outline:2px solid var(--rm-galaxy,#7A64A0);
+  outline-offset:-4px;
+}
+.surface__action{
+  margin:0;
+  padding:0;
+  border:0;
+  background:none;
+  font:inherit;
+  color:inherit;
+  letter-spacing:inherit;
+  text-transform:inherit;
+  text-align:inherit;
+  cursor:pointer;
+  text-decoration:none;
+}
+.surface__action::after{ content:""; position:absolute; inset:0; border-radius:inherit; }
+.surface__action:focus-visible{ outline:none; }
+.surface--interactive :is(a, button, input, select, textarea, label):not(.surface__action){ position:relative; z-index:1; }

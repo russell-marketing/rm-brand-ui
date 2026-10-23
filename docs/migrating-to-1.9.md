@@ -107,3 +107,17 @@ panel the panel clipped it: thin on the sides at the panel's edge, full on
 the others. The 2px edge is now drawn inside the card (its border plus an
 inset ring), so it is even on all four sides wherever the card sits.
 
+## 1.9.5: clickable cards, auditing static pages
+
+| If the app has its own… | Use |
+|---|---|
+| A card that does one thing when clicked (`role="button"` on the card, its own focus outline) | `.surface surface--interactive`, with the title's text in a `<button class="surface__action">` or `<a class="surface__action">` |
+| A page that inlines the stylesheet with its own comment | The `rm-brand-inline:start` / `:end` markers (RULES.md rule 12) |
+
+- **`.surface--interactive`**: the action is stretched over the whole card,
+  so a click anywhere works and the card has one named control; hover
+  darkens the border; the focus ring is drawn inside the card's edge.
+  Don't put `role="button"` or `tabindex` on the card itself.
+- **The audit** runs on a folder with no `package.json` (rule 1 skipped) and
+  skips an inlined stylesheet between the markers.
+

@@ -40,17 +40,16 @@ const CHECK_RULES = new Set([6]);
 const add = (rule, file, line, msg, level) => findings.push({ rule, file, line, msg, level: level ?? (CHECK_RULES.has(rule) ? 'check' : 'fix') });
 
 /* ---------- rule 1: the dependency ---------- */
+// A folder with no package.json (a static page that inlines the stylesheet,
+// rule 12) has no dependency to check: rule 1 is skipped, the rest runs.
 const pkgPath = join(appRoot, 'package.json');
-if (!existsSync(pkgPath)) {
-  console.error(`No package.json in ${appRoot}`);
-  process.exit(2);
-}
-const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
+const hasPkg = existsSync(pkgPath);
+const pkg = hasPkg ? JSON.parse(readFileSync(pkgPath, 'utf8')) : {};
 const deps = { ...pkg.dependencies, ...pkg.devDependencies };
 const depName = Object.keys(deps).find((n) => /^@russell-marketing\/brand-(ui|styles)$/.test(n));
-if (!depName) {
+if (hasPkg && !depName) {
   add(1, 'package.json', 0, 'does not depend on @russell-marketing/brand-ui');
-} else {
+} else if (hasPkg) {
   const spec = deps[depName];
   if (depName !== '@russell-marketing/brand-ui') add(1, 'package.json', 0, `old package name ${depName}; use @russell-marketing/brand-ui`);
   if (/cd-space-dot-dot|rm-internal-ui-styles|rm-brand-styles/.test(spec)) add(1, 'package.json', 0, `old repository in "${spec}"; use russell-marketing/rm-brand-ui`);
@@ -134,6 +133,10 @@ for (const file of files) {
   const text = readFileSync(file, 'utf8');
   // A copy made by rm-brand-copy is the system's own CSS, not the app's (rule 12).
   if (text.slice(0, 300).includes('rm-brand-copy:')) continue;
+  // The stylesheet inlined into a page at build time, between
+  // rm-brand-inline:start and rm-brand-inline:end markers (rule 12), is the
+  // system's own CSS too: skipped, and it counts as loading the stylesheet.
+  let inInline = false;
   const isCss = /\.s?css$/.test(file);
   // In a CSS Module a bare .badge is local to that file; only :global(.x)
   // reaches a system class.
@@ -157,6 +160,8 @@ for (const file of files) {
 
   lines.forEach((raw, i) => {
     const n = i + 1;
+    if (raw.includes('rm-brand-inline:start')) { inInline = true; importsStyles = true; }
+    if (inInline) { if (raw.includes('rm-brand-inline:end')) inInline = false; return; }
     const line = raw.replace(/\/\/.*$|\/\*.*?\*\//g, '');
 
     if (/brand-(ui|styles)\/adapters\/mui-theme/.test(line)) usesTheme = true;
@@ -314,6 +319,7 @@ const ver = (() => {
   catch { return 'not installed'; }
 })();
 
+if (!hasPkg) console.log('\nNo package.json: rule 1 (the dependency) not checked.');
 console.log(`\nrm-brand-audit  ${relative(process.cwd(), appRoot) || '.'}  (installed brand-ui: ${ver})`);
 if (!findings.length) {
   console.log('\n\x1b[32mNo findings.\x1b[0m\n');
