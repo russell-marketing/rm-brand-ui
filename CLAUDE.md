@@ -95,6 +95,47 @@ this and wrap MUI; they are MUI-only.
 - Never name a branch like a tag (`v1.6.0`): `git push` then can't tell
   which one you mean and the tag push fails. Use `release-1.6.0`.
 
+## Release rounds
+
+Changes reach apps in rounds, so each app updates once per release instead
+of after every patch.
+
+1. **Collect.** Read the apps' requests yourself: their `ds-candidates`
+   files, their pull requests, messages from app sessions, and a fresh audit
+   of each app's main branch. A gap that shows up in two apps belongs in the
+   system.
+2. **Decide and build.** Design each request on this system's conventions
+   and decide its look and name; don't hand the owner a menu of options.
+   Patch mid-round only for something actually broken.
+3. **Release:** PR, the owner merges, then tag `vX.Y.Z` on main.
+4. **Plan, then build, per app.** One helper per app writes a read-only
+   plan; the owner approves it. Building is a new helper with a build brief,
+   working in its own `git worktree`, never the owner's checkout. Helpers
+   push and open PRs; they never merge. A helper refused by a permission
+   check stops and reports; nobody routes around it.
+5. **Review every app diff yourself** (`git diff -w` hides re-indenting),
+   then give the owner a merge list saying which merges deploy to production.
+
+An app's report can be wrong about the system (asking for a class that
+already ships): check before building.
+
+## Checking a change by eye
+
+Tests don't see layout. For any visual change:
+
+- **Look at both themes and both widths:** desktop and 375px, light and
+  dark, in `demo.html` and, for the MUI theme, in a small MUI page that
+  loads `/layout` and `getRMThemeConfig()`.
+- **Measure, don't eyeball:** read computed sizes and gaps with a headless
+  browser (puppeteer-core with an installed Chrome works). Measure every gap
+  the change can move, not only the one being fixed: a fix for one spacing
+  has re-opened another before.
+- **Set the theme before the page loads** (emulate `prefers-color-scheme`).
+  Switching `data-theme` after load catches buttons mid-transition, grey.
+- **Look for side bars, overflow and clipping:** no bar down one side of
+  anything, no sideways page scroll at 375px, no ring clipped by a scrolling
+  parent (draw selection rings inset).
+
 ## Testing
 
 ```bash
