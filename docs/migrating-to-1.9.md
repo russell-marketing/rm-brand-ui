@@ -100,3 +100,10 @@ border or ring, text weight, or a badge.
   selection points at (the subcategory a picked row maps to), in the
   selection colour.
 
+## 1.9.4: selected cards keep an even edge
+
+`.surface--selected` drew its ring outside the card, so inside a scrolling
+panel the panel clipped it: thin on the sides at the panel's edge, full on
+the others. The 2px edge is now drawn inside the card (its border plus an
+inset ring), so it is even on all four sides wherever the card sits.
+
