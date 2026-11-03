@@ -25,7 +25,9 @@ view while its content moves:
 
 - something floating over the page (a popover, menu, drawer or dialog),
   which can't grow the page it sits on;
-- a long table whose header stays in view;
+- something wide and long whose headings stay in view: a table, a chart or
+  a board of columns (widened from tables alone in 1.11, when a Sankey chart
+  and a card-sort board turned out to be the same case);
 - two lists someone compares side by side, each filling the screen's
   height.
 

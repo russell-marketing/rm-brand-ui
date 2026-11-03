@@ -18,6 +18,7 @@
 @import "./components/kv.css";
 @import "./components/layout.css";
 @import "./components/modal.css";
+@import "./components/multi-select.css";
 @import "./components/page.css";
 @import "./components/pick-list.css";
 @import "./components/popover.css";

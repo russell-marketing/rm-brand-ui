@@ -16,7 +16,7 @@ npx rm-brand-audit --strict   # exit 1 on any finding, for CI
 ## 1. Install with a version range
 
 ```json
-"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.10.0"
+"@russell-marketing/brand-ui": "github:russell-marketing/rm-brand-ui#semver:^1.11.0"
 ```
 
 - The range gets every fix and addition, and never a breaking 2.0 by surprise.
@@ -192,7 +192,8 @@ app turns it on, it stays light, as before.
 | App header | `.app-header` with `__title`, `__nav`, `__meta`: the app's name, main navigation and extras (environment badge, user). One per app. |
 | Tabs | `.tabs` with `.tab` and `aria-selected`. `.tab--group-end` on the last tab of a group draws the divider (MUI `<Tab>` too). |
 | Form | `.form-grid`; `__wide` for a field that needs the whole row, `__actions` for its buttons. |
-| Filters | `.filter-bar` above the table or list it filters; `__range` for a from/to pair, `__group` for a set of checkboxes that filter together, `__actions` for Apply / Clear. |
+| Filters | `.filter-bar` above the table or list it filters; `__range` for a from/to pair, `__group` for a few checkboxes that filter together and fit on one row, `__actions` for Apply / Clear. A filter bar stays one or two rows high: a list that would run past one row goes in a `.multi-select`. |
+| Choose several from a list | `.multi-select` (React: `MultiSelect`): looks like a `.select`, opens a `.popover` of checkboxes, and its trigger says what's chosen (All, None, the one name, "3 of 24"). Not for choosing exactly one (`.select`). MUI: `<Select multiple>` with a `<Checkbox>` in each `<MenuItem>`. |
 | Section header | `.section-header` for a section's title, an optional line under it (`__sub`) and its actions (`__actions`). `__title` looks the same on any heading level. A card that is a column or section of its own (a card-sort column) names itself with `.section-header__title`, and its groups use `.pick-list__group`: two levels, big over small caps. `.surface__title` is for a card that is one item among many. |
 | Choices | `.choices` with `.btn`s and `aria-pressed` when exactly one is chosen and it changes the view (sort, period). Not for navigation (tabs) or filtering a list by several values (filter bar). MUI: `<ToggleButtonGroup exclusive>`. |
 
@@ -303,8 +304,11 @@ room for.
   - something that floats over the page: `.popover`, a menu, a drawer, a
     dialog. It can't grow the page it sits on, so it caps its height and
     scrolls;
-  - a long table whose header stays in view: `.table--sticky-head` inside
-    `.table-scroll` caps the wrapper at 80% of the screen;
+  - something wide and long whose headings stay in view: a table
+    (`.table--sticky-head` inside `.table-scroll` caps the wrapper at 80% of
+    the screen), a chart, or a board of columns. One box, `max-height: 80dvh`,
+    scrolling both ways, with a keyboard-reachable `role="region"`. A pinned
+    heading needs a solid background that matches what shows behind it;
   - two lists someone compares side by side (a pick list and the cards it
     points at). Each fills the screen's height, never a fixed pixel height.
 - **A long list shows more as the person scrolls the page** (load more at
