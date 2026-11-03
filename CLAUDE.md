@@ -136,4 +136,5 @@ A shape is allowed only when it carries a meaning users already know
 
 The page scrolls, not its panels (decision 0005, RULES.md rule 14): a
 component never gives itself an up-and-down scroll area unless it floats,
-keeps a table header in view, or is one of two lists compared side by side.
+keeps the headings of something wide and long in view, or is one of two
+lists compared side by side.

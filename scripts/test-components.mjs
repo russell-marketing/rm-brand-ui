@@ -103,5 +103,62 @@ fire(stars()[2], 'click');
 check(calls.length === n && stars().every((s) => s.disabled), 'disabled: clicks do nothing');
 
 act(() => rootEl.unmount());
+
+/* ---------- MultiSelect ---------- */
+console.log('\n\x1b[1mMultiSelect\x1b[0m');
+const { MultiSelect } = await load('components/react/MultiSelect.jsx');
+
+const options = [
+  { value: 'a', label: 'Audio', count: 22 },
+  { value: 'b', label: 'Books', count: 17 },
+  { value: 'c', label: 'Camera gear' },
+];
+const changes = [];
+function MultiHarness() {
+  const [v, setV] = React.useState(['a', 'b', 'c']);
+  return React.createElement(MultiSelect, {
+    label: 'Category', options, value: v, onChange: (next) => { changes.push(next); setV(next); },
+  });
+}
+const msContainer = document.createElement('div');
+document.body.append(msContainer);
+const msRoot = createRoot(msContainer);
+await act(async () => msRoot.render(React.createElement(MultiHarness)));
+
+const trigger = () => msContainer.querySelector('.multi-select__trigger');
+const panel = () => msContainer.querySelector('.multi-select__panel');
+const summary = () => trigger().textContent;
+const boxes = () => [...msContainer.querySelectorAll('input[type=checkbox]')];
+const click = (el) => act(() => { el.click(); });
+const panelButton = (name) => [...panel().querySelectorAll('button')].find((b) => b.textContent === name);
+
+check(panel().hidden && trigger().getAttribute('aria-expanded') === 'false', 'starts closed');
+check(summary() === 'All', 'every option chosen reads All');
+const names = trigger().getAttribute('aria-labelledby').split(' ').map((i) => document.getElementById(i).textContent);
+check(names.join(' ') === 'Category All', 'the trigger is announced with its label and what is chosen');
+
+click(trigger());
+check(!panel().hidden && trigger().getAttribute('aria-expanded') === 'true', 'the trigger opens the panel');
+click(boxes()[1]);
+check(changes.at(-1).join() === 'a,c' && summary() === '2 of 3', 'unticking reports the rest and reads "2 of 3"');
+check(!panel().hidden, 'the panel stays open while ticking');
+click(boxes()[1]);
+check(changes.at(-1).join() === 'a,b,c', 'ticking again keeps the options in their order');
+
+click(panelButton('None'));
+check(changes.at(-1).length === 0 && summary() === 'None', 'None unticks everything');
+click(boxes()[2]);
+check(summary() === 'Camera gear', 'one chosen reads its name');
+click(panelButton('All'));
+check(changes.at(-1).length === 3 && summary() === 'All', 'All ticks everything');
+
+fire(boxes()[0], 'keydown', { key: 'Escape' });
+check(panel().hidden && document.activeElement === trigger(), 'Escape closes and returns to the trigger');
+
+click(trigger());
+act(() => { document.body.dispatchEvent(new window.Event('pointerdown', { bubbles: true })); });
+check(panel().hidden, 'a click outside closes it');
+
+act(() => msRoot.unmount());
 console.log(failures ? `\n\x1b[31m${failures} failure(s)\x1b[0m\n` : '\n\x1b[32mAll component checks passed.\x1b[0m\n');
 process.exit(failures ? 1 : 0);

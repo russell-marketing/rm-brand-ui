@@ -1,0 +1,85 @@
+/* ui/components/multi-select.css
+ *
+ * A dropdown that holds several choices: it looks like a .select, and opens
+ * a .popover of checkboxes. A list that would take more than one row of a
+ * .filter-bar goes in here, so the bar stays one line whatever the list's
+ * length. A few short options that fit on a row stay in .filter-bar__group.
+ *
+ *   <div class="multi-select popover-anchor">
+ *     <label id="cat" for="cat-btn">Category</label>
+ *     <button class="select multi-select__trigger" id="cat-btn" type="button"
+ *             aria-expanded="true" aria-controls="cat-panel" aria-labelledby="cat cat-btn">
+ *       <span class="multi-select__value">3 of 24</span>
+ *     </button>
+ *     <div class="popover multi-select__panel" id="cat-panel" role="group" aria-labelledby="cat">
+ *       <div class="multi-select__all">
+ *         <button class="btn btn--text btn--sm" type="button">All</button>
+ *         <button class="btn btn--text btn--sm" type="button">None</button>
+ *       </div>
+ *       <label class="checkbox-field multi-select__option">
+ *         <input type="checkbox" class="checkbox"> Audio
+ *         <span class="multi-select__count">22</span>
+ *       </label>
+ *     </div>
+ *   </div>
+ *
+ * In React, MultiSelect (components/react/MultiSelect.jsx) renders this and
+ * opens and closes it. The trigger says what's chosen, so the panel needs no
+ * tally of its own: All, None, the one name, or "3 of 24". */
+
+/* A button can't have a select's own arrow, so it draws one, the same size
+ * and in the same place. It turns over while the panel is open. */
+.multi-select__trigger{
+  position:relative;
+  display:flex;
+  align-items:center;
+  text-align:start;
+  cursor:pointer;
+}
+.multi-select__trigger::after{
+  content:"";
+  position:absolute;
+  inset-inline-end: var(--control-pad-x);
+  top:50%;
+  width:.45em;
+  height:.45em;
+  margin-top:-.32em;
+  border-inline-end:1.5px solid currentColor;
+  border-block-end:1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.multi-select__trigger[aria-expanded="true"]::after{
+  margin-top:-.08em;
+  transform: rotate(-135deg);
+}
+.multi-select__value{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.multi-select__all{
+  display:flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+.multi-select__option{
+  display:flex;
+  width:100%;
+}
+/* Counts line up down the right edge, so the names read as one list. */
+.multi-select__count{
+  margin-inline-start:auto;
+  padding-inline-start: var(--space-4);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A filter bar is a size container, which can stack everything in it below
+ * what follows. While a panel is open the bar lifts, so the panel stays over
+ * a sticky table header. */
+.filter-bar:has(> .multi-select > .popover:not([hidden])){
+  position:relative;
+  z-index: var(--z-dropdown);
+}

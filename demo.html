@@ -229,6 +229,39 @@
         </div>
       </section>
 
+      <!-- 1.11.0: multi-select, visible legend -->
+      <section class="demo-section surface card" id="demo-111">
+        <h2>Multi-select</h2>
+        <div class="filter-bar" style="min-height:22rem; align-content:start">
+          <div class="multi-select popover-anchor">
+            <label id="ms1" for="ms1-btn">Source</label>
+            <button class="select multi-select__trigger" id="ms1-btn" type="button" aria-expanded="false" aria-labelledby="ms1 ms1-btn"><span class="multi-select__value">All</span></button>
+          </div>
+          <div class="multi-select popover-anchor">
+            <label id="ms2" for="ms2-btn">Category</label>
+            <button class="select multi-select__trigger" id="ms2-btn" type="button" aria-expanded="true" aria-controls="ms2-panel" aria-labelledby="ms2 ms2-btn"><span class="multi-select__value">2 of 5</span></button>
+            <div class="popover multi-select__panel" id="ms2-panel" role="group" aria-labelledby="ms2">
+              <div class="multi-select__all"><button class="btn btn--text btn--sm" type="button">All</button><button class="btn btn--text btn--sm" type="button">None</button></div>
+              <label class="checkbox-field multi-select__option"><input type="checkbox" class="checkbox" checked> Gadgets <span class="multi-select__count">382</span></label>
+              <label class="checkbox-field multi-select__option"><input type="checkbox" class="checkbox"> Home <span class="multi-select__count">49</span></label>
+              <label class="checkbox-field multi-select__option"><input type="checkbox" class="checkbox" checked> Toys &amp; Games <span class="multi-select__count">41</span></label>
+              <label class="checkbox-field multi-select__option"><input type="checkbox" class="checkbox"> Audio <span class="multi-select__count">22</span></label>
+              <label class="checkbox-field multi-select__option"><input type="checkbox" class="checkbox"> No category <span class="multi-select__count">260</span></label>
+            </div>
+          </div>
+          <div class="multi-select popover-anchor">
+            <label id="ms3" for="ms3-btn">Stage</label>
+            <button class="select multi-select__trigger" id="ms3-btn" type="button" aria-expanded="false" aria-labelledby="ms3 ms3-btn"><span class="multi-select__value">Reviewing</span></button>
+          </div>
+          <div><label for="ms4">Sort</label><select class="select" id="ms4"><option>Newest</option></select></div>
+          <fieldset class="filter-bar__group"><legend>Platform</legend>
+            <label class="checkbox-field"><input type="checkbox" class="checkbox" checked> Facebook</label>
+            <label class="checkbox-field"><input type="checkbox" class="checkbox"> Instagram</label>
+          </fieldset>
+        </div>
+        <p class="muted">The panel stays open while people tick, and floats over the page. A short list can stay in a group with a visible legend.</p>
+      </section>
+
       <!-- 1.10.0: dense card, popover -->
       <section class="demo-section surface card" id="demo-110b">
         <h2>Dense card &amp; popover</h2>

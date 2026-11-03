@@ -153,7 +153,9 @@
  * __range holds a pair (from/to dates, min/max): the two sit side by side
  * and take two columns when there is room for two. __group holds a set of
  * checkboxes or choices that filter together ("Facebook", "Instagram"): it
- * also takes two columns when there is room, and its items wrap.
+ * also takes two columns when there is room, and its items wrap. A visible
+ * <legend> reads as the group's label, like a field's. A list that would run
+ * past one row goes in a .multi-select instead (multi-select.css).
  * __actions takes its own row, aligned right. In a bar with room for four
  * columns or more it takes the last two instead, at the end of the last row
  * of filters when those cells are free: two columns fit a switch and a
@@ -182,6 +184,14 @@
   margin:0;
   padding:0;
   border:0;
+}
+/* The same look and gap as a field's <label>, so the group's name stands
+ * apart from its options. A hidden legend keeps its own styles. */
+:where(.filter-bar__group > legend:not(.visually-hidden)){
+  padding:0;
+  margin:0 0 6px 0;
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
 }
 @container filter-bar (width >= 23rem){
   .filter-bar__range,

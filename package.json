@@ -1,6 +1,6 @@
 {
   "name": "@russell-marketing/brand-ui",
-  "version": "1.10.2",
+  "version": "1.11.0",
   "description": "Russell Marketing brand UI - design tokens, components, and accessibility utilities",
   "type": "module",
   "main": "ui/rm-ui.entry.js",
@@ -37,6 +37,10 @@
     "./react/Rating": {
       "types": "./components/react/Rating.d.ts",
       "default": "./components/react/Rating.jsx"
+    },
+    "./react/MultiSelect": {
+      "types": "./components/react/MultiSelect.d.ts",
+      "default": "./components/react/MultiSelect.jsx"
     }
   },
   "files": [
